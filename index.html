@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Future AI Systems</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #0f0f0f;
+      color: white;
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    /* Nav */
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 48px;
+      background: #111;
+      border-bottom: 1px solid #222;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 20px;
+      color: cyan;
+      font-weight: bold;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: #aaa;
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: cyan;
+    }
+
+    /* Hero */
+
+    .hero {
+      min-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .hero h1 {
+      font-size: 54px;
+      color: cyan;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      max-width: 580px;
+      font-size: 18px;
+      line-height: 1.7;
+      color: #aaa;
+      margin-bottom: 40px;
+    }
+
+    /* Buttons */
+
+    .btn {
+      display: inline-block;
+      padding: 14px 32px;
+      font-size: 15px;
+      font-family: 'Courier New', Courier, monospace;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      border: none;
+      transition: background 0.2s, color 0.2s, transform 0.15s;
+    }
+
+    .btn-primary {
+      background: cyan;
+      color: black;
+    }
+
+    .btn-primary:hover {
+      background: white;
+      transform: scale(1.04);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: cyan;
+      border: 1px solid cyan;
+    }
+
+    .btn-outline:hover {
+      background: cyan;
+      color: black;
+    }
+
+    /* Section layout */
+
+    .section {
+      padding: 80px 20px;
+    }
+
+    .section--alt {
+      background: #111;
+      border-top: 1px solid #222;
+      border-bottom: 1px solid #222;
+    }
+
+    .section-inner {
+      max-width: 880px;
+      margin: 0 auto;
+    }
+
+    .section-inner--narrow {
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .section-label {
+      color: cyan;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-size: 34px;
+      color: white;
+      margin-bottom: 12px;
+    }
+
+    .section-sub {
+      font-size: 15px;
+      color: #777;
+      line-height: 1.6;
+      margin-bottom: 48px;
+    }
+
+    /* Building section */
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: #0f0f0f;
+      border: 1px solid #222;
+      border-radius: 8px;
+      padding: 28px 22px;
+      transition: border-color 0.2s;
+    }
+
+    .card:hover {
+      border-color: cyan;
+    }
+
+    .card-title {
+      font-size: 17px;
+      color: cyan;
+      margin-bottom: 10px;
+    }
+
+    .card-desc {
+      font-size: 13px;
+      color: #888;
+      line-height: 1.65;
+    }
+
+    /* Tools section */
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .tag {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      color: #bbb;
+      padding: 7px 14px;
+      border-radius: 4px;
+      font-size: 13px;
+    }
+
+    /* Contact section */
+
+    .cta-row {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* Footer */
+
+    footer {
+      text-align: center;
+      padding: 22px 20px;
+      color: #3a3a3a;
+      font-size: 13px;
+      border-top: 1px solid #1a1a1a;
+    }
+
+    /* Mobile */
+
+    @media (max-width: 600px) {
+      nav {
+        padding: 14px 20px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .nav-links {
+        gap: 20px;
+      }
+
+      .hero h1 {
+        font-size: 34px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      .section-title {
+        font-size: 26px;
+      }
+
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <div class="logo">Future AI Systems</div>
+    <ul class="nav-links">
+      <li><a href="#building">Building</a></li>
+      <li><a href="#tools">Tools</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <h1>Building The Future With AI</h1>
+    <p>Shipping AI-powered workflows, landing pages, and automation systems — real code, real output, built with Claude and modern AI tooling.</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
+      <a href="#contact" class="btn btn-primary">Work With Me</a>
+      <a href="#building" class="btn btn-outline">See What I'm Building</a>
+    </div>
+  </section>
+
+  <section id="building" class="section section--alt">
+    <div class="section-inner">
+      <div class="section-label">Active Work</div>
+      <h2 class="section-title">What I'm Building</h2>
+      <p class="section-sub">Current focus areas — things being built, tested, or shipped right now.</p>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-title">Alexandria</div>
+          <div class="card-desc">A persistent memory vault for long-term human + AI collaboration. Survives crashes, provider changes, and context resets.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Landing Pages</div>
+          <div class="card-desc">Fast, clean landing pages for personal brands and small businesses. This page is a live example of the work.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">AI Workflows</div>
+          <div class="card-desc">Practical automation using Claude, Codex, and AI tools — focused on real output and repeatable systems, not demos.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Reusable Systems</div>
+          <div class="card-desc">Documented, repeatable processes that work without constant supervision. Skills that compound over time.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tools" class="section">
+    <div class="section-inner">
+      <div class="section-label">Stack</div>
+      <h2 class="section-title">Tools & Skills</h2>
+      <p class="section-sub">What I'm actively working with.</p>
+      <div class="tag-list">
+        <span class="tag">Claude / Claude Code</span>
+        <span class="tag">HTML / CSS</span>
+        <span class="tag">JavaScript</span>
+        <span class="tag">Python</span>
+        <span class="tag">FastAPI</span>
+        <span class="tag">Ollama / Local AI</span>
+        <span class="tag">Prompt Engineering</span>
+        <span class="tag">AI Agent Coordination</span>
+        <span class="tag">Workflow Automation</span>
+        <span class="tag">Obsidian / Markdown Systems</span>
+        <span class="tag">Git / GitHub</span>
+        <span class="tag">PowerShell / Windows</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section section--alt">
+    <div class="section-inner">
+      <div class="section-label">Services</div>
+      <h2 class="section-title">Work With Me</h2>
+      <p class="section-sub" style="max-width:600px;margin-left:auto;margin-right:auto;text-align:center;">Available for freelance projects — landing pages, AI workflow automation, and hands-on AI consulting.</p>
+      <div class="card-grid" style="margin-bottom:48px;">
+        <div class="card">
+          <div class="card-title">Landing Pages</div>
+          <div class="card-desc">Fast, clean, mobile-ready pages for personal brands and small businesses. Designed, coded, and shipped — no templates. Starting at $500.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">AI Workflow Automation</div>
+          <div class="card-desc">Custom automation pipelines using Claude, Python, and local AI. Replace manual work with repeatable systems. Starting at $750.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">AI Consulting</div>
+          <div class="card-desc">Hands-on guidance on Claude Code, prompt engineering, and building practical AI workflows for your team or project. $125/hr.</div>
+        </div>
+      </div>
+      <div class="cta-row">
+        <a href="mailto:jeffe5196@gmail.com" class="btn btn-primary">Get In Touch</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Future AI Systems &mdash; Built with AI, shipped by hand.
+  </footer>
+
+</body>
+
+</html>

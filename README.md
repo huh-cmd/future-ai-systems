@@ -1,37 +1,45 @@
-# Future AI Systems — Landing Page
+# Future AI Systems
 
-> Clean, fast personal brand landing page built from scratch with HTML, CSS, and JavaScript.
+**Live site → https://huh-cmd.github.io/future-ai-systems/**
 
-**Live:** https://huh-cmd.github.io/future-ai-systems/
+![Future AI Systems landing page preview](preview.png)
 
 ---
 
-## What This Is
+## About This Project
 
-A fully custom landing page — no templates, no page builders. Built and deployed in a single session as a live portfolio piece demonstrating frontend development and AI-assisted workflow.
+Custom landing page built from scratch — no templates, no page builders. Designed, coded, and deployed in a single session as a live portfolio piece.
+
+Built to demonstrate:
+- Clean frontend development (HTML / CSS / JS)
+- Mobile-responsive layout (tested at 375px)
+- Real deployment workflow via GitHub Pages
+- AI-assisted development using Claude Code
+
+---
 
 ## Stack
 
-- HTML5 / CSS3 / Vanilla JavaScript
-- Mobile-responsive (tested at 375px)
-- Deployed via GitHub Pages
-- Built with Claude Code
-
-## Sections
-
-- **Hero** — headline, sub-copy, dual CTA buttons
-- **What I'm Building** — card grid of active projects
-- **Tools & Skills** — tag list of stack
-- **Work With Me** — service cards with pricing, contact CTA
-
-## Services Shown
-
-| Service | Starting Price |
-|---------|---------------|
-| Landing Page Build | $150 |
-| AI Workflow Automation | $500 |
-| Claude Code Consulting | $125/hr |
+| Layer | Tools |
+|-------|-------|
+| Frontend | HTML5, CSS3, Vanilla JavaScript |
+| Deployment | GitHub Pages |
+| Built with | Claude Code |
 
 ---
 
-**Want a page like this?** → jeffe5196@gmail.com
+## Services
+
+This page is a working example of what I build for clients.
+
+| Service | Starting at |
+|---------|------------|
+| Landing page (custom) | $150 |
+| AI workflow automation | $500 |
+| Claude Code consulting | $125 / hr |
+
+**Get in touch:** jeffe5196@gmail.com
+
+---
+
+*Part of the [Future AI Systems](https://huh-cmd.github.io/future-ai-systems/) portfolio.*

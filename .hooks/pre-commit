@@ -1,0 +1,63 @@
+#!/bin/sh
+# ============================================================
+# SECRET SCANNER — PRE-COMMIT HOOK
+# Blocks any commit containing credential patterns.
+# To install: copy to .git/hooks/pre-commit and chmod +x
+# ============================================================
+
+RED='\033[0;31m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
+
+FOUND=0
+
+# Patterns that indicate a real secret
+PATTERNS='
+sk-[a-zA-Z0-9_-]{20,}
+sk-ant-[a-zA-Z0-9_-]{20,}
+AIza[0-9A-Za-z_-]{35}
+AKIA[0-9A-Z]{16}
+-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY
+api[_-]?key\s*[=:]\s*["\x27][a-zA-Z0-9_\-]{16,}
+token\s*[=:]\s*["\x27][a-zA-Z0-9_\-]{20,}
+secret\s*[=:]\s*["\x27][a-zA-Z0-9_\-]{16,}
+password\s*[=:]\s*["\x27][^"\x27\s]{8,}
+ANTHROPIC_API_KEY\s*=\s*[^\s]
+OPENAI_API_KEY\s*=\s*[^\s]
+GITHUB_TOKEN\s*=\s*[^\s]
+'
+
+# Get all staged files
+STAGED=$(git diff --cached --name-only --diff-filter=ACM)
+
+if [ -z "$STAGED" ]; then
+  exit 0
+fi
+
+for FILE in $STAGED; do
+  # Skip binary files and known safe patterns
+  if ! git show ":$FILE" > /dev/null 2>&1; then
+    continue
+  fi
+
+  CONTENT=$(git show ":$FILE" 2>/dev/null)
+
+  echo "$PATTERNS" | while IFS= read -r PATTERN; do
+    [ -z "$PATTERN" ] && continue
+    if echo "$CONTENT" | grep -qEi "$PATTERN"; then
+      echo "${RED}[SECURITY BLOCK]${NC} Possible secret detected in: $FILE"
+      echo "${YELLOW}Pattern matched: $PATTERN${NC}"
+      echo "Remove the credential before committing."
+      echo "Approved storage: C:\\Users\\jeffe\\.env.keys only."
+      FOUND=1
+    fi
+  done
+done
+
+if [ $FOUND -ne 0 ]; then
+  echo ""
+  echo "${RED}Commit BLOCKED. Clean credentials from staged files first.${NC}"
+  exit 1
+fi
+
+exit 0

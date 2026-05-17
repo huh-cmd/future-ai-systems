@@ -2,8 +2,6 @@
 
 **Live site → https://huh-cmd.github.io/future-ai-systems/**
 
-![Future AI Systems landing page preview](preview.png)
-
 ---
 
 ## About This Project

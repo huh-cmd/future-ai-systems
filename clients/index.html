@@ -195,6 +195,26 @@
       background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 50%, #bfdbfe 100%);
     }
 
+    .card-preview.dark-blue {
+      background: linear-gradient(135deg, #04070f 0%, #080d1a 50%, #050c1e 100%);
+    }
+
+    .card-preview.warm-dark {
+      background: linear-gradient(135deg, #110a06 0%, #1a100a 50%, #221408 100%);
+    }
+
+    .dark-blue .preview-label {
+      background: rgba(59,130,246,0.15);
+      color: #60a5fa;
+      border: 1px solid rgba(59,130,246,0.25);
+    }
+
+    .warm-dark .preview-label {
+      background: rgba(249,115,22,0.12);
+      color: #fb923c;
+      border: 1px solid rgba(249,115,22,0.25);
+    }
+
     .preview-label {
       position: absolute;
       bottom: 0.75rem;
@@ -403,6 +423,25 @@
     footer a { color: var(--text-dim); text-decoration: none; }
     footer a:hover { color: var(--text); }
 
+    /* SCROLL REVEAL */
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.65s cubic-bezier(0.16,1,0.3,1),
+                  transform 0.65s cubic-bezier(0.16,1,0.3,1);
+    }
+    [data-reveal].is-visible { opacity: 1; transform: none; }
+    [data-reveal][data-delay="1"] { transition-delay: 0.08s; }
+    [data-reveal][data-delay="2"] { transition-delay: 0.16s; }
+    [data-reveal][data-delay="3"] { transition-delay: 0.24s; }
+    [data-reveal][data-delay="4"] { transition-delay: 0.32s; }
+
+    /* 3D CARD HOVER */
+    .card {
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
     /* MOBILE */
     @media (max-width: 640px) {
       nav { padding: 1rem 1.25rem; }
@@ -425,12 +464,12 @@
   </nav>
 
   <section class="hero">
-    <p class="hero-eyebrow">Client Work</p>
-    <h1>Landing pages that<br>actually convert.</h1>
-    <p>Each build is custom HTML/CSS/JS — no templates, no page builders. The designs below are sample starting points. Every real client page is built from scratch around your brand, copy, and audience.</p>
+    <p class="hero-eyebrow" data-reveal>Client Work</p>
+    <h1 data-reveal data-delay="1">Landing pages that<br>actually convert.</h1>
+    <p data-reveal data-delay="2">Each build is custom HTML/CSS/JS — no templates, no page builders. The designs below are sample starting points. Every real client page is built from scratch around your brand, copy, and audience.</p>
     <div class="hero-stats">
       <div class="stat-item">
-        <span class="stat-number">2</span>
+        <span class="stat-number">4</span>
         <span class="stat-label">Pages live</span>
       </div>
       <div class="stat-item">
@@ -448,13 +487,13 @@
 
   <div class="grid-header">
     <h2>All Work</h2>
-    <span class="grid-count">2 projects</span>
+    <span class="grid-count">4 projects</span>
   </div>
 
   <div class="grid">
 
     <!-- Marcus Webb -->
-    <a class="card" href="./marcus-webb/">
+    <a class="card" href="./marcus-webb/" data-reveal data-delay="1">
       <div class="card-preview dark-amber">
         💪
         <span class="preview-label">Dark / Fitness</span>
@@ -483,7 +522,7 @@
     </a>
 
     <!-- Priya Sharma -->
-    <a class="card" href="./priya-sharma/">
+    <a class="card" href="./priya-sharma/" data-reveal data-delay="2">
       <div class="card-preview light-blue">
         📊
         <span class="preview-label">Light / Professional</span>
@@ -501,6 +540,65 @@
           <span class="tag">Consulting</span>
           <span class="tag">Service tiers</span>
           <span class="tag">Authority</span>
+        </div>
+        <div class="card-footer">
+          <span class="card-cta">
+            View page
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </span>
+        </div>
+      </div>
+    </a>
+
+
+    <!-- Kai Rivers -->
+    <a class="card" href="./kai-rivers/" data-reveal data-delay="3">
+      <div class="card-preview dark-blue">
+        🎧
+        <span class="preview-label">Dark / Music</span>
+      </div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-type">Artist Website</span>
+          <span class="card-live-dot"></span>
+          <span class="card-live-text">Live</span>
+        </div>
+        <h3 class="card-title">Kai Rivers — Indie Electronic Artist</h3>
+        <p class="card-desc">Sample design for a music artist or band. Dark atmospheric layout with animated waveform, discography, tour dates, and press section. Adapts to any genre or sound.</p>
+        <div class="card-tags">
+          <span class="tag">Dark theme</span>
+          <span class="tag">Music / Artist</span>
+          <span class="tag">Tour dates</span>
+          <span class="tag">Streaming links</span>
+        </div>
+        <div class="card-footer">
+          <span class="card-cta">
+            View page
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Ember Kitchen -->
+    <a class="card" href="./ember-kitchen/" data-reveal data-delay="4">
+      <div class="card-preview warm-dark">
+        🔥
+        <span class="preview-label">Warm / Restaurant</span>
+      </div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-type">Landing Page</span>
+          <span class="card-live-dot"></span>
+          <span class="card-live-text">Live</span>
+        </div>
+        <h3 class="card-title">Ember Kitchen — Wood-Fired Grill</h3>
+        <p class="card-desc">Sample design for a restaurant or food business. Warm dark palette, seasonal menu layout, hours and location, private events section, and reservation CTA. Built for any dining concept.</p>
+        <div class="card-tags">
+          <span class="tag">Warm dark theme</span>
+          <span class="tag">Restaurant</span>
+          <span class="tag">Menu layout</span>
+          <span class="tag">Local business</span>
         </div>
         <div class="card-footer">
           <span class="card-cta">
@@ -534,5 +632,12 @@
     <a href="mailto:jeffe5196@gmail.com">jeffe5196@gmail.com</a>
   </footer>
 
+  <script>
+    const obs = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); obs.unobserve(e.target); } }),
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+    document.querySelectorAll('[data-reveal]').forEach(el => obs.observe(el));
+  </script>
 </body>
 </html>

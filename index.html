@@ -1,365 +1,1251 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Future AI Systems</title>
+  <meta name="description" content="Custom landing pages, AI workflow automation, and Claude Code consulting. Built fast, shipped clean. Starting at $150.">
+  <title>huh-cmd — Custom Web & AI Development</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    img  { display: block; max-width: 100%; }
+
+    /* ── TOKENS ──────────────────────────────────────────────────── */
+    :root {
+      --bg:         #050507;
+      --surface:    #0a0a0f;
+      --surface2:   #0f0f18;
+      --border:     #151522;
+      --border-hi:  #1e1e30;
+
+      --purple:     #7c3aed;
+      --purple-l:   #8b5cf6;
+      --violet:     #a855f7;
+      --pink:       #ec4899;
+
+      --text:       #eeeef4;
+      --text-mid:   #8888aa;
+      --text-dim:   #44445a;
+
+      --glow:       rgba(124,58,237,0.35);
+      --font:       -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     }
 
     body {
-      background: #0f0f0f;
-      color: white;
-      font-family: 'Courier New', Courier, monospace;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
-    /* Nav */
+    /* ── SCROLL ANIMATIONS ───────────────────────────────────────── */
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1),
+                  transform 0.7s cubic-bezier(0.16,1,0.3,1);
+    }
+    [data-reveal].is-visible { opacity: 1; transform: none; }
+    [data-reveal][data-delay="1"] { transition-delay: 0.08s; }
+    [data-reveal][data-delay="2"] { transition-delay: 0.16s; }
+    [data-reveal][data-delay="3"] { transition-delay: 0.24s; }
+    [data-reveal][data-delay="4"] { transition-delay: 0.32s; }
+    [data-reveal][data-delay="5"] { transition-delay: 0.40s; }
 
+    /* ── GRADIENT TEXT ───────────────────────────────────────────── */
+    .g-text {
+      background: linear-gradient(135deg, var(--purple-l) 0%, var(--violet) 40%, var(--pink) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── NAV ─────────────────────────────────────────────────────── */
     nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      height: 60px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      padding: 18px 48px;
-      background: #111;
-      border-bottom: 1px solid #222;
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      justify-content: space-between;
+      padding: 0 2rem;
+      background: rgba(5,5,7,0.7);
+      backdrop-filter: blur(16px) saturate(180%);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      transition: background 0.3s;
     }
 
-    .logo {
-      font-size: 20px;
-      color: cyan;
-      font-weight: bold;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 32px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      color: #aaa;
+    .nav-brand {
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--text);
       text-decoration: none;
-      font-size: 14px;
+    }
+
+    .nav-brand span { color: var(--purple-l); }
+
+    .nav-center {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-center a {
+      font-size: 0.85rem;
+      color: var(--text-mid);
+      text-decoration: none;
       transition: color 0.2s;
     }
 
-    .nav-links a:hover {
-      color: cyan;
+    .nav-center a:hover { color: var(--text); }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 0.5rem 1.1rem;
+      border-radius: 6px;
+      background: var(--purple);
+      color: #fff;
+      text-decoration: none;
+      transition: background 0.2s, box-shadow 0.2s;
     }
 
-    /* Hero */
+    .nav-cta:hover {
+      background: var(--purple-l);
+      box-shadow: 0 0 16px rgba(124,58,237,0.4);
+    }
 
+    /* ── HERO ────────────────────────────────────────────────────── */
     .hero {
-      min-height: 88vh;
+      position: relative;
+      min-height: 100vh;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       text-align: center;
-      padding: 40px 20px;
+      padding: 7rem 1.5rem 5rem;
+      overflow: hidden;
+    }
+
+    /* gradient mesh */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 40%, rgba(124,58,237,0.12) 0%, transparent 65%),
+        radial-gradient(ellipse 60% 50% at 80% 20%, rgba(168,85,247,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 70% 55% at 50% 90%, rgba(236,72,153,0.06) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    /* animated grid */
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(139,92,246,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(139,92,246,0.04) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 80%);
+    }
+
+    .hero-inner {
+      position: relative;
+      max-width: 860px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.9rem;
+      border-radius: 20px;
+      border: 1px solid rgba(139,92,246,0.3);
+      background: rgba(124,58,237,0.08);
+      color: var(--violet);
+      margin-bottom: 2rem;
+    }
+
+    .hero-badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--violet);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
     }
 
     .hero h1 {
-      font-size: 54px;
-      color: cyan;
-      line-height: 1.1;
-      margin-bottom: 20px;
+      font-size: clamp(2.75rem, 7vw, 5.5rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.0;
+      margin-bottom: 1.5rem;
     }
 
-    .hero p {
-      max-width: 580px;
-      font-size: 18px;
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--text-mid);
+      max-width: 540px;
+      margin: 0 auto 2.75rem;
       line-height: 1.7;
-      color: #aaa;
-      margin-bottom: 40px;
     }
 
-    /* Buttons */
-
-    .btn {
-      display: inline-block;
-      padding: 14px 32px;
-      font-size: 15px;
-      font-family: 'Courier New', Courier, monospace;
-      font-weight: bold;
-      border-radius: 6px;
-      cursor: pointer;
-      text-decoration: none;
-      border: none;
-      transition: background 0.2s, color 0.2s, transform 0.15s;
+    .hero-ctas {
+      display: flex;
+      gap: 0.875rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 4rem;
     }
 
     .btn-primary {
-      background: cyan;
-      color: black;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 0.85rem 1.75rem;
+      border-radius: 8px;
+      background: var(--purple);
+      color: #fff;
+      text-decoration: none;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+      position: relative;
     }
 
     .btn-primary:hover {
-      background: white;
-      transform: scale(1.04);
+      background: var(--purple-l);
+      box-shadow: 0 0 28px rgba(124,58,237,0.5);
+      transform: translateY(-1px);
     }
 
-    .btn-outline {
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+      padding: 0.85rem 1.75rem;
+      border-radius: 8px;
       background: transparent;
-      color: cyan;
-      border: 1px solid cyan;
+      color: var(--text-mid);
+      text-decoration: none;
+      border: 1px solid var(--border-hi);
+      transition: color 0.2s, border-color 0.2s, transform 0.15s;
     }
 
-    .btn-outline:hover {
-      background: cyan;
-      color: black;
+    .btn-secondary:hover {
+      color: var(--text);
+      border-color: var(--purple);
+      transform: translateY(-1px);
     }
 
-    /* Section layout */
-
-    .section {
-      padding: 80px 20px;
+    /* hero trust bar */
+    .hero-trust {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+      flex-wrap: wrap;
     }
 
-    .section--alt {
-      background: #111;
-      border-top: 1px solid #222;
-      border-bottom: 1px solid #222;
+    .trust-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.2rem;
     }
 
-    .section-inner {
-      max-width: 880px;
-      margin: 0 auto;
+    .trust-num {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--text);
     }
 
-    .section-inner--narrow {
-      max-width: 600px;
-      margin: 0 auto;
-      text-align: center;
+    .trust-label {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      letter-spacing: 0.04em;
     }
 
-    .section-label {
-      color: cyan;
-      font-size: 11px;
-      letter-spacing: 3px;
+    .trust-sep {
+      width: 1px;
+      height: 36px;
+      background: var(--border-hi);
+    }
+
+    /* ── LOGOS STRIP ─────────────────────────────────────────────── */
+    .logos-strip {
+      padding: 1.5rem 2rem;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      overflow: hidden;
+    }
+
+    .logos-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      margin-bottom: 10px;
+      color: var(--text-dim);
+      white-space: nowrap;
+      padding-right: 2rem;
+      border-right: 1px solid var(--border-hi);
+      margin-right: 2rem;
+    }
+
+    .logos-track {
+      display: flex;
+      gap: 2.5rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .tech-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text-dim);
+      padding: 0.3rem 0.75rem;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .tech-pill:hover { color: var(--text-mid); border-color: var(--border-hi); }
+
+    /* ── SERVICES BENTO ──────────────────────────────────────────── */
+    .services {
+      padding: 6rem 2rem;
+    }
+
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+
+    .section-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--purple-l);
+      margin-bottom: 0.875rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .section-eyebrow::before {
+      content: '';
+      display: block;
+      width: 18px;
+      height: 1px;
+      background: var(--purple-l);
     }
 
     .section-title {
-      font-size: 34px;
-      color: white;
-      margin-bottom: 12px;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 0.875rem;
     }
 
     .section-sub {
-      font-size: 15px;
-      color: #777;
-      line-height: 1.6;
-      margin-bottom: 48px;
+      font-size: 1rem;
+      color: var(--text-mid);
+      max-width: 500px;
+      line-height: 1.7;
+      margin-bottom: 3rem;
     }
 
-    /* Building section */
-
-    .card-grid {
+    /* bento grid */
+    .bento {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-      gap: 20px;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
     }
 
-    .card {
-      background: #0f0f0f;
-      border: 1px solid #222;
-      border-radius: 8px;
-      padding: 28px 22px;
-      transition: border-color 0.2s;
+    .bento-card {
+      background: var(--surface);
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.2s;
     }
 
-    .card:hover {
-      border-color: cyan;
+    .bento-card:hover { background: var(--surface2); }
+
+    /* featured card spans two rows */
+    .bento-card.featured {
+      grid-row: 1 / 3;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 360px;
     }
 
-    .card-title {
-      font-size: 17px;
-      color: cyan;
-      margin-bottom: 10px;
+    .bento-card::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 160px; height: 160px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(124,58,237,0.08), transparent 70%);
+      pointer-events: none;
     }
 
-    .card-desc {
-      font-size: 13px;
-      color: #888;
+    .bento-icon {
+      font-size: 2.25rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .bento-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    .bento-desc {
+      font-size: 0.875rem;
+      color: var(--text-mid);
       line-height: 1.65;
+      margin-bottom: 1.25rem;
     }
 
-    /* Tools section */
+    .bento-price {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--purple-l);
+      background: rgba(124,58,237,0.1);
+      border: 1px solid rgba(124,58,237,0.2);
+      padding: 0.3rem 0.75rem;
+      border-radius: 5px;
+    }
 
-    .tag-list {
+    .bento-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin: 1rem 0;
+    }
+
+    .bento-features li {
+      font-size: 0.85rem;
+      color: var(--text-mid);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      line-height: 1.5;
+    }
+
+    .bento-features li::before {
+      content: '↗';
+      color: var(--purple-l);
+      font-size: 0.75rem;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+
+    .bento-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--purple-l);
+      text-decoration: none;
+      margin-top: auto;
+      transition: gap 0.15s;
+    }
+
+    .bento-link:hover { gap: 0.55rem; }
+
+    /* ── PORTFOLIO SECTION ───────────────────────────────────────── */
+    .portfolio {
+      padding: 6rem 2rem;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+      margin-top: 3rem;
+    }
+
+    .port-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .port-card:hover {
+      border-color: var(--border-hi);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+    }
+
+    .port-preview {
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .port-preview-fitness {
+      background: linear-gradient(135deg, #0d0d0d 0%, #1a1200 50%, #110d00 100%);
+    }
+
+    .port-preview-consult {
+      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 50%, #bfdbfe 100%);
+    }
+
+    .port-preview-music {
+      background: linear-gradient(135deg, #04070f 0%, #080d1a 60%, #050c1e 100%);
+    }
+
+    .port-preview-restaurant {
+      background: linear-gradient(135deg, #110a06 0%, #1a100a 50%, #221408 100%);
+    }
+
+    .port-tag {
+      position: absolute;
+      bottom: 0.75rem;
+      left: 0.75rem;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+    }
+
+    .tag-fitness { background: rgba(245,158,11,0.15); color: #f59e0b; border: 1px solid rgba(245,158,11,0.25); }
+    .tag-consult { background: rgba(37,99,235,0.1); color: #1d4ed8; border: 1px solid rgba(37,99,235,0.2); }
+    .tag-music   { background: rgba(59,130,246,0.15); color: #60a5fa; border: 1px solid rgba(59,130,246,0.25); }
+    .tag-rest    { background: rgba(249,115,22,0.12); color: #fb923c; border: 1px solid rgba(249,115,22,0.25); }
+
+    .port-body { padding: 1.25rem 1.5rem 1.5rem; flex: 1; display: flex; flex-direction: column; gap: 0.4rem; }
+    .port-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim); }
+    .port-title { font-size: 1rem; font-weight: 700; letter-spacing: -0.01em; }
+    .port-desc  { font-size: 0.82rem; color: var(--text-mid); line-height: 1.55; margin-top: 0.2rem; }
+
+    .port-footer {
+      margin-top: auto;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .port-view {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--purple-l);
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: gap 0.15s;
+    }
+
+    .port-card:hover .port-view { gap: 0.5rem; }
+
+    .port-live-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #10b981;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    .port-live-text { font-size: 0.7rem; color: #10b981; font-weight: 500; }
+
+    /* ── PROCESS SECTION ─────────────────────────────────────────── */
+    .process {
+      padding: 6rem 2rem;
+    }
+
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3.5rem;
+      position: relative;
+    }
+
+    .process-steps::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: calc(16.67% + 16px);
+      right: calc(16.67% + 16px);
+      height: 1px;
+      background: linear-gradient(90deg, var(--purple) 0%, var(--pink) 100%);
+      opacity: 0.3;
+    }
+
+    .process-step {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      position: relative;
+    }
+
+    .step-num {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: var(--surface2);
+      border: 1px solid var(--border-hi);
+      color: var(--purple-l);
+      position: relative;
+      z-index: 1;
+    }
+
+    .step-title { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.01em; }
+    .step-desc  { font-size: 0.875rem; color: var(--text-mid); line-height: 1.65; }
+
+    /* ── STACK SECTION ───────────────────────────────────────────── */
+    .stack {
+      padding: 6rem 2rem;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stack-grid {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 0.6rem;
+      margin-top: 2.5rem;
     }
 
-    .tag {
-      background: #1a1a1a;
-      border: 1px solid #2a2a2a;
-      color: #bbb;
-      padding: 7px 14px;
-      border-radius: 4px;
-      font-size: 13px;
+    .stack-tag {
+      font-size: 0.82rem;
+      color: var(--text-mid);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.45rem 0.9rem;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+      cursor: default;
     }
 
-    /* Contact section */
+    .stack-tag:hover {
+      color: var(--text);
+      border-color: var(--purple);
+      background: rgba(124,58,237,0.06);
+    }
 
-    .cta-row {
+    .stack-tag.highlight {
+      color: var(--purple-l);
+      border-color: rgba(124,58,237,0.3);
+      background: rgba(124,58,237,0.08);
+    }
+
+    /* ── ABOUT SECTION ───────────────────────────────────────────── */
+    .about {
+      padding: 6rem 2rem;
+    }
+
+    .about-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .about-visual {
+      aspect-ratio: 4/3;
+      border-radius: 14px;
+      background: var(--surface2);
+      border: 1px solid var(--border-hi);
       display: flex;
-      gap: 14px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-visual::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 30% 30%, rgba(124,58,237,0.1), transparent 60%),
+        radial-gradient(ellipse 60% 50% at 70% 70%, rgba(168,85,247,0.07), transparent 60%);
+    }
+
+    .about-visual-icon {
+      font-size: 3.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .about-visual-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* terminal snippet */
+    .about-terminal {
+      position: absolute;
+      bottom: 1rem;
+      left: 1rem;
+      right: 1rem;
+      background: rgba(5,5,7,0.9);
+      border: 1px solid var(--border-hi);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 0.72rem;
+      color: var(--text-mid);
+      z-index: 2;
+    }
+
+    .term-line { display: flex; gap: 0.5rem; align-items: center; }
+    .term-prompt { color: var(--purple-l); }
+    .term-cmd { color: var(--text); }
+    .term-out { color: #10b981; }
+
+    .about-body { display: flex; flex-direction: column; gap: 1.5rem; }
+
+    .about-text {
+      font-size: 1rem;
+      color: var(--text-mid);
+      line-height: 1.8;
+    }
+
+    .about-text strong { color: var(--text); font-weight: 600; }
+
+    .about-stat-row {
+      display: flex;
+      gap: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .about-stat { display: flex; flex-direction: column; gap: 0.2rem; }
+    .about-stat-num { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.03em; }
+    .about-stat-label { font-size: 0.75rem; color: var(--text-dim); }
+
+    /* ── CTA SECTION ─────────────────────────────────────────────── */
+    .cta-section {
+      padding: 7rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 100%, rgba(124,58,237,0.1), transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-inner { position: relative; max-width: 640px; margin: 0 auto; }
+
+    .cta-inner h2 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      line-height: 1.05;
+      margin-bottom: 1.25rem;
+    }
+
+    .cta-inner p {
+      font-size: 1.05rem;
+      color: var(--text-mid);
+      margin-bottom: 2.5rem;
+      line-height: 1.7;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
       justify-content: center;
       flex-wrap: wrap;
     }
 
-    /* Footer */
-
+    /* ── FOOTER ──────────────────────────────────────────────────── */
     footer {
-      text-align: center;
-      padding: 22px 20px;
-      color: #3a3a3a;
-      font-size: 13px;
-      border-top: 1px solid #1a1a1a;
+      border-top: 1px solid var(--border);
+      padding: 1.75rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
     }
 
-    /* Mobile */
+    .footer-left { font-size: 0.82rem; color: var(--text-dim); }
+    .footer-left a { color: var(--text-dim); text-decoration: none; }
+    .footer-left a:hover { color: var(--text); }
 
-    @media (max-width: 600px) {
-      nav {
-        padding: 14px 20px;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
-      }
+    .footer-links {
+      display: flex;
+      gap: 1.75rem;
+    }
 
-      .nav-links {
-        gap: 20px;
-      }
+    .footer-links a {
+      font-size: 0.82rem;
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
 
-      .hero h1 {
-        font-size: 34px;
-      }
+    .footer-links a:hover { color: var(--text); }
 
-      .hero p {
-        font-size: 16px;
-      }
+    /* ── MOBILE ──────────────────────────────────────────────────── */
+    @media (max-width: 860px) {
+      nav { padding: 0 1.25rem; }
+      .nav-center { display: none; }
 
-      .section-title {
-        font-size: 26px;
-      }
+      .hero { padding: 6rem 1.25rem 4rem; }
+      .hero h1 { font-size: 2.5rem; }
 
-      .card-grid {
-        grid-template-columns: 1fr;
-      }
+      .logos-strip { flex-direction: column; gap: 0.875rem; }
+      .logos-label { border-right: none; border-bottom: 1px solid var(--border-hi); padding-right: 0; padding-bottom: 0.75rem; margin-right: 0; margin-bottom: 0; }
+
+      .bento { grid-template-columns: 1fr; }
+      .bento-card.featured { grid-row: auto; min-height: auto; }
+      .process-steps { grid-template-columns: 1fr; }
+      .process-steps::before { display: none; }
+      .portfolio-grid { grid-template-columns: 1fr; }
+      .about-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+
+      .services, .portfolio, .process, .stack, .about, .cta-section { padding: 4rem 1.25rem; }
+
+      footer { flex-direction: column; text-align: center; }
     }
   </style>
 </head>
-
 <body>
 
+  <!-- NAV -->
   <nav>
-    <div class="logo">Future AI Systems</div>
-    <ul class="nav-links">
-      <li><a href="#building">Building</a></li>
-      <li><a href="#tools">Tools</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
+    <a href="/" class="nav-brand">huh<span>-cmd</span></a>
+    <div class="nav-center">
+      <a href="#services">Services</a>
+      <a href="#portfolio">Work</a>
+      <a href="#process">Process</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a href="mailto:jeffe5196@gmail.com" class="nav-cta">
+      Hire Me
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
   </nav>
 
+  <!-- HERO -->
   <section class="hero">
-    <h1>Building The Future With AI</h1>
-    <p>Shipping AI-powered workflows, landing pages, and automation systems — real code, real output, built with Claude and modern AI tooling.</p>
-    <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
-      <a href="#contact" class="btn btn-primary">Work With Me</a>
-      <a href="#building" class="btn btn-outline">See What I'm Building</a>
+    <div class="hero-grid"></div>
+    <div class="hero-inner">
+      <div class="hero-badge" data-reveal>
+        <span class="hero-badge-dot"></span>
+        Available for freelance work
+      </div>
+      <h1 data-reveal data-delay="1">
+        Web builds that<br>
+        <span class="g-text">actually convert.</span>
+      </h1>
+      <p class="hero-sub" data-reveal data-delay="2">
+        Custom HTML/CSS/JS — no page builders, no templates. AI-powered speed, developer-quality output. Landing pages, automation, consulting.
+      </p>
+      <div class="hero-ctas" data-reveal data-delay="3">
+        <a href="./clients/" class="btn-primary">
+          View Portfolio
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="mailto:jeffe5196@gmail.com" class="btn-secondary">Get a Quote</a>
+      </div>
+      <div class="hero-trust" data-reveal data-delay="4">
+        <div class="trust-item">
+          <span class="trust-num">&lt;3s</span>
+          <span class="trust-label">Load time</span>
+        </div>
+        <div class="trust-sep"></div>
+        <div class="trust-item">
+          <span class="trust-num">100%</span>
+          <span class="trust-label">Mobile responsive</span>
+        </div>
+        <div class="trust-sep"></div>
+        <div class="trust-item">
+          <span class="trust-num">$150</span>
+          <span class="trust-label">Starting price</span>
+        </div>
+        <div class="trust-sep"></div>
+        <div class="trust-item">
+          <span class="trust-num">3 days</span>
+          <span class="trust-label">Typical turnaround</span>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section id="building" class="section section--alt">
+  <!-- LOGOS STRIP -->
+  <div class="logos-strip">
+    <span class="logos-label">Built with</span>
+    <div class="logos-track">
+      <span class="tech-pill">Claude API</span>
+      <span class="tech-pill">HTML / CSS / JS</span>
+      <span class="tech-pill">Python</span>
+      <span class="tech-pill">GitHub Pages</span>
+      <span class="tech-pill">FastAPI</span>
+      <span class="tech-pill">Playwright</span>
+      <span class="tech-pill">Claude Code</span>
+    </div>
+  </div>
+
+  <!-- SERVICES BENTO -->
+  <section class="services" id="services">
     <div class="section-inner">
-      <div class="section-label">Active Work</div>
-      <h2 class="section-title">What I'm Building</h2>
-      <p class="section-sub">Current focus areas — things being built, tested, or shipped right now.</p>
-      <div class="card-grid">
-        <div class="card">
-          <div class="card-title">Alexandria</div>
-          <div class="card-desc">A persistent memory vault for long-term human + AI collaboration. Survives crashes, provider changes, and context resets.</div>
+      <p class="section-eyebrow" data-reveal>What I Build</p>
+      <h2 class="section-title" data-reveal data-delay="1">One developer.<br>Three specializations.</h2>
+      <p class="section-sub" data-reveal data-delay="2">Fast turnaround without cutting corners. Every project is coded by hand — no page builders, no templates, no mystery boxes.</p>
+
+      <div class="bento" data-reveal data-delay="3">
+
+        <!-- Featured: Landing Pages -->
+        <div class="bento-card featured">
+          <div>
+            <div class="bento-icon">⚡</div>
+            <h3 class="bento-title">Custom Landing Pages</h3>
+            <p class="bento-desc">Hand-coded HTML/CSS/JS. Mobile-first, loads under 3 seconds, built for your specific audience and conversion goal — not a template reskin.</p>
+            <ul class="bento-features">
+              <li>Hero, services, social proof, pricing, CTA — every section written for your audience</li>
+              <li>Mobile layout at 375px and 768px — tested, not assumed</li>
+              <li>Source files delivered + GitHub Pages deploy if needed</li>
+              <li>One revision round included. Turnaround: 2–4 days.</li>
+            </ul>
+          </div>
+          <div>
+            <div class="bento-price">Starting at $150</div>
+            <br>
+            <a href="./clients/" class="bento-link">
+              See portfolio
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
         </div>
-        <div class="card">
-          <div class="card-title">Landing Pages</div>
-          <div class="card-desc">Fast, clean landing pages for personal brands and small businesses. <a href="./clients/" style="color:cyan;text-decoration:none;">View portfolio →</a></div>
+
+        <!-- AI Workflow -->
+        <div class="bento-card">
+          <div class="bento-icon">🤖</div>
+          <h3 class="bento-title">AI Workflow Automation</h3>
+          <p class="bento-desc">Python scripts and Claude API pipelines that replace manual, repetitive work. Input → process → output. Delivered with clear documentation.</p>
+          <div class="bento-price">Starting at $500</div>
         </div>
-        <div class="card">
-          <div class="card-title">AI Workflows</div>
-          <div class="card-desc">Practical automation using Claude, Codex, and AI tools — focused on real output and repeatable systems, not demos.</div>
+
+        <!-- Consulting -->
+        <div class="bento-card">
+          <div class="bento-icon">🎯</div>
+          <h3 class="bento-title">Claude Code Consulting</h3>
+          <p class="bento-desc">Hands-on guidance for teams using Claude Code, building with the Anthropic API, or setting up AI workflows. Practical help, not theory.</p>
+          <div class="bento-price">$125 / hr</div>
         </div>
-        <div class="card">
-          <div class="card-title">Reusable Systems</div>
-          <div class="card-desc">Documented, repeatable processes that work without constant supervision. Skills that compound over time.</div>
+
+        <!-- Turnaround guarantee -->
+        <div class="bento-card">
+          <div class="bento-icon">📦</div>
+          <h3 class="bento-title">What you always get</h3>
+          <ul class="bento-features" style="margin:0;">
+            <li>Source files — yours to keep forever</li>
+            <li>Tested in Chrome, Firefox, and Safari</li>
+            <li>No lorem ipsum — real copy, real content</li>
+            <li>Free deploy to GitHub Pages on request</li>
+          </ul>
         </div>
+
       </div>
     </div>
   </section>
 
-  <section id="tools" class="section">
+  <!-- PORTFOLIO -->
+  <section class="portfolio" id="portfolio">
     <div class="section-inner">
-      <div class="section-label">Stack</div>
-      <h2 class="section-title">Tools & Skills</h2>
-      <p class="section-sub">What I'm actively working with.</p>
-      <div class="tag-list">
-        <span class="tag">Claude / Claude Code</span>
-        <span class="tag">HTML / CSS</span>
-        <span class="tag">JavaScript</span>
-        <span class="tag">Python</span>
-        <span class="tag">FastAPI</span>
-        <span class="tag">Ollama / Local AI</span>
-        <span class="tag">Prompt Engineering</span>
-        <span class="tag">AI Agent Coordination</span>
-        <span class="tag">Workflow Automation</span>
-        <span class="tag">Obsidian / Markdown Systems</span>
-        <span class="tag">Git / GitHub</span>
-        <span class="tag">PowerShell / Windows</span>
+      <p class="section-eyebrow" data-reveal>Portfolio</p>
+      <h2 class="section-title" data-reveal data-delay="1">Four industries.<br>Four different approaches.</h2>
+      <p class="section-sub" data-reveal data-delay="2">Each page is built for a specific audience and conversion goal. No shared components, no recycled layouts.</p>
+
+      <div class="portfolio-grid">
+
+        <a class="port-card" href="./clients/marcus-webb/" data-reveal data-delay="1">
+          <div class="port-preview port-preview-fitness">
+            💪
+            <span class="port-tag tag-fitness">Dark / Fitness</span>
+          </div>
+          <div class="port-body">
+            <span class="port-label">Landing Page</span>
+            <h3 class="port-title">Jake Mitchell — Personal Training</h3>
+            <p class="port-desc">Dark amber palette, pricing tiers, testimonials, strong CTA above the fold. Built for local fitness professionals.</p>
+            <div class="port-footer">
+              <span class="port-view">View page <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+              <div style="display:flex;align-items:center;gap:0.35rem;"><span class="port-live-dot"></span><span class="port-live-text">Live</span></div>
+            </div>
+          </div>
+        </a>
+
+        <a class="port-card" href="./clients/priya-sharma/" data-reveal data-delay="2">
+          <div class="port-preview port-preview-consult">
+            📊
+            <span class="port-tag tag-consult">Light / Consulting</span>
+          </div>
+          <div class="port-body">
+            <span class="port-label">Landing Page</span>
+            <h3 class="port-title">Sarah Brooks — Business Strategy</h3>
+            <p class="port-desc">Light blue palette, authority stats, service tiers, testimonials. Built for consultants and coaches.</p>
+            <div class="port-footer">
+              <span class="port-view">View page <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+              <div style="display:flex;align-items:center;gap:0.35rem;"><span class="port-live-dot"></span><span class="port-live-text">Live</span></div>
+            </div>
+          </div>
+        </a>
+
+        <a class="port-card" href="./clients/kai-rivers/" data-reveal data-delay="3">
+          <div class="port-preview port-preview-music">
+            🎧
+            <span class="port-tag tag-music">Dark / Music</span>
+          </div>
+          <div class="port-body">
+            <span class="port-label">Artist Website</span>
+            <h3 class="port-title">Kai Rivers — Indie Electronic</h3>
+            <p class="port-desc">Atmospheric navy palette, animated waveform, discography, tour dates, and press section. Built for music artists.</p>
+            <div class="port-footer">
+              <span class="port-view">View page <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+              <div style="display:flex;align-items:center;gap:0.35rem;"><span class="port-live-dot"></span><span class="port-live-text">Live</span></div>
+            </div>
+          </div>
+        </a>
+
+        <a class="port-card" href="./clients/ember-kitchen/" data-reveal data-delay="4">
+          <div class="port-preview port-preview-restaurant">
+            🔥
+            <span class="port-tag tag-rest">Warm / Restaurant</span>
+          </div>
+          <div class="port-body">
+            <span class="port-label">Landing Page</span>
+            <h3 class="port-title">Ember Kitchen — Wood-Fired Grill</h3>
+            <p class="port-desc">Warm charcoal palette, menu grid, hours, private events, reservation CTA. Built for restaurants and food businesses.</p>
+            <div class="port-footer">
+              <span class="port-view">View page <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+              <div style="display:flex;align-items:center;gap:0.35rem;"><span class="port-live-dot"></span><span class="port-live-text">Live</span></div>
+            </div>
+          </div>
+        </a>
+
       </div>
     </div>
   </section>
 
-  <section id="contact" class="section section--alt">
+  <!-- PROCESS -->
+  <section class="process" id="process">
     <div class="section-inner">
-      <div class="section-label">Services</div>
-      <h2 class="section-title">Work With Me</h2>
-      <p class="section-sub" style="max-width:600px;margin-left:auto;margin-right:auto;text-align:center;">Available for freelance projects — landing pages, AI workflow automation, and hands-on AI consulting.</p>
-      <div class="card-grid" style="margin-bottom:48px;">
-        <div class="card">
-          <div class="card-title">Landing Pages</div>
-          <div class="card-desc">Fast, clean, mobile-ready pages for personal brands and small businesses. Designed, coded, and shipped — no templates. Starting at $150.</div>
+      <p class="section-eyebrow" data-reveal>How It Works</p>
+      <h2 class="section-title" data-reveal data-delay="1">Brief to live in<br>under a week.</h2>
+      <p class="section-sub" data-reveal data-delay="2">No discovery calls required. Eight intake questions, one build, one revision round, done.</p>
+
+      <div class="process-steps">
+        <div class="process-step" data-reveal data-delay="1">
+          <div class="step-num">01</div>
+          <h3 class="step-title">Brief</h3>
+          <p class="step-desc">Eight focused questions about your audience, goal, and visual direction. Takes you 5 minutes. Saves us both 2 hours of back-and-forth.</p>
         </div>
-        <div class="card">
-          <div class="card-title">AI Workflow Automation</div>
-          <div class="card-desc">Custom automation pipelines using Claude, Python, and local AI. Replace manual work with repeatable systems. Starting at $500.</div>
+        <div class="process-step" data-reveal data-delay="2">
+          <div class="step-num">02</div>
+          <h3 class="step-title">Build</h3>
+          <p class="step-desc">I write the code. Real copy, real content, real layout decisions made for your audience — not a template with names swapped out.</p>
         </div>
-        <div class="card">
-          <div class="card-title">AI Consulting</div>
-          <div class="card-desc">Hands-on guidance on Claude Code, prompt engineering, and building practical AI workflows for your team or project. $125/hr.</div>
+        <div class="process-step" data-reveal data-delay="3">
+          <div class="step-num">03</div>
+          <h3 class="step-title">Ship</h3>
+          <p class="step-desc">Live URL, source files, and one revision round. GitHub Pages deploy included. You own everything — no subscriptions, no lock-in.</p>
         </div>
-      </div>
-      <div class="cta-row">
-        <a href="mailto:jeffe5196@gmail.com" class="btn btn-primary">Get In Touch</a>
       </div>
     </div>
   </section>
 
+  <!-- STACK -->
+  <section class="stack" id="stack">
+    <div class="section-inner">
+      <p class="section-eyebrow" data-reveal>Tech Stack</p>
+      <h2 class="section-title" data-reveal data-delay="1">What I'm actively<br>working with.</h2>
+      <div class="stack-grid" data-reveal data-delay="2">
+        <span class="stack-tag highlight">Claude / Claude Code</span>
+        <span class="stack-tag highlight">Anthropic API</span>
+        <span class="stack-tag">HTML5 / CSS3</span>
+        <span class="stack-tag">Vanilla JavaScript</span>
+        <span class="stack-tag">Python 3</span>
+        <span class="stack-tag">FastAPI</span>
+        <span class="stack-tag highlight">Prompt Engineering</span>
+        <span class="stack-tag">Ollama / Local AI</span>
+        <span class="stack-tag">Git / GitHub</span>
+        <span class="stack-tag">GitHub Pages</span>
+        <span class="stack-tag highlight">AI Agent Coordination</span>
+        <span class="stack-tag">Playwright</span>
+        <span class="stack-tag">PowerShell</span>
+        <span class="stack-tag">CSS Grid / Flexbox</span>
+        <span class="stack-tag">Intersection Observer API</span>
+        <span class="stack-tag highlight">Workflow Automation</span>
+        <span class="stack-tag">Markdown Systems</span>
+        <span class="stack-tag">REST APIs</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="about-inner">
+      <div class="about-visual" data-reveal>
+        <div class="about-visual-icon">🧠</div>
+        <span class="about-visual-label">AI-assisted development</span>
+        <div class="about-terminal">
+          <div class="term-line">
+            <span class="term-prompt">$</span>
+            <span class="term-cmd">claude --model sonnet-4</span>
+          </div>
+          <div class="term-line" style="margin-top:4px;">
+            <span class="term-out">✓ Context loaded · Ready to build</span>
+          </div>
+        </div>
+      </div>
+      <div class="about-body">
+        <div>
+          <p class="section-eyebrow" data-reveal>About</p>
+          <h2 class="section-title" data-reveal data-delay="1">A developer who uses<br>AI the right way.</h2>
+        </div>
+        <p class="about-text" data-reveal data-delay="2">
+          I use <strong>Claude Code</strong> as a force multiplier — not a replacement for knowing what I'm doing. Every line of code gets reviewed, every design decision gets made deliberately, every delivery gets tested before it ships.
+          <br><br>
+          The result: <strong>projects that used to take a week get done in two days</strong>, without the quality drop that comes from moving fast and breaking things.
+        </p>
+        <div class="about-stat-row" data-reveal data-delay="3">
+          <div class="about-stat">
+            <span class="about-stat-num g-text">3 days</span>
+            <span class="about-stat-label">Avg. turnaround</span>
+          </div>
+          <div class="about-stat">
+            <span class="about-stat-num g-text">$150</span>
+            <span class="about-stat-label">Landing page start</span>
+          </div>
+          <div class="about-stat">
+            <span class="about-stat-num g-text">100%</span>
+            <span class="about-stat-label">Hand-coded</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="contact">
+    <div class="cta-inner">
+      <h2 data-reveal>
+        Ready to build<br>
+        <span class="g-text">something real?</span>
+      </h2>
+      <p data-reveal data-delay="1">Send a message with your project idea. I'll reply with a scope and price within 24 hours. No calls required to get started.</p>
+      <div class="cta-buttons" data-reveal data-delay="2">
+        <a href="mailto:jeffe5196@gmail.com" class="btn-primary">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          jeffe5196@gmail.com
+        </a>
+        <a href="https://www.upwork.com" target="_blank" rel="noopener" class="btn-secondary">Find me on Upwork</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
   <footer>
-    Future AI Systems &mdash; Built with AI, shipped by hand.
+    <span class="footer-left">
+      huh-cmd · Custom HTML/CSS/JS · <a href="./clients/">Portfolio</a>
+    </span>
+    <div class="footer-links">
+      <a href="mailto:jeffe5196@gmail.com">Email</a>
+      <a href="https://github.com/huh-cmd" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.upwork.com" target="_blank" rel="noopener">Upwork</a>
+    </div>
   </footer>
 
-</body>
+  <!-- SCROLL ANIMATIONS -->
+  <script>
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('is-visible');
+            observer.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
 
+    document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
+  </script>
+
+</body>
 </html>

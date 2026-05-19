@@ -437,6 +437,21 @@
       border-top: 1px solid var(--border);
     }
 
+    /* Scroll reveal */
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1),
+                  transform 0.7s cubic-bezier(0.16,1,0.3,1);
+    }
+    [data-reveal].is-visible { opacity: 1; transform: none; }
+    [data-reveal][data-delay="1"] { transition-delay: 0.1s; }
+    [data-reveal][data-delay="2"] { transition-delay: 0.2s; }
+    [data-reveal][data-delay="3"] { transition-delay: 0.3s; }
+    @media (prefers-reduced-motion: reduce) {
+      [data-reveal] { opacity: 1; transform: none; transition: none; }
+    }
+
     /* Mobile */
     @media (max-width: 768px) {
       nav {
@@ -484,10 +499,10 @@
   </nav>
 
   <section class="hero">
-    <div class="hero-label">Personal Training · Austin, TX</div>
-    <h1>Train Smarter.<br><span>Get Results.</span></h1>
-    <p>1-on-1 personal training at your home or local park. No gym required. Real programming, real accountability, real progress.</p>
-    <div class="hero-btns">
+    <div class="hero-label" data-reveal>Personal Training · Austin, TX</div>
+    <h1 data-reveal data-delay="1">Train Smarter.<br><span>Get Results.</span></h1>
+    <p data-reveal data-delay="2">1-on-1 personal training at your home or local park. No gym required. Real programming, real accountability, real progress.</p>
+    <div class="hero-btns" data-reveal data-delay="3">
       <a href="mailto:jake@email.com" class="btn-primary">Book a Free Call</a>
       <a href="#packages" class="btn-outline">View Packages</a>
     </div>
@@ -516,8 +531,8 @@
     <div class="section-inner">
       <div class="about-grid">
         <div class="about-text">
-          <div class="section-label">About</div>
-          <h2 class="section-title">Training That Fits Your Life</h2>
+          <div class="section-label" data-reveal>About</div>
+          <h2 class="section-title" data-reveal data-delay="1">Training That Fits Your Life</h2>
           <p>I train clients 1-on-1 at their homes or at local Austin parks — no commute, no waiting for equipment, no wasted time.</p>
           <p>Every program is built around you. Your schedule, your goals, your starting point. I write the program, track the progress, and show up every session ready to push you further.</p>
           <ul class="about-list">
@@ -541,12 +556,12 @@
 
   <section id="packages" class="section section--alt">
     <div class="section-inner">
-      <div class="section-label">Packages</div>
-      <h2 class="section-title">Simple, Honest Pricing</h2>
-      <p class="section-sub">No contracts. No hidden fees. Cancel anytime.</p>
+      <div class="section-label" data-reveal>Packages</div>
+      <h2 class="section-title" data-reveal data-delay="1">Simple, Honest Pricing</h2>
+      <p class="section-sub" data-reveal data-delay="2">No contracts. No hidden fees. Cancel anytime.</p>
       <div class="packages-grid">
 
-        <div class="package">
+        <div class="package" data-reveal data-delay="1">
           <div class="package-name">Starter</div>
           <div class="package-price">$200</div>
           <div class="package-period">per month</div>
@@ -560,7 +575,7 @@
           <a href="mailto:jake@email.com" class="package-btn package-btn--outline">Book Free Call</a>
         </div>
 
-        <div class="package package--featured">
+        <div class="package package--featured" data-reveal data-delay="2">
           <div class="package-badge">Most Popular</div>
           <div class="package-name">Core</div>
           <div class="package-price">$360</div>
@@ -576,7 +591,7 @@
           <a href="mailto:jake@email.com" class="package-btn package-btn--filled">Book Free Call</a>
         </div>
 
-        <div class="package">
+        <div class="package" data-reveal data-delay="3">
           <div class="package-name">Elite</div>
           <div class="package-price">$500</div>
           <div class="package-period">per month</div>
@@ -598,9 +613,9 @@
 
   <section id="results" class="section section--alt">
     <div class="section-inner">
-      <div class="section-label">Results</div>
-      <h2 class="section-title">What Clients Say</h2>
-      <p class="section-sub">Real people, real progress.</p>
+      <div class="section-label" data-reveal>Results</div>
+      <h2 class="section-title" data-reveal data-delay="1">What Clients Say</h2>
+      <p class="section-sub" data-reveal data-delay="2">Real people, real progress.</p>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
 
         <div style="background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:28px;">
@@ -644,11 +659,19 @@
   </section>
 
   <section class="cta-section">
-    <div class="section-label">Get Started</div>
-    <h2>Ready to Start?</h2>
-    <p>Book a free 15-minute call. No commitment, no sales pitch — just a conversation about your goals.</p>
-    <a href="mailto:jake@email.com" class="btn-primary">Book Your Free Call</a>
+    <div class="section-label" data-reveal>Get Started</div>
+    <h2 data-reveal data-delay="1">Ready to Start?</h2>
+    <p data-reveal data-delay="2">Book a free 15-minute call. No commitment, no sales pitch — just a conversation about your goals.</p>
+    <a href="mailto:jake@email.com" class="btn-primary" data-reveal data-delay="3">Book Your Free Call</a>
   </section>
+
+  <script>
+    const obs = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); obs.unobserve(e.target); } }),
+      { threshold: 0.08, rootMargin: '0px 0px -30px 0px' }
+    );
+    document.querySelectorAll('[data-reveal]').forEach(el => obs.observe(el));
+  </script>
 
   <footer>
     Jake Mitchell Personal Training · Austin, TX · jake@email.com

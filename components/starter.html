@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="[PAGE DESCRIPTION — 150 chars max]">
+  <title>[CLIENT NAME] — [Page Purpose]</title>
+
+  <!--
+    ┌─────────────────────────────────────────────────────┐
+    │  huh-cmd / starter.html                             │
+    │  Base template for every client landing page build  │
+    │                                                     │
+    │  BEFORE BUILDING:                                   │
+    │  1. Fill CLIENT_INTAKE_TEMPLATE.md (8 questions)    │
+    │  2. Replace every [BRACKET] in this file            │
+    │  3. Set CSS variables to client's brand colors      │
+    │  4. Delete sections not in scope                    │
+    │  5. Run build checklist before delivery             │
+    └─────────────────────────────────────────────────────┘
+  -->
+
+  <style>
+    /* ── RESET ───────────────────────────────────────────────── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    img  { display: block; max-width: 100%; }
+    a    { color: inherit; }
+
+    /* ── BRAND VARIABLES — set from client brief ─────────────── */
+    :root {
+      /* Colors — replace with client palette */
+      --bg:           #0a0a0a;     /* page background */
+      --surface:      #111111;     /* card / section background */
+      --border:       #1e1e1e;     /* dividers, card borders */
+      --border-hi:    #2e2e2e;     /* hover state borders */
+
+      --accent:       #6366f1;     /* primary brand color */
+      --accent-dark:  #4f46e5;     /* darker shade for hover */
+      --accent-glow:  rgba(99,102,241,0.15);
+
+      --text:         #f0f0f0;     /* body text */
+      --text-mid:     #a0a0a0;     /* secondary text */
+      --text-dim:     #555555;     /* muted labels */
+
+      /* Typography */
+      --font-body:    -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-display: var(--font-body); /* swap for serif/custom if needed */
+
+      /* Spacing */
+      --section-pad:  5rem 2rem;
+      --max-width:    1100px;
+      --max-content:  720px;       /* prose/centered content */
+    }
+
+    /* ── BASE ────────────────────────────────────────────────── */
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container { max-width: var(--max-width); margin: 0 auto; }
+
+    /* ── NAV ─────────────────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 2rem;
+      background: rgba(10,10,10,0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-size: 1rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.75rem;
+    }
+
+    .nav-links a {
+      font-size: 0.875rem;
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      padding: 0.6rem 1.25rem;
+      border-radius: 6px;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .nav-cta:hover { background: var(--accent-dark); }
+
+    /* ── HERO ────────────────────────────────────────────────── */
+    .hero {
+      padding: var(--section-pad);
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.25rem, 5vw, 3.75rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--text-mid);
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* ── SOCIAL PROOF ────────────────────────────────────────── */
+    .stats {
+      display: flex;
+      gap: 3rem;
+      flex-wrap: wrap;
+      padding: 2.5rem 2rem;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stats-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .stat { display: flex; flex-direction: column; gap: 0.2rem; }
+    .stat-num  { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.03em; }
+    .stat-label { font-size: 0.8rem; color: var(--text-dim); }
+
+    /* ── FEATURES / SERVICES ─────────────────────────────────── */
+    .features {
+      padding: var(--section-pad);
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-header {
+      max-width: var(--max-width);
+      margin: 0 auto 3rem;
+    }
+
+    .section-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-sub {
+      font-size: 1rem;
+      color: var(--text-mid);
+      max-width: 500px;
+      line-height: 1.7;
+    }
+
+    .feature-grid {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .feature-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      transition: border-color 0.2s;
+    }
+
+    .feature-card:hover { border-color: var(--border-hi); }
+
+    .feature-icon {
+      font-size: 1.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .feature-title {
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.5rem;
+    }
+
+    .feature-desc {
+      font-size: 0.875rem;
+      color: var(--text-mid);
+      line-height: 1.6;
+    }
+
+    /* ── ABOUT / STORY ───────────────────────────────────────── */
+    .about {
+      padding: var(--section-pad);
+    }
+
+    .about-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .about-visual {
+      aspect-ratio: 4/3;
+      border-radius: 10px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+    }
+
+    .about-body {
+      font-size: 1rem;
+      color: var(--text-mid);
+      line-height: 1.8;
+    }
+
+    /* ── TESTIMONIALS ────────────────────────────────────────── */
+    .testimonials {
+      padding: var(--section-pad);
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .testi-grid {
+      max-width: var(--max-width);
+      margin: 2.5rem auto 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .testi-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+
+    .testi-text {
+      font-size: 0.9375rem;
+      color: var(--text-mid);
+      line-height: 1.7;
+      font-style: italic;
+      margin-bottom: 1.25rem;
+    }
+
+    .testi-text::before { content: '"'; color: var(--accent); font-style: normal; }
+    .testi-text::after  { content: '"'; color: var(--accent); font-style: normal; }
+
+    .testi-name  { font-size: 0.875rem; font-weight: 600; }
+    .testi-role  { font-size: 0.8rem; color: var(--text-dim); }
+
+    /* ── PRICING ─────────────────────────────────────────────── */
+    .pricing {
+      padding: var(--section-pad);
+    }
+
+    .pricing-grid {
+      max-width: var(--max-width);
+      margin: 2.5rem auto 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .plan {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+    }
+
+    .plan.featured {
+      border-color: var(--accent);
+      background: linear-gradient(135deg, var(--surface) 0%, rgba(99,102,241,0.05) 100%);
+    }
+
+    .plan-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      background: var(--accent);
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+
+    .plan-name  { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .plan-price { font-size: 2rem; font-weight: 700; letter-spacing: -0.03em; margin: 0.75rem 0; }
+    .plan-price span { font-size: 1rem; font-weight: 400; color: var(--text-dim); }
+    .plan-desc  { font-size: 0.875rem; color: var(--text-mid); line-height: 1.6; margin-bottom: 1.5rem; }
+
+    .plan-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-bottom: 2rem;
+    }
+
+    .plan-features li {
+      font-size: 0.875rem;
+      color: var(--text-mid);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .plan-features li::before {
+      content: '✓';
+      color: var(--accent);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* ── CTA SECTION ─────────────────────────────────────────── */
+    .cta-section {
+      padding: 6rem 2rem;
+      text-align: center;
+    }
+
+    .cta-inner {
+      max-width: var(--max-content);
+      margin: 0 auto;
+    }
+
+    .cta-inner h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      margin-bottom: 1rem;
+    }
+
+    .cta-inner p {
+      font-size: 1rem;
+      color: var(--text-mid);
+      margin-bottom: 2.5rem;
+      line-height: 1.7;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ── BUTTONS ─────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 0.8rem 1.75rem;
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.15s;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn-primary:hover { background: var(--accent-dark); }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-mid);
+      border: 1px solid var(--border-hi);
+    }
+
+    .btn-secondary:hover { color: var(--text); border-color: var(--accent); }
+
+    /* ── FOOTER ──────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.8rem;
+      color: var(--text-dim);
+    }
+
+    footer a { text-decoration: none; transition: color 0.2s; }
+    footer a:hover { color: var(--text); }
+
+    /* ── MOBILE ──────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      :root { --section-pad: 3.5rem 1.25rem; }
+
+      nav { padding: 1rem 1.25rem; }
+      .nav-links { display: none; }
+
+      .about-inner { grid-template-columns: 1fr; }
+      .about-visual { aspect-ratio: 16/9; }
+
+      .feature-grid { grid-template-columns: 1fr; }
+      .testi-grid   { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; }
+
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <nav>
+    <a href="#" class="nav-logo">[CLIENT NAME]</a>
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#about">About</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a href="#contact" class="nav-cta">[CTA TEXT]</a>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+    <div class="hero-inner">
+      <p class="hero-eyebrow">[TAGLINE OR LOCATION]</p>
+      <h1>[MAIN HEADLINE — benefit-first, specific]</h1>
+      <p class="hero-sub">[2–3 sentences explaining what they do, who they help, and the primary outcome. Write for the visitor, not the client.]</p>
+      <div class="hero-ctas">
+        <a href="#contact" class="btn btn-primary">[PRIMARY CTA]</a>
+        <a href="#services" class="btn btn-secondary">[SECONDARY CTA]</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SOCIAL PROOF STATS ── -->
+  <div class="stats">
+    <div class="stats-inner">
+      <div class="stat"><span class="stat-num">[0]</span><span class="stat-label">[Label]</span></div>
+      <div class="stat"><span class="stat-num">[0]</span><span class="stat-label">[Label]</span></div>
+      <div class="stat"><span class="stat-num">[0]</span><span class="stat-label">[Label]</span></div>
+    </div>
+  </div>
+
+  <!-- ── FEATURES / SERVICES ── -->
+  <section class="features" id="services">
+    <div class="section-header">
+      <p class="section-eyebrow">Services</p>
+      <h2 class="section-title">[Section headline]</h2>
+      <p class="section-sub">[Short sub-description — 1 sentence]</p>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3 class="feature-title">[Service name]</h3>
+        <p class="feature-desc">[2–3 sentences describing what they get and why it matters.]</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <h3 class="feature-title">[Service name]</h3>
+        <p class="feature-desc">[2–3 sentences describing what they get and why it matters.]</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📈</div>
+        <h3 class="feature-title">[Service name]</h3>
+        <p class="feature-desc">[2–3 sentences describing what they get and why it matters.]</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ABOUT ── -->
+  <section class="about" id="about">
+    <div class="about-inner">
+      <div class="about-visual">[PHOTO OR ICON]</div>
+      <div>
+        <p class="section-eyebrow">About</p>
+        <h2 class="section-title">[Short about headline]</h2>
+        <p class="about-body">[3–5 sentences. Write in first person if solo operator, third person if team. Focus on credibility + empathy for the audience.]</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TESTIMONIALS ── -->
+  <section class="testimonials">
+    <div class="section-header">
+      <p class="section-eyebrow">Testimonials</p>
+      <h2 class="section-title">What clients say.</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <p class="testi-text">[Real quote — specific outcome, not vague praise]</p>
+        <p class="testi-name">[Name]</p>
+        <p class="testi-role">[Role / Company]</p>
+      </div>
+      <div class="testi-card">
+        <p class="testi-text">[Real quote]</p>
+        <p class="testi-name">[Name]</p>
+        <p class="testi-role">[Role / Company]</p>
+      </div>
+      <div class="testi-card">
+        <p class="testi-text">[Real quote]</p>
+        <p class="testi-name">[Name]</p>
+        <p class="testi-role">[Role / Company]</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PRICING (delete if not in scope) ── -->
+  <section class="pricing" id="pricing">
+    <div class="section-header">
+      <p class="section-eyebrow">Pricing</p>
+      <h2 class="section-title">[Pricing headline]</h2>
+      <p class="section-sub">[Brief framing — what's included, how billing works]</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="plan">
+        <p class="plan-name">[Tier name]</p>
+        <p class="plan-price">$[0]<span>/mo</span></p>
+        <p class="plan-desc">[Who this is for]</p>
+        <ul class="plan-features">
+          <li>[Feature]</li>
+          <li>[Feature]</li>
+          <li>[Feature]</li>
+        </ul>
+        <a href="#contact" class="btn btn-secondary" style="width:100%;justify-content:center;">Get started</a>
+      </div>
+      <div class="plan featured">
+        <span class="plan-badge">Most popular</span>
+        <p class="plan-name">[Tier name]</p>
+        <p class="plan-price">$[0]<span>/mo</span></p>
+        <p class="plan-desc">[Who this is for]</p>
+        <ul class="plan-features">
+          <li>[Feature]</li>
+          <li>[Feature]</li>
+          <li>[Feature]</li>
+          <li>[Feature]</li>
+        </ul>
+        <a href="#contact" class="btn btn-primary" style="width:100%;justify-content:center;">Get started</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ── -->
+  <section class="cta-section" id="contact">
+    <div class="cta-inner">
+      <h2>[Closing headline — action-oriented]</h2>
+      <p>[1–2 sentences that reduce friction — what happens when they click, no commitment required]</p>
+      <div class="cta-buttons">
+        <a href="mailto:[EMAIL]" class="btn btn-primary">[CTA BUTTON]</a>
+        <a href="tel:[PHONE]" class="btn btn-secondary">Call [PHONE]</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <span>[CLIENT NAME]</span>
+    <span>
+      <a href="mailto:[EMAIL]">[EMAIL]</a>
+    </span>
+    <span>Built by <a href="https://huh-cmd.github.io/future-ai-systems/">huh-cmd</a></span>
+  </footer>
+
+</body>
+</html>

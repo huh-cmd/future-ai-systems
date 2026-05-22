@@ -35,7 +35,3 @@ The offer is limited to simple static landing pages for creators, students, and 
 - Outreach automation
 - Ad management
 
-## Contact
-
-Email:
-[huhcmdpro@gmail.com](mailto:huhcmdpro@gmail.com)

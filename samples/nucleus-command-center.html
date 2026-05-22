@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Nucleus command center concept sample: AI workspace landing page with command bar, dashboard preview, workflow graph, and mobile layout.">
+  <title>Nucleus Command Center Concept - huh-cmd</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #04050a;
+      --panel: rgba(10, 13, 24, 0.76);
+      --panel2: rgba(14, 18, 33, 0.9);
+      --line: rgba(148, 163, 184, 0.16);
+      --line2: rgba(125, 211, 252, 0.22);
+      --text: #f7f7ff;
+      --muted: #9aa4bc;
+      --dim: #596174;
+      --cyan: #67e8f9;
+      --violet: #a78bfa;
+      --pink: #f472b6;
+      --green: #4ade80;
+      --amber: #fbbf24;
+      --font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      overflow-x: hidden;
+      line-height: 1.55;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      background:
+        radial-gradient(circle at 18% 10%, rgba(103,232,249,0.16), transparent 25%),
+        radial-gradient(circle at 76% 12%, rgba(167,139,250,0.18), transparent 28%),
+        radial-gradient(circle at 50% 85%, rgba(244,114,182,0.12), transparent 34%),
+        linear-gradient(180deg, #04050a 0%, #060815 48%, #03040a 100%);
+    }
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background-image:
+        linear-gradient(rgba(148,163,184,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148,163,184,0.035) 1px, transparent 1px);
+      background-size: 58px 58px;
+      mask-image: radial-gradient(ellipse 80% 68% at 50% 22%, black 30%, transparent 86%);
+    }
+    a { color: inherit; }
+    .shell { width: min(1160px, calc(100% - 2rem)); margin: 0 auto; }
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      height: 64px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(4,5,10,0.72);
+      backdrop-filter: blur(18px);
+    }
+    .nav-inner {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      text-decoration: none;
+      font-weight: 850;
+      letter-spacing: -0.03em;
+    }
+    .brand-mark {
+      width: 24px;
+      height: 24px;
+      border-radius: 9px;
+      background: conic-gradient(from 140deg, var(--cyan), var(--violet), var(--pink), var(--cyan));
+      box-shadow: 0 0 24px rgba(103,232,249,0.3);
+    }
+    .nav-links { display: flex; align-items: center; gap: 1.3rem; color: var(--muted); font-size: 0.9rem; }
+    .nav-links a { text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      min-height: 44px;
+      padding: 0.75rem 1.05rem;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary {
+      background: linear-gradient(135deg, #2dd4bf, #8b5cf6 58%, #ec4899);
+      box-shadow: 0 18px 52px rgba(139,92,246,0.28);
+    }
+    .btn-ghost { border-color: var(--line); background: rgba(255,255,255,0.03); color: #cdd5e8; }
+    .hero {
+      min-height: calc(100vh - 64px);
+      display: grid;
+      grid-template-columns: 0.98fr 1.02fr;
+      align-items: center;
+      gap: 3rem;
+      padding: 5rem 0 4rem;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 1px solid rgba(103,232,249,0.25);
+      background: rgba(103,232,249,0.065);
+      color: var(--cyan);
+      border-radius: 999px;
+      padding: 0.4rem 0.8rem;
+      font-size: 0.72rem;
+      font-family: var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1.35rem;
+    }
+    .dot { width: 7px; height: 7px; border-radius: 99px; background: var(--cyan); box-shadow: 0 0 16px var(--cyan); }
+    h1 {
+      max-width: 660px;
+      font-size: clamp(3rem, 7vw, 6.7rem);
+      line-height: 0.9;
+      letter-spacing: -0.075em;
+      margin-bottom: 1.35rem;
+    }
+    .grad {
+      background: linear-gradient(120deg, var(--cyan), var(--violet) 52%, var(--pink));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .lead {
+      max-width: 590px;
+      color: var(--muted);
+      font-size: 1.08rem;
+      margin-bottom: 2rem;
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+    .sample-note {
+      margin-top: 1.4rem;
+      color: var(--dim);
+      font-size: 0.84rem;
+      font-family: var(--mono);
+    }
+    .orb-stage {
+      position: relative;
+      min-height: 620px;
+      display: grid;
+      place-items: center;
+    }
+    .orb {
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 35% 30%, rgba(255,255,255,0.98), rgba(103,232,249,0.95) 12%, transparent 28%),
+        radial-gradient(circle at 70% 65%, rgba(244,114,182,0.95), transparent 30%),
+        radial-gradient(circle, rgba(167,139,250,0.98), rgba(42,15,90,0.2) 66%, transparent 72%);
+      filter: blur(0.2px);
+      box-shadow:
+        0 0 80px rgba(103,232,249,0.35),
+        0 0 140px rgba(167,139,250,0.2),
+        inset 0 0 50px rgba(255,255,255,0.16);
+      animation: float 5s ease-in-out infinite;
+    }
+    .ring {
+      position: absolute;
+      border: 1px solid rgba(167,139,250,0.28);
+      border-radius: 50%;
+      animation: spin 18s linear infinite;
+    }
+    .ring.one { width: 330px; height: 330px; }
+    .ring.two { width: 430px; height: 430px; animation-direction: reverse; border-color: rgba(103,232,249,0.18); }
+    .ring.three { width: 540px; height: 540px; border-style: dashed; border-color: rgba(244,114,182,0.16); }
+    @keyframes float { 0%,100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-18px) scale(1.025); } }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .command {
+      position: relative;
+      width: min(100%, 580px);
+      margin-top: 390px;
+      border: 1px solid rgba(148,163,184,0.2);
+      background: rgba(7, 10, 19, 0.82);
+      backdrop-filter: blur(18px);
+      border-radius: 22px;
+      box-shadow: 0 28px 90px rgba(0,0,0,0.42);
+      overflow: hidden;
+    }
+    .cmd-bar {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 0.8rem;
+      align-items: center;
+      padding: 1rem;
+      border-bottom: 1px solid var(--line);
+    }
+    .spark {
+      width: 32px;
+      height: 32px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      color: var(--cyan);
+      background: rgba(103,232,249,0.08);
+      border: 1px solid rgba(103,232,249,0.18);
+    }
+    .typing { color: #dfe7ff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-family: var(--mono); font-size: 0.9rem; }
+    .kbd { border: 1px solid var(--line); border-radius: 7px; color: var(--muted); padding: 0.22rem 0.42rem; font-family: var(--mono); font-size: 0.72rem; }
+    .suggestions { padding: 0.55rem; }
+    .suggestion {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 0.7rem;
+      align-items: center;
+      padding: 0.72rem;
+      color: var(--muted);
+      border-radius: 13px;
+      font-size: 0.88rem;
+    }
+    .suggestion.active { color: var(--text); background: rgba(255,255,255,0.055); }
+    section { padding: 5.5rem 0; border-top: 1px solid var(--line); }
+    .section-head { max-width: 720px; margin-bottom: 2rem; }
+    h2 { font-size: clamp(2.1rem, 4vw, 4rem); line-height: 0.98; letter-spacing: -0.055em; margin-bottom: 0.9rem; }
+    .section-head p { color: var(--muted); max-width: 620px; }
+    .dash {
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(14,18,33,0.82), rgba(7,9,18,0.86));
+      padding: 0.85rem;
+      box-shadow: 0 40px 120px rgba(0,0,0,0.42);
+    }
+    .chrome {
+      height: 54px;
+      border: 1px solid var(--line);
+      border-radius: 20px 20px 0 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 1rem;
+      color: var(--dim);
+      font-family: var(--mono);
+      font-size: 0.78rem;
+    }
+    .traffic { display: flex; gap: 0.42rem; }
+    .traffic span { width: 10px; height: 10px; border-radius: 99px; background: #293047; }
+    .dash-grid {
+      display: grid;
+      grid-template-columns: 1.35fr 0.65fr;
+      gap: 0.85rem;
+      padding: 0.85rem;
+      border: 1px solid var(--line);
+      border-top: 0;
+      border-radius: 0 0 20px 20px;
+    }
+    .panel {
+      border: 1px solid var(--line);
+      background: rgba(4,6,14,0.62);
+      border-radius: 20px;
+      padding: 1rem;
+      overflow: hidden;
+    }
+    .panel-title { display: flex; justify-content: space-between; gap: 1rem; margin-bottom: 0.85rem; font-weight: 850; }
+    .task {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 0.8rem;
+      align-items: center;
+      padding: 0.85rem 0;
+      border-top: 1px solid rgba(148,163,184,0.11);
+    }
+    .check { width: 18px; height: 18px; border-radius: 7px; border: 1px solid var(--line2); background: rgba(103,232,249,0.08); }
+    .task strong { display: block; font-size: 0.92rem; }
+    .task span { color: var(--muted); font-size: 0.78rem; }
+    .score {
+      min-height: 215px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      background:
+        radial-gradient(circle at center, rgba(103,232,249,0.09), transparent 55%),
+        rgba(4,6,14,0.62);
+    }
+    .score-ring {
+      width: 126px;
+      height: 126px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: conic-gradient(var(--cyan) 0 76%, rgba(148,163,184,0.13) 76% 100%);
+      box-shadow: 0 0 60px rgba(103,232,249,0.16);
+    }
+    .score-ring div {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      background: #070a13;
+      display: grid;
+      place-items: center;
+      font-size: 2.2rem;
+      font-weight: 900;
+    }
+    .workflow {
+      position: relative;
+      min-height: 430px;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background:
+        linear-gradient(rgba(103,232,249,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(103,232,249,0.035) 1px, transparent 1px),
+        rgba(6,8,16,0.8);
+      background-size: 42px 42px;
+      padding: 2rem;
+      overflow: hidden;
+    }
+    .nodes {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+      align-items: start;
+    }
+    .node {
+      min-height: 140px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(5,8,17,0.88);
+      padding: 1rem;
+      box-shadow: 0 24px 70px rgba(0,0,0,0.24);
+    }
+    .node.ai { border-color: rgba(167,139,250,0.42); box-shadow: 0 0 44px rgba(167,139,250,0.13); }
+    .node small { color: var(--cyan); font-family: var(--mono); letter-spacing: 0.08em; }
+    .node h3 { margin: 0.45rem 0; font-size: 1rem; }
+    .node p { color: var(--muted); font-size: 0.82rem; }
+    .edge {
+      position: absolute;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--cyan), var(--violet), transparent);
+      opacity: 0.52;
+      animation: pulse-line 2s linear infinite;
+    }
+    .edge.one { top: 47%; left: 15%; width: 68%; }
+    .edge.two { top: 72%; left: 28%; width: 44%; animation-delay: 0.7s; }
+    @keyframes pulse-line { 0% { transform: translateX(-8px); opacity: 0.25; } 50% { opacity: 0.9; } 100% { transform: translateX(8px); opacity: 0.25; } }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      overflow: hidden;
+    }
+    .feature { min-height: 210px; background: rgba(8,11,20,0.84); padding: 1.35rem; }
+    .feature h3 { margin-bottom: 0.45rem; }
+    .feature p { color: var(--muted); font-size: 0.9rem; }
+    .feature code {
+      display: block;
+      margin-top: 1rem;
+      color: var(--cyan);
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      white-space: normal;
+    }
+    .final-cta {
+      text-align: center;
+      border: 1px solid var(--line);
+      border-radius: 32px;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(167,139,250,0.2), transparent 48%),
+        rgba(8,11,20,0.84);
+      padding: 4rem 1rem;
+    }
+    footer {
+      border-top: 1px solid var(--line);
+      color: var(--dim);
+      padding: 2rem 0 3rem;
+      font-size: 0.88rem;
+    }
+    .footer-inner { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    [data-reveal] { animation: reveal 0.7s cubic-bezier(0.16,1,0.3,1) both; }
+    @keyframes reveal { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+    @media (max-width: 920px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 4rem; }
+      .orb-stage { min-height: 520px; }
+      .dash-grid, .features { grid-template-columns: 1fr; }
+      .nodes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 560px) {
+      .shell { width: min(100% - 1.25rem, 420px); }
+      nav { height: 58px; }
+      .nav-links { display: none; }
+      .brand span:last-child { display: none; }
+      .hero { padding: 3.2rem 0 2.2rem; gap: 1.4rem; }
+      h1 { font-size: 2.32rem; line-height: 1.02; letter-spacing: -0.035em; max-width: 330px; overflow-wrap: break-word; }
+      h2 { font-size: 2.35rem; letter-spacing: -0.04em; }
+      .lead { font-size: 1rem; }
+      .lead, .sample-note { max-width: 340px; }
+      .hero-actions { flex-direction: column; align-items: stretch; width: min(100%, 340px); }
+      .orb-stage { min-height: 440px; overflow: hidden; }
+      .orb { width: 170px; height: 170px; }
+      .ring.one { width: 235px; height: 235px; }
+      .ring.two { width: 300px; height: 300px; }
+      .ring.three { width: 375px; height: 375px; }
+      .command { margin-top: 285px; border-radius: 18px; }
+      .cmd-bar { grid-template-columns: auto minmax(0, 1fr); }
+      .cmd-bar > div:last-child { display: none !important; }
+      .suggestion { grid-template-columns: auto 1fr; }
+      .suggestion .kbd { display: none; }
+      section { padding: 3.8rem 0; }
+      .dash { border-radius: 20px; padding: 0.55rem; }
+      .chrome { border-radius: 16px 16px 0 0; }
+      .dash-grid { padding: 0.55rem; gap: 0.55rem; }
+      .task { grid-template-columns: auto 1fr; }
+      .task > span:last-child { display: none; }
+      .workflow { padding: 1rem; border-radius: 20px; }
+      .nodes { grid-template-columns: 1fr; }
+      .edge { display: none; }
+      .feature { min-height: auto; }
+      .final-cta { padding: 3rem 1rem; border-radius: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="shell nav-inner">
+      <a class="brand" href="../"><span class="brand-mark"></span><span>Nucleus Concept</span></a>
+      <div class="nav-links">
+        <a href="#dashboard">Dashboard</a>
+        <a href="#workflow">Workflow</a>
+        <a class="btn btn-ghost" href="../services.html">Services</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="shell hero">
+      <div data-reveal>
+        <div class="eyebrow"><span class="dot"></span>Portfolio sample</div>
+        <h1>The command<br>center for <span class="grad">your workday.</span></h1>
+        <p class="lead">A polished AI workspace concept generated from Jeffery's Claude design test, then converted into a responsive static portfolio sample.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#dashboard">View the concept</a>
+          <a class="btn btn-ghost" href="mailto:huhcmdpro@gmail.com">Ask for a beta build</a>
+        </div>
+        <p class="sample-note">Concept sample only. No private data, private project data, login, or automation connected.</p>
+      </div>
+
+      <div class="orb-stage" data-reveal>
+        <div class="ring three"></div>
+        <div class="ring two"></div>
+        <div class="ring one"></div>
+        <div class="orb"></div>
+        <div class="command">
+          <div class="cmd-bar">
+            <div class="spark">*</div>
+            <div class="typing" id="typing">Plan my week around the launch</div>
+            <div><span class="kbd">cmd</span> <span class="kbd">K</span></div>
+          </div>
+          <div class="suggestions">
+            <div class="suggestion active"><span>*</span><span>Summarize what I missed since Tuesday</span><span class="kbd">enter</span></div>
+            <div class="suggestion"><span>+</span><span>Block two hours of deep work tomorrow</span><span class="kbd">B</span></div>
+            <div class="suggestion"><span>#</span><span>Generate weekly status from GitHub and tasks</span><span class="kbd">G</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="dashboard">
+      <div class="shell">
+        <div class="section-head" data-reveal>
+          <div class="eyebrow"><span class="dot"></span>Dashboard concept</div>
+          <h2>One canvas for tasks, signals, and AI actions.</h2>
+          <p>This sample shows the kind of high-end interface direction that can be created from a sharp prompt and then converted into a usable static portfolio piece.</p>
+        </div>
+        <div class="dash" data-reveal>
+          <div class="chrome">
+            <div class="traffic"><span></span><span></span><span></span></div>
+            <span>nucleus.app / workspace</span>
+          </div>
+          <div class="dash-grid">
+            <div class="panel">
+              <div class="panel-title"><span>Today's tasks</span><span class="kbd">live</span></div>
+              <div class="task"><div class="check"></div><div><strong>Review launch page messaging</strong><span>AI draft ready</span></div><span>9:12</span></div>
+              <div class="task"><div class="check"></div><div><strong>Compile weekly status update</strong><span>4 sources connected</span></div><span>now</span></div>
+              <div class="task"><div class="check"></div><div><strong>Reply to investor intro</strong><span>high priority</span></div><span>10:30</span></div>
+              <div class="task"><div class="check"></div><div><strong>Protect deep-work block</strong><span>notifications paused</span></div><span>2:00</span></div>
+            </div>
+            <div class="panel score">
+              <div>
+                <div class="score-ring"><div>82</div></div>
+                <p style="color:var(--muted); margin-top:1rem;">Productivity signal</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="workflow">
+      <div class="shell">
+        <div class="section-head" data-reveal>
+          <div class="eyebrow"><span class="dot"></span>Workflow concept</div>
+          <h2>Trigger. Reason. Route. Review.</h2>
+          <p>The original Claude test had a strong workflow automation graph. This version keeps the idea visual without pretending there is a live automation backend.</p>
+        </div>
+        <div class="workflow" data-reveal>
+          <div class="edge one"></div>
+          <div class="edge two"></div>
+          <div class="nodes">
+            <div class="node"><small>TRIGGER</small><h3>New email arrives</h3><p>Priority sender or launch-related message enters the system.</p></div>
+            <div class="node ai"><small>AI STEP</small><h3>Classify intent</h3><p>Sorts by urgency, context, and action required.</p></div>
+            <div class="node"><small>ACTION</small><h3>Draft response</h3><p>Creates a tone-matched reply for human review.</p></div>
+            <div class="node"><small>OUTPUT</small><h3>Queue for review</h3><p>Nothing sends automatically. Human approval stays in control.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="shell">
+        <div class="section-head" data-reveal>
+          <div class="eyebrow"><span class="dot"></span>What this proves</div>
+          <h2>A repeatable design workflow, not just one lucky page.</h2>
+        </div>
+        <div class="features">
+          <div class="feature"><h3>Claude creates the visual direction</h3><p>Use a sharp prompt to generate a bold first pass with sections, motion, and components.</p><code>prompt -> concept</code></div>
+          <div class="feature"><h3>Codex packages and hardens it</h3><p>Convert the idea into runnable files, simplify dependencies, fix mobile, and protect scope.</p><code>concept -> page</code></div>
+          <div class="feature"><h3>Alexandria keeps the system</h3><p>Store the prompt, decision, pricing, and QA notes so the workflow improves each time.</p><code>page -> reusable process</code></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="shell final-cta" data-reveal>
+        <div class="eyebrow"><span class="dot"></span>Beta design offer</div>
+        <h2>Want a page like this, but scoped smaller?</h2>
+        <p class="lead" style="margin-left:auto;margin-right:auto;">Start with a two-page portfolio or service site. Beta builds stay intentionally narrow so they can be polished instead of bloated.</p>
+        <div class="hero-actions" style="justify-content:center;">
+          <a class="btn btn-primary" href="mailto:huhcmdpro@gmail.com">Start a beta build</a>
+          <a class="btn btn-ghost" href="../services.html">See the offer</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell footer-inner">
+      <span>Nucleus command-center concept sample</span>
+      <span><a href="../">Home</a> / <a href="../services.html">Services</a></span>
+    </div>
+  </footer>
+
+  <script>
+    const phrases = [
+      "Plan my week around the launch",
+      "Find every note related to onboarding",
+      "Summarize what I missed since Tuesday",
+      "Generate a status update from GitHub"
+    ];
+    let phraseIndex = 0;
+    let charIndex = 0;
+    let deleting = false;
+    const typing = document.getElementById("typing");
+    function tick() {
+      const phrase = phrases[phraseIndex];
+      if (!deleting) {
+        charIndex += 1;
+        if (charIndex >= phrase.length) {
+          deleting = true;
+          setTimeout(tick, 1200);
+          return;
+        }
+      } else {
+        charIndex -= 1;
+        if (charIndex <= 0) {
+          deleting = false;
+          phraseIndex = (phraseIndex + 1) % phrases.length;
+        }
+      }
+      typing.textContent = phrase.slice(0, charIndex) || "Ask Nucleus anything";
+      setTimeout(tick, deleting ? 26 : 52);
+    }
+    tick();
+  </script>
+</body>
+</html>

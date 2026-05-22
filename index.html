@@ -3,1386 +3,674 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Custom landing pages for local businesses, startups, and service providers. Fast delivery, no templates, real results. Starting at $150.">
-  <meta property="og:title" content="huh-cmd — Custom Landing Pages & Web Design">
-  <meta property="og:description" content="Fast, modern landing pages that convert. No Wix, no templates — built from scratch in HTML/CSS. Starting at $150.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://huh-cmd.github.io/future-ai-systems/">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="huh-cmd — Custom Landing Pages">
-  <meta name="twitter:description" content="Fast, modern landing pages that convert. Starting at $150.">
-  <title>huh-cmd — Custom Landing Pages & Web Design</title>
+  <meta name="description" content="Future AI Systems builds simple two-page landing pages for creators, students, and small operators. Beta builds from $35 to $75.">
+  <title>Future AI Systems | Two-Page Landing Pages</title>
   <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    img  { display: block; max-width: 100%; }
-
-    /* ── TOKENS ──────────────────────────────────────────────────── */
     :root {
-      --bg:         #050507;
-      --surface:    #0a0a0f;
-      --surface2:   #0f0f18;
-      --border:     #151522;
-      --border-hi:  #1e1e30;
+      --black: #050505;
+      --ink: #111;
+      --muted: #5d5d5d;
+      --line: #d8d8d8;
+      --soft: #f5f5f3;
+      --paper: #fff;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.12);
+    }
 
-      --purple:     #7c3aed;
-      --purple-l:   #8b5cf6;
-      --violet:     #a855f7;
-      --pink:       #ec4899;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-      --text:       #eeeef4;
-      --text-mid:   #8888aa;
-      --text-dim:   #44445a;
-
-      --glow:       rgba(124,58,237,0.35);
-      --font:       -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--font);
-      font-size: 16px;
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.55;
       overflow-x: hidden;
     }
 
-    /* ── SCROLL ANIMATIONS ───────────────────────────────────────── */
-    [data-reveal] {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1),
-                  transform 0.7s cubic-bezier(0.16,1,0.3,1);
-    }
-    [data-reveal].is-visible { opacity: 1; transform: none; }
-    [data-reveal][data-delay="1"] { transition-delay: 0.08s; }
-    [data-reveal][data-delay="2"] { transition-delay: 0.16s; }
-    [data-reveal][data-delay="3"] { transition-delay: 0.24s; }
-    [data-reveal][data-delay="4"] { transition-delay: 0.32s; }
-    [data-reveal][data-delay="5"] { transition-delay: 0.40s; }
-
-    /* ── GRADIENT TEXT ───────────────────────────────────────────── */
-    .g-text {
-      background: linear-gradient(135deg, var(--purple-l) 0%, var(--violet) 40%, var(--pink) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+    a {
+      color: inherit;
+      text-decoration: none;
     }
 
-    /* ── NAV ─────────────────────────────────────────────────────── */
+    .page {
+      min-height: 100vh;
+      background:
+        linear-gradient(90deg, rgba(0, 0, 0, 0.035) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(0, 0, 0, 0.035) 1px, transparent 1px);
+      background-size: 72px 72px;
+    }
+
+    .wrap {
+      width: min(1120px, calc(100% - 36px));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.9);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(16px);
+    }
+
     nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 200;
-      height: 60px;
+      height: 72px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 2rem;
-      background: rgba(5,5,7,0.7);
-      backdrop-filter: blur(16px) saturate(180%);
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      transition: background 0.3s;
+      gap: 1rem;
     }
 
-    .nav-brand {
-      font-size: 0.95rem;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-      color: var(--text);
-      text-decoration: none;
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-weight: 900;
+      letter-spacing: 0;
     }
 
-    .nav-brand span { color: var(--purple-l); }
+    .mark {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      color: var(--paper);
+      background: var(--black);
+      border-radius: 8px;
+      font-size: 0.78rem;
+    }
 
-    .nav-center {
+    .nav-links {
       display: flex;
-      gap: 2rem;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.93rem;
+      color: var(--muted);
     }
 
-    .nav-center a {
-      font-size: 0.85rem;
-      color: var(--text-mid);
-      text-decoration: none;
-      transition: color 0.2s;
+    .nav-links a {
+      padding: 0.65rem 0.8rem;
+      border-radius: 999px;
+      transition: background 160ms ease, color 160ms ease;
     }
 
-    .nav-center a:hover { color: var(--text); }
+    .nav-links a:hover {
+      color: var(--black);
+      background: var(--soft);
+    }
 
     .nav-cta {
+      color: var(--paper) !important;
+      background: var(--black);
+    }
+
+    .hero {
+      min-height: calc(100vh - 72px);
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.8fr);
+      gap: clamp(2rem, 5vw, 5rem);
+      align-items: center;
+      padding: clamp(3rem, 6vw, 6rem) 0;
+    }
+
+    .eyebrow {
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
-      font-size: 0.82rem;
-      font-weight: 600;
-      padding: 0.5rem 1.1rem;
-      border-radius: 6px;
-      background: var(--purple);
-      color: #fff;
-      text-decoration: none;
-      transition: background 0.2s, box-shadow 0.2s;
+      gap: 0.55rem;
+      margin-bottom: 1.1rem;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
     }
 
-    .nav-cta:hover {
-      background: var(--purple-l);
-      box-shadow: 0 0 16px rgba(124,58,237,0.4);
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 1px;
+      background: var(--black);
     }
 
-    /* ── HERO ────────────────────────────────────────────────────── */
-    .hero {
-      position: relative;
-      min-height: 100vh;
+    h1 {
+      max-width: 770px;
+      font-size: clamp(3rem, 8vw, 7.4rem);
+      line-height: 0.9;
+      letter-spacing: 0;
+      font-weight: 950;
+      overflow-wrap: break-word;
+    }
+
+    .lead {
+      max-width: 650px;
+      margin-top: 1.35rem;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+    }
+
+    .hero-actions {
       display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      margin-top: 2rem;
+    }
+
+    .button {
+      min-height: 48px;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      text-align: center;
-      padding: 7rem 1.5rem 5rem;
-      overflow: hidden;
+      gap: 0.55rem;
+      padding: 0.86rem 1.15rem;
+      border: 1px solid var(--black);
+      border-radius: 999px;
+      font-weight: 850;
+      transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
     }
 
-    /* gradient mesh */
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 80% 60% at 20% 40%, rgba(124,58,237,0.12) 0%, transparent 65%),
-        radial-gradient(ellipse 60% 50% at 80% 20%, rgba(168,85,247,0.08) 0%, transparent 60%),
-        radial-gradient(ellipse 70% 55% at 50% 90%, rgba(236,72,153,0.06) 0%, transparent 65%);
-      pointer-events: none;
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
     }
 
-    /* animated grid */
-    .hero-grid {
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(139,92,246,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(139,92,246,0.04) 1px, transparent 1px);
-      background-size: 72px 72px;
-      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 80%);
+    .button.primary {
+      color: var(--paper);
+      background: var(--black);
     }
 
-    .hero-inner {
+    .button.secondary {
+      color: var(--black);
+      background: var(--paper);
+    }
+
+    .price-panel {
       position: relative;
-      max-width: 860px;
+      padding: clamp(1.4rem, 3vw, 2rem);
+      border: 1px solid var(--black);
+      background: var(--paper);
+      box-shadow: 12px 12px 0 var(--black);
     }
 
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
+    .price-panel::before {
+      content: "BETA";
+      position: absolute;
+      top: -13px;
+      right: 20px;
+      padding: 0.25rem 0.6rem;
+      color: var(--paper);
+      background: var(--black);
       font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+    }
+
+    .panel-label {
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      padding: 0.35rem 0.9rem;
-      border-radius: 20px;
-      border: 1px solid rgba(139,92,246,0.3);
-      background: rgba(124,58,237,0.08);
-      color: var(--violet);
+    }
+
+    .price {
+      margin-top: 1rem;
+      font-size: clamp(3rem, 7vw, 5.8rem);
+      line-height: 0.9;
+      font-weight: 950;
+      letter-spacing: 0;
+    }
+
+    .price span {
+      display: block;
+      margin-top: 0.5rem;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.4;
+      font-weight: 700;
+    }
+
+    .panel-list {
+      display: grid;
+      gap: 0.8rem;
+      margin-top: 1.6rem;
+      padding-top: 1.4rem;
+      border-top: 1px solid var(--line);
+      color: var(--ink);
+      list-style: none;
+    }
+
+    .panel-list li {
+      display: flex;
+      gap: 0.65rem;
+      align-items: flex-start;
+    }
+
+    .panel-list li::before {
+      content: "";
+      flex: 0 0 9px;
+      width: 9px;
+      height: 9px;
+      margin-top: 0.48rem;
+      background: var(--black);
+      border-radius: 999px;
+    }
+
+    section {
+      padding: clamp(4rem, 7vw, 7rem) 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 2rem;
       margin-bottom: 2rem;
     }
 
-    .hero-badge-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--violet);
-      animation: pulse-dot 2s ease-in-out infinite;
+    .section-head h2 {
+      max-width: 650px;
+      font-size: clamp(2rem, 5vw, 4.3rem);
+      line-height: 0.95;
+      letter-spacing: 0;
     }
 
-    @keyframes pulse-dot {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(0.8); }
-    }
-
-    .hero h1 {
-      font-size: clamp(2.75rem, 7vw, 5.5rem);
-      font-weight: 800;
-      letter-spacing: -0.04em;
-      line-height: 1.0;
-      margin-bottom: 1.5rem;
-    }
-
-    .hero-sub {
-      font-size: clamp(1rem, 2vw, 1.2rem);
-      color: var(--text-mid);
-      max-width: 540px;
-      margin: 0 auto 2.75rem;
-      line-height: 1.7;
-    }
-
-    .hero-ctas {
-      display: flex;
-      gap: 0.875rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-bottom: 4rem;
-    }
-
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.95rem;
-      font-weight: 600;
-      padding: 0.85rem 1.75rem;
-      border-radius: 8px;
-      background: var(--purple);
-      color: #fff;
-      text-decoration: none;
-      transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
-      position: relative;
-    }
-
-    .btn-primary:hover {
-      background: var(--purple-l);
-      box-shadow: 0 0 28px rgba(124,58,237,0.5);
-      transform: translateY(-1px);
-    }
-
-    .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.95rem;
-      font-weight: 500;
-      padding: 0.85rem 1.75rem;
-      border-radius: 8px;
-      background: transparent;
-      color: var(--text-mid);
-      text-decoration: none;
-      border: 1px solid var(--border-hi);
-      transition: color 0.2s, border-color 0.2s, transform 0.15s;
-    }
-
-    .btn-secondary:hover {
-      color: var(--text);
-      border-color: var(--purple);
-      transform: translateY(-1px);
-    }
-
-    /* hero trust bar */
-    .hero-trust {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 2.5rem;
-      flex-wrap: wrap;
-    }
-
-    .trust-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.2rem;
-    }
-
-    .trust-num {
-      font-size: 1.5rem;
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      color: var(--text);
-    }
-
-    .trust-label {
-      font-size: 0.75rem;
-      color: var(--text-dim);
-      letter-spacing: 0.04em;
-    }
-
-    .trust-sep {
-      width: 1px;
-      height: 36px;
-      background: var(--border-hi);
-    }
-
-    /* ── LOGOS STRIP ─────────────────────────────────────────────── */
-    .logos-strip {
-      padding: 1.5rem 2rem;
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0;
-      overflow: hidden;
-    }
-
-    .logos-label {
-      font-size: 0.72rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      white-space: nowrap;
-      padding-right: 2rem;
-      border-right: 1px solid var(--border-hi);
-      margin-right: 2rem;
-    }
-
-    .logos-track {
-      display: flex;
-      gap: 2.5rem;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .tech-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-size: 0.78rem;
-      font-weight: 500;
-      color: var(--text-dim);
-      padding: 0.3rem 0.75rem;
-      border-radius: 20px;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      transition: color 0.2s, border-color 0.2s;
-    }
-
-    .tech-pill:hover { color: var(--text-mid); border-color: var(--border-hi); }
-
-    /* ── SERVICES BENTO ──────────────────────────────────────────── */
-    .services {
-      padding: 6rem 2rem;
-    }
-
-    .section-inner { max-width: 1100px; margin: 0 auto; }
-
-    .section-eyebrow {
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--purple-l);
-      margin-bottom: 0.875rem;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-
-    .section-eyebrow::before {
-      content: '';
-      display: block;
-      width: 18px;
-      height: 1px;
-      background: var(--purple-l);
-    }
-
-    .section-title {
-      font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      line-height: 1.1;
-      margin-bottom: 0.875rem;
-    }
-
-    .section-sub {
+    .section-head p {
+      max-width: 390px;
+      color: var(--muted);
       font-size: 1rem;
-      color: var(--text-mid);
-      max-width: 500px;
-      line-height: 1.7;
-      margin-bottom: 3rem;
     }
 
-    /* bento grid */
-    .bento {
+    .grid {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      grid-template-rows: auto auto;
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      overflow: hidden;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
     }
 
-    .bento-card {
-      background: var(--surface);
-      padding: 2rem;
-      position: relative;
-      overflow: hidden;
-      transition: background 0.2s;
-    }
-
-    .bento-card:hover { background: var(--surface2); }
-
-    /* featured card spans two rows */
-    .bento-card.featured {
-      grid-row: 1 / 3;
+    .card {
+      min-height: 230px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      min-height: 360px;
+      padding: 1.35rem;
+      border: 1px solid var(--line);
+      background: var(--paper);
+      transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
     }
 
-    .bento-card::before {
-      content: '';
-      position: absolute;
-      top: 0; right: 0;
-      width: 160px; height: 160px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(124,58,237,0.08), transparent 70%);
-      pointer-events: none;
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: var(--black);
+      box-shadow: var(--shadow);
     }
 
-    .bento-icon {
-      font-size: 2.25rem;
-      margin-bottom: 1.25rem;
-    }
-
-    .bento-title {
-      font-size: 1.2rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.5rem;
-    }
-
-    .bento-desc {
-      font-size: 0.875rem;
-      color: var(--text-mid);
-      line-height: 1.65;
-      margin-bottom: 1.25rem;
-    }
-
-    .bento-price {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
+    .card-num {
+      color: var(--muted);
       font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--purple-l);
-      background: rgba(124,58,237,0.1);
-      border: 1px solid rgba(124,58,237,0.2);
-      padding: 0.3rem 0.75rem;
-      border-radius: 5px;
+      font-weight: 900;
     }
 
-    .bento-features {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      margin: 1rem 0;
+    .card h3 {
+      margin-top: 2rem;
+      font-size: 1.25rem;
     }
 
-    .bento-features li {
-      font-size: 0.85rem;
-      color: var(--text-mid);
-      display: flex;
-      align-items: flex-start;
-      gap: 0.5rem;
-      line-height: 1.5;
+    .card p {
+      margin-top: 0.8rem;
+      color: var(--muted);
     }
 
-    .bento-features li::before {
-      content: '↗';
-      color: var(--purple-l);
-      font-size: 0.75rem;
-      flex-shrink: 0;
-      margin-top: 0.1rem;
-    }
-
-    .bento-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--purple-l);
-      text-decoration: none;
-      margin-top: auto;
-      transition: gap 0.15s;
-    }
-
-    .bento-link:hover { gap: 0.55rem; }
-
-    /* ── PORTFOLIO SECTION ───────────────────────────────────────── */
-    .portfolio {
-      padding: 6rem 2rem;
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .portfolio-grid {
+    .sample-row {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.25rem;
-      margin-top: 3rem;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 0.72fr);
+      gap: 1.5rem;
+      align-items: stretch;
     }
 
-    .port-card {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 12px;
+    .sample-preview {
+      min-height: 420px;
       overflow: hidden;
-      text-decoration: none;
-      color: inherit;
-      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
-      display: flex;
-      flex-direction: column;
+      border: 1px solid var(--black);
+      background: var(--black);
+      box-shadow: var(--shadow);
     }
 
-    .port-card:hover {
-      border-color: var(--border-hi);
-      transform: translateY(-3px);
-      box-shadow: 0 12px 32px rgba(0,0,0,0.4);
-    }
-
-    .port-preview {
-      height: 180px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3.5rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .port-preview-fitness {
-      background: linear-gradient(135deg, #0d0d0d 0%, #1a1200 50%, #110d00 100%);
-    }
-
-    .port-preview-consult {
-      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 50%, #bfdbfe 100%);
-    }
-
-    .port-preview-music {
-      background: linear-gradient(135deg, #04070f 0%, #080d1a 60%, #050c1e 100%);
-    }
-
-    .port-preview-restaurant {
-      background: linear-gradient(135deg, #110a06 0%, #1a100a 50%, #221408 100%);
-    }
-
-    .port-tag {
-      position: absolute;
-      bottom: 0.75rem;
-      left: 0.75rem;
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 0.25rem 0.6rem;
-      border-radius: 4px;
-    }
-
-    .tag-fitness { background: rgba(245,158,11,0.15); color: #f59e0b; border: 1px solid rgba(245,158,11,0.25); }
-    .tag-consult { background: rgba(37,99,235,0.1); color: #1d4ed8; border: 1px solid rgba(37,99,235,0.2); }
-    .tag-music   { background: rgba(59,130,246,0.15); color: #60a5fa; border: 1px solid rgba(59,130,246,0.25); }
-    .tag-rest    { background: rgba(249,115,22,0.12); color: #fb923c; border: 1px solid rgba(249,115,22,0.25); }
-
-    .port-body { padding: 1.25rem 1.5rem 1.5rem; flex: 1; display: flex; flex-direction: column; gap: 0.4rem; }
-    .port-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim); }
-    .port-title { font-size: 1rem; font-weight: 700; letter-spacing: -0.01em; }
-    .port-desc  { font-size: 0.82rem; color: var(--text-mid); line-height: 1.55; margin-top: 0.2rem; }
-
-    .port-footer {
-      margin-top: auto;
-      padding-top: 1rem;
-      border-top: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .port-view {
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: var(--purple-l);
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
-      transition: gap 0.15s;
-    }
-
-    .port-card:hover .port-view { gap: 0.5rem; }
-
-    .port-live-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #10b981;
-      animation: pulse-dot 2s ease-in-out infinite;
-    }
-
-    .port-live-text { font-size: 0.7rem; color: #10b981; font-weight: 500; }
-
-    /* ── PROCESS SECTION ─────────────────────────────────────────── */
-    .process {
-      padding: 6rem 2rem;
-    }
-
-    .process-steps {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
-      margin-top: 3.5rem;
-      position: relative;
-    }
-
-    .process-steps::before {
-      content: '';
-      position: absolute;
-      top: 28px;
-      left: calc(16.67% + 16px);
-      right: calc(16.67% + 16px);
-      height: 1px;
-      background: linear-gradient(90deg, var(--purple) 0%, var(--pink) 100%);
-      opacity: 0.3;
-    }
-
-    .process-step {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      position: relative;
-    }
-
-    .step-num {
-      width: 56px;
-      height: 56px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.1rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      background: var(--surface2);
-      border: 1px solid var(--border-hi);
-      color: var(--purple-l);
-      position: relative;
-      z-index: 1;
-    }
-
-    .step-title { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.01em; }
-    .step-desc  { font-size: 0.875rem; color: var(--text-mid); line-height: 1.65; }
-
-    /* ── STACK SECTION ───────────────────────────────────────────── */
-    .stack {
-      padding: 6rem 2rem;
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .stack-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-      margin-top: 2.5rem;
-    }
-
-    .stack-tag {
-      font-size: 0.82rem;
-      color: var(--text-mid);
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 0.45rem 0.9rem;
-      transition: color 0.2s, border-color 0.2s, background 0.2s;
-      cursor: default;
-    }
-
-    .stack-tag:hover {
-      color: var(--text);
-      border-color: var(--purple);
-      background: rgba(124,58,237,0.06);
-    }
-
-    .stack-tag.highlight {
-      color: var(--purple-l);
-      border-color: rgba(124,58,237,0.3);
-      background: rgba(124,58,237,0.08);
-    }
-
-    /* ── ABOUT SECTION ───────────────────────────────────────────── */
-    .about {
-      padding: 6rem 2rem;
-    }
-
-    .about-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: center;
-    }
-
-    .about-visual {
-      aspect-ratio: 4/3;
-      border-radius: 14px;
-      background: var(--surface2);
-      border: 1px solid var(--border-hi);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .about-visual::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 70% 60% at 30% 30%, rgba(124,58,237,0.1), transparent 60%),
-        radial-gradient(ellipse 60% 50% at 70% 70%, rgba(168,85,247,0.07), transparent 60%);
-    }
-
-    .about-visual-icon {
-      font-size: 3.5rem;
-      position: relative;
-      z-index: 1;
-    }
-
-    .about-visual-label {
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      position: relative;
-      z-index: 1;
-    }
-
-    /* terminal snippet */
-    .about-terminal {
-      position: absolute;
-      bottom: 1rem;
-      left: 1rem;
-      right: 1rem;
-      background: rgba(5,5,7,0.9);
-      border: 1px solid var(--border-hi);
-      border-radius: 8px;
-      padding: 0.75rem 1rem;
-      font-family: 'SF Mono', 'Fira Code', monospace;
-      font-size: 0.72rem;
-      color: var(--text-mid);
-      z-index: 2;
-    }
-
-    .term-line { display: flex; gap: 0.5rem; align-items: center; }
-    .term-prompt { color: var(--purple-l); }
-    .term-cmd { color: var(--text); }
-    .term-out { color: #10b981; }
-
-    .about-body { display: flex; flex-direction: column; gap: 1.5rem; }
-
-    .about-text {
-      font-size: 1rem;
-      color: var(--text-mid);
-      line-height: 1.8;
-    }
-
-    .about-text strong { color: var(--text); font-weight: 600; }
-
-    .about-stat-row {
-      display: flex;
-      gap: 2rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid var(--border);
-    }
-
-    .about-stat { display: flex; flex-direction: column; gap: 0.2rem; }
-    .about-stat-num { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.03em; }
-    .about-stat-label { font-size: 0.75rem; color: var(--text-dim); }
-
-    /* ── CTA SECTION ─────────────────────────────────────────────── */
-    .cta-section {
-      padding: 7rem 2rem;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .cta-section::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 80% 60% at 50% 100%, rgba(124,58,237,0.1), transparent 70%);
+    .sample-preview iframe {
+      width: 140%;
+      height: 620px;
+      border: 0;
+      transform: scale(0.72);
+      transform-origin: top left;
       pointer-events: none;
     }
 
-    .cta-inner { position: relative; max-width: 640px; margin: 0 auto; }
-
-    .cta-inner h2 {
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      font-weight: 800;
-      letter-spacing: -0.035em;
-      line-height: 1.05;
-      margin-bottom: 1.25rem;
-    }
-
-    .cta-inner p {
-      font-size: 1.05rem;
-      color: var(--text-mid);
-      margin-bottom: 2.5rem;
-      line-height: 1.7;
-    }
-
-    .cta-buttons {
+    .sample-copy {
       display: flex;
-      gap: 1rem;
+      flex-direction: column;
       justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .contact-form { text-align: left; margin-top: 0.5rem; }
-
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.75rem;
-      margin-bottom: 0.75rem;
-    }
-
-    .form-group { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 0.75rem; }
-    .form-group:last-of-type { margin-bottom: 0; }
-
-    .form-group label {
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: var(--text-mid);
-      letter-spacing: 0.05em;
-    }
-
-    .form-group input,
-    .form-group textarea,
-    .form-group select {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 0.7rem 0.9rem;
-      color: var(--text);
-      font-size: 0.88rem;
-      font-family: var(--font);
-      outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
-      width: 100%;
-      appearance: none;
-      -webkit-appearance: none;
-    }
-
-    .form-group input:focus,
-    .form-group textarea:focus,
-    .form-group select:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(124,58,237,0.12);
-    }
-
-    .form-group input::placeholder,
-    .form-group textarea::placeholder { color: var(--text-dim); }
-
-    .form-group textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
-
-    .form-group select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238888aa' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.75rem center; padding-right: 2rem; cursor: pointer; }
-
-    .form-group option { background: #0a0a0f; color: var(--text); }
-
-    .form-submit {
-      width: 100%;
-      justify-content: center;
-      margin-top: 1rem;
-      padding: 0.9rem;
-    }
-
-    .form-thank {
-      display: none;
-      text-align: center;
       padding: 1.5rem;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: var(--soft);
+    }
+
+    .sample-copy h3 {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      line-height: 1;
+    }
+
+    .sample-copy p {
       margin-top: 1rem;
+      color: var(--muted);
     }
 
-    .form-thank.visible { display: block; }
-    .form-thank strong { color: var(--text); display: block; margin-bottom: 0.4rem; }
-    .form-thank span { color: var(--text-mid); font-size: 0.88rem; }
-
-    @media (max-width: 600px) {
-      .form-row { grid-template-columns: 1fr; }
+    .process {
+      counter-reset: steps;
     }
 
-    /* ── FOOTER ──────────────────────────────────────────────────── */
+    .steps {
+      display: grid;
+      gap: 0;
+      border: 1px solid var(--black);
+      background: var(--paper);
+    }
+
+    .step {
+      counter-increment: steps;
+      display: grid;
+      grid-template-columns: 90px minmax(0, 1fr);
+      gap: 1rem;
+      padding: 1.2rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .step:last-child {
+      border-bottom: 0;
+    }
+
+    .step::before {
+      content: counter(steps, decimal-leading-zero);
+      color: var(--muted);
+      font-weight: 950;
+    }
+
+    .step h3 {
+      font-size: 1rem;
+    }
+
+    .step p {
+      margin-top: 0.25rem;
+      color: var(--muted);
+    }
+
+    .final {
+      color: var(--paper);
+      background: var(--black);
+    }
+
+    .final .wrap {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .final h2 {
+      max-width: 760px;
+      font-size: clamp(2.4rem, 6vw, 5.8rem);
+      line-height: 0.93;
+      letter-spacing: 0;
+    }
+
+    .final p {
+      max-width: 620px;
+      margin-top: 1rem;
+      color: #cfcfcf;
+    }
+
+    .final .button {
+      color: var(--black);
+      background: var(--paper);
+      border-color: var(--paper);
+    }
+
     footer {
-      border-top: 1px solid var(--border);
-      padding: 1.75rem 2rem;
+      padding: 1.3rem 0;
+      color: var(--muted);
+      background: var(--black);
+      border-top: 1px solid #202020;
+      font-size: 0.88rem;
+    }
+
+    footer .wrap {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
       gap: 1rem;
+      flex-wrap: wrap;
     }
 
-    .footer-left { font-size: 0.82rem; color: var(--text-dim); }
-    .footer-left a { color: var(--text-dim); text-decoration: none; }
-    .footer-left a:hover { color: var(--text); }
+    @media (max-width: 880px) {
+      .hero,
+      .sample-row,
+      .final .wrap,
+      .section-head {
+        grid-template-columns: 1fr;
+      }
 
-    .footer-links {
-      display: flex;
-      gap: 1.75rem;
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .sample-preview {
+        min-height: 310px;
+      }
+
+      .sample-preview iframe {
+        width: 170%;
+        height: 560px;
+        transform: scale(0.58);
+      }
     }
 
-    .footer-links a {
-      font-size: 0.82rem;
-      color: var(--text-dim);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
+    @media (max-width: 620px) {
+      .wrap {
+        width: min(100% - 28px, 1120px);
+      }
 
-    .footer-links a:hover { color: var(--text); }
+      nav {
+        height: auto;
+        padding: 0.85rem 0;
+        align-items: flex-start;
+        flex-direction: column;
+      }
 
-    /* ── MOBILE ──────────────────────────────────────────────────── */
-    @media (max-width: 860px) {
-      nav { padding: 0 1.25rem; }
-      .nav-center { display: none; }
+      .nav-links {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 0.15rem;
+      }
 
-      .hero { padding: 6rem 1.25rem 4rem; }
-      .hero h1 { font-size: 2.5rem; }
+      h1 {
+        font-size: 2.7rem;
+        line-height: 0.98;
+      }
 
-      .logos-strip { flex-direction: column; gap: 0.875rem; }
-      .logos-label { border-right: none; border-bottom: 1px solid var(--border-hi); padding-right: 0; padding-bottom: 0.75rem; margin-right: 0; margin-bottom: 0; }
+      .price-panel {
+        box-shadow: 8px 8px 0 var(--black);
+      }
 
-      .bento { grid-template-columns: 1fr; }
-      .bento-card.featured { grid-row: auto; min-height: auto; }
-      .process-steps { grid-template-columns: 1fr; }
-      .process-steps::before { display: none; }
-      .portfolio-grid { grid-template-columns: 1fr; }
-      .about-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .button {
+        width: 100%;
+      }
 
-      .services, .portfolio, .process, .stack, .about, .cta-section { padding: 4rem 1.25rem; }
-
-      footer { flex-direction: column; text-align: center; }
+      .step {
+        grid-template-columns: 52px minmax(0, 1fr);
+      }
     }
   </style>
 </head>
 <body>
-
-  <!-- NAV -->
-  <nav>
-    <a href="/" class="nav-brand">huh<span>-cmd</span></a>
-    <div class="nav-center">
-      <a href="#services">Services</a>
-      <a href="#portfolio">Work</a>
-      <a href="#process">Process</a>
-      <a href="#contact">Contact</a>
-    </div>
-    <a href="mailto:jeffe5196@gmail.com" class="nav-cta">
-      Hire Me
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-    </a>
-  </nav>
-
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-grid"></div>
-    <div class="hero-inner">
-      <div class="hero-badge" data-reveal>
-        <span class="hero-badge-dot"></span>
-        Available for freelance work
+  <div class="page">
+    <header>
+      <div class="wrap">
+        <nav aria-label="Primary navigation">
+          <a class="brand" href="./">
+            <span class="mark">FA</span>
+            <span>Future AI Systems</span>
+          </a>
+          <div class="nav-links">
+            <a href="#offer">Offer</a>
+            <a href="#sample">Sample</a>
+            <a href="services.html">Pricing</a>
+            <a class="nav-cta" href="mailto:huhcmdpro@gmail.com?subject=Two-page landing page">Start</a>
+          </div>
+        </nav>
       </div>
-      <h1 data-reveal data-delay="1">
-        Web builds that<br>
-        <span class="g-text">actually convert.</span>
-      </h1>
-      <p class="hero-sub" data-reveal data-delay="2">
-        Custom HTML/CSS/JS — no page builders, no templates. AI-powered speed, developer-quality output. Landing pages, automation, consulting.
-      </p>
-      <div class="hero-ctas" data-reveal data-delay="3">
-        <a href="./clients/" class="btn-primary">
-          View Portfolio
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-        <a href="mailto:jeffe5196@gmail.com" class="btn-secondary">Get a Quote</a>
-      </div>
-      <div class="hero-trust" data-reveal data-delay="4">
-        <div class="trust-item">
-          <span class="trust-num">&lt;3s</span>
-          <span class="trust-label">Load time</span>
-        </div>
-        <div class="trust-sep"></div>
-        <div class="trust-item">
-          <span class="trust-num">100%</span>
-          <span class="trust-label">Mobile responsive</span>
-        </div>
-        <div class="trust-sep"></div>
-        <div class="trust-item">
-          <span class="trust-num">$150</span>
-          <span class="trust-label">Starting price</span>
-        </div>
-        <div class="trust-sep"></div>
-        <div class="trust-item">
-          <span class="trust-num">3 days</span>
-          <span class="trust-label">Typical turnaround</span>
-        </div>
-      </div>
-    </div>
-  </section>
+    </header>
 
-  <!-- LOGOS STRIP -->
-  <div class="logos-strip">
-    <span class="logos-label">Built with</span>
-    <div class="logos-track">
-      <span class="tech-pill">Claude API</span>
-      <span class="tech-pill">HTML / CSS / JS</span>
-      <span class="tech-pill">Python</span>
-      <span class="tech-pill">GitHub Pages</span>
-      <span class="tech-pill">FastAPI</span>
-      <span class="tech-pill">Playwright</span>
-      <span class="tech-pill">Claude Code</span>
-    </div>
-  </div>
-
-  <!-- SERVICES BENTO -->
-  <section class="services" id="services">
-    <div class="section-inner">
-      <p class="section-eyebrow" data-reveal>What I Build</p>
-      <h2 class="section-title" data-reveal data-delay="1">One developer.<br>Three specializations.</h2>
-      <p class="section-sub" data-reveal data-delay="2">Fast turnaround without cutting corners. Every project is coded by hand — no page builders, no templates, no mystery boxes.</p>
-
-      <div class="bento" data-reveal data-delay="3">
-
-        <!-- Featured: Landing Pages -->
-        <div class="bento-card featured">
+    <main>
+      <div class="wrap">
+        <section class="hero" aria-labelledby="hero-title">
           <div>
-            <div class="bento-icon">⚡</div>
-            <h3 class="bento-title">Custom Landing Pages</h3>
-            <p class="bento-desc">Hand-coded HTML/CSS/JS. Mobile-first, loads under 3 seconds, built for your specific audience and conversion goal — not a template reskin.</p>
-            <ul class="bento-features">
-              <li>Hero, services, social proof, pricing, CTA — every section written for your audience</li>
-              <li>Mobile layout at 375px and 768px — tested, not assumed</li>
-              <li>Source files delivered + GitHub Pages deploy if needed</li>
-              <li>One revision round included. Turnaround: 2–4 days.</li>
+            <p class="eyebrow">Simple public pages</p>
+            <h1 id="hero-title">Landing pages that look sharp and stay small.</h1>
+            <p class="lead">Two-page landing pages for creators, students, and small operators who need a clean public presence without a big agency scope.</p>
+            <div class="hero-actions">
+              <a class="button primary" href="services.html">See pricing</a>
+              <a class="button secondary" href="samples/nucleus-command-center.html">View Nucleus sample</a>
+            </div>
+          </div>
+
+          <aside class="price-panel" aria-label="Current beta offer">
+            <p class="panel-label">Current offer</p>
+            <div class="price">$35-$75<span>Beta price for focused two-page landing pages.</span></div>
+            <ul class="panel-list">
+              <li>Homepage plus offer page.</li>
+              <li>Mobile responsive layout.</li>
+              <li>Clean black and white design.</li>
+              <li>GitHub Pages-ready handoff.</li>
             </ul>
+          </aside>
+        </section>
+      </div>
+
+      <section id="offer">
+        <div class="wrap">
+          <div class="section-head">
+            <h2>One clear service. No fake proof.</h2>
+            <p>The first public version is intentionally narrow. The page sells landing pages, shows one sample, and avoids inflated claims.</p>
           </div>
+
+          <div class="grid">
+            <article class="card">
+              <div class="card-num">01</div>
+              <div>
+                <h3>Landing page</h3>
+                <p>A focused page that explains who it is for, what is offered, and how to take the next step.</p>
+              </div>
+            </article>
+            <article class="card">
+              <div class="card-num">02</div>
+              <div>
+                <h3>Pricing page</h3>
+                <p>A second page for the package, timeline, included work, and boundaries so the offer stays easy to understand.</p>
+              </div>
+            </article>
+            <article class="card">
+              <div class="card-num">03</div>
+              <div>
+                <h3>Portfolio sample</h3>
+                <p>One polished sample page stays linked so visitors can quickly judge the design direction.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="sample">
+        <div class="wrap">
+          <div class="section-head">
+            <h2>Portfolio is one click away.</h2>
+            <p>The old sample pages were removed. The Nucleus concept is the only current portfolio piece until the next strong sample is ready.</p>
+          </div>
+
+          <div class="sample-row">
+            <div class="sample-preview" aria-hidden="true">
+              <iframe src="samples/nucleus-command-center.html" title="Nucleus AI command center sample preview" loading="lazy"></iframe>
+            </div>
+            <div class="sample-copy">
+              <p class="eyebrow">Current sample</p>
+              <h3>Nucleus AI command center</h3>
+              <p>A visual landing-page concept built from a Claude design test and hardened into a static responsive web page.</p>
+              <div class="hero-actions">
+                <a class="button primary" href="samples/nucleus-command-center.html">Open sample</a>
+                <a class="button secondary" href="services.html">See the offer</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="process" id="process">
+        <div class="wrap">
+          <div class="section-head">
+            <h2>Simple build process.</h2>
+            <p>Small scope keeps the work realistic while the account is new and the portfolio is still growing.</p>
+          </div>
+
+          <div class="steps">
+            <div class="step">
+              <div>
+                <h3>Pick the goal</h3>
+                <p>Creator page, student profile, small service page, or simple public offer.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div>
+                <h3>Write the copy</h3>
+                <p>Clear headline, proof that is real, service boundaries, and contact path.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div>
+                <h3>Build the pages</h3>
+                <p>Two responsive static pages with clean code and no backend dependency.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div>
+                <h3>Hand off</h3>
+                <p>Files are ready for GitHub Pages or another simple static host.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="final">
+        <div class="wrap">
           <div>
-            <div class="bento-price">Starting at $150</div>
-            <br>
-            <a href="./clients/" class="bento-link">
-              See portfolio
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
+            <h2>Need a simple page that looks finished?</h2>
+            <p>Send the goal, the text you already have, and any visual references. I will keep the scope focused so the page can actually ship.</p>
           </div>
+          <a class="button" href="mailto:huhcmdpro@gmail.com?subject=Two-page landing page">Email about a build</a>
         </div>
+      </section>
+    </main>
 
-        <!-- AI Workflow -->
-        <div class="bento-card">
-          <div class="bento-icon">🤖</div>
-          <h3 class="bento-title">AI Workflow Automation</h3>
-          <p class="bento-desc">Python scripts and Claude API pipelines that replace manual, repetitive work. Input → process → output. Delivered with clear documentation.</p>
-          <div class="bento-price">Starting at $500</div>
-        </div>
-
-        <!-- Consulting -->
-        <div class="bento-card">
-          <div class="bento-icon">🎯</div>
-          <h3 class="bento-title">Claude Code Consulting</h3>
-          <p class="bento-desc">Hands-on guidance for teams using Claude Code, building with the Anthropic API, or setting up AI workflows. Practical help, not theory.</p>
-          <div class="bento-price">$125 / hr</div>
-        </div>
-
-        <!-- Turnaround guarantee -->
-        <div class="bento-card">
-          <div class="bento-icon">📦</div>
-          <h3 class="bento-title">What you always get</h3>
-          <ul class="bento-features" style="margin:0;">
-            <li>Source files — yours to keep forever</li>
-            <li>Tested in Chrome, Firefox, and Safari</li>
-            <li>No lorem ipsum — real copy, real content</li>
-            <li>Free deploy to GitHub Pages on request</li>
-          </ul>
-        </div>
-
+    <footer>
+      <div class="wrap">
+        <span>Future AI Systems</span>
+        <span>Two-page landing pages. Beta $35-$75.</span>
       </div>
-    </div>
-  </section>
-
-  <!-- PORTFOLIO -->
-  <section class="portfolio" id="portfolio">
-    <div class="section-inner">
-      <p class="section-eyebrow" data-reveal>Portfolio</p>
-      <h2 class="section-title" data-reveal data-delay="1">Four industries.<br>Four different approaches.</h2>
-      <p class="section-sub" data-reveal data-delay="2">Each page is built for a specific audience and conversion goal. No shared components, no recycled layouts.</p>
-
-      <div class="portfolio-grid">
-
-        <a class="port-card" href="./clients/marcus-webb/" data-reveal data-delay="1">
-          <div class="port-preview port-preview-fitness">
-            💪
-            <span class="port-tag tag-fitness">Dark / Fitness</span>
-          </div>
-          <div class="port-body">
-            <span class="port-label">Landing Page</span>
-            <h3 class="port-title">Jake Mitchell — Personal Training</h3>
-            <p class="port-desc">Dark amber palette, pricing tiers, testimonials, strong CTA above the fold. Built for local fitness professionals.</p>
-            <div class="port-footer">
-              <span class="port-view">View page <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-              <div style="display:flex;align-items:center;gap:0.35rem;"><span class="port-live-dot"></span><span class="port-live-text">Live</span></div>
-            </div>
-          </div>
-        </a>
-
-        <a class="port-card" href="./clients/priya-sharma/" data-reveal data-delay="2">
-          <div class="port-preview port-preview-consult">
-            📊
-            <span class="port-tag tag-consult">Light / Consulting</span>
-          </div>
-          <div class="port-body">
-            <span class="port-label">Landing Page</span>
-            <h3 class="port-title">Sarah Brooks — Business Strategy</h3>
-            <p class="port-desc">Light blue palette, authority stats, service tiers, testimonials. Built for consultants and coaches.</p>
-            <div class="port-footer">
-              <span class="port-view">View page <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-              <div style="display:flex;align-items:center;gap:0.35rem;"><span class="port-live-dot"></span><span class="port-live-text">Live</span></div>
-            </div>
-          </div>
-        </a>
-
-        <a class="port-card" href="./clients/kai-rivers/" data-reveal data-delay="3">
-          <div class="port-preview port-preview-music">
-            🎧
-            <span class="port-tag tag-music">Dark / Music</span>
-          </div>
-          <div class="port-body">
-            <span class="port-label">Artist Website</span>
-            <h3 class="port-title">Kai Rivers — Indie Electronic</h3>
-            <p class="port-desc">Atmospheric navy palette, animated waveform, discography, tour dates, and press section. Built for music artists.</p>
-            <div class="port-footer">
-              <span class="port-view">View page <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-              <div style="display:flex;align-items:center;gap:0.35rem;"><span class="port-live-dot"></span><span class="port-live-text">Live</span></div>
-            </div>
-          </div>
-        </a>
-
-        <a class="port-card" href="./clients/ember-kitchen/" data-reveal data-delay="4">
-          <div class="port-preview port-preview-restaurant">
-            🔥
-            <span class="port-tag tag-rest">Warm / Restaurant</span>
-          </div>
-          <div class="port-body">
-            <span class="port-label">Landing Page</span>
-            <h3 class="port-title">Ember Kitchen — Wood-Fired Grill</h3>
-            <p class="port-desc">Warm charcoal palette, menu grid, hours, private events, reservation CTA. Built for restaurants and food businesses.</p>
-            <div class="port-footer">
-              <span class="port-view">View page <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-              <div style="display:flex;align-items:center;gap:0.35rem;"><span class="port-live-dot"></span><span class="port-live-text">Live</span></div>
-            </div>
-          </div>
-        </a>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- PROCESS -->
-  <section class="process" id="process">
-    <div class="section-inner">
-      <p class="section-eyebrow" data-reveal>How It Works</p>
-      <h2 class="section-title" data-reveal data-delay="1">Brief to live in<br>under a week.</h2>
-      <p class="section-sub" data-reveal data-delay="2">No discovery calls required. Eight intake questions, one build, one revision round, done.</p>
-
-      <div class="process-steps">
-        <div class="process-step" data-reveal data-delay="1">
-          <div class="step-num">01</div>
-          <h3 class="step-title">Brief</h3>
-          <p class="step-desc">Eight focused questions about your audience, goal, and visual direction. Takes you 5 minutes. Saves us both 2 hours of back-and-forth.</p>
-        </div>
-        <div class="process-step" data-reveal data-delay="2">
-          <div class="step-num">02</div>
-          <h3 class="step-title">Build</h3>
-          <p class="step-desc">I write the code. Real copy, real content, real layout decisions made for your audience — not a template with names swapped out.</p>
-        </div>
-        <div class="process-step" data-reveal data-delay="3">
-          <div class="step-num">03</div>
-          <h3 class="step-title">Ship</h3>
-          <p class="step-desc">Live URL, source files, and one revision round. GitHub Pages deploy included. You own everything — no subscriptions, no lock-in.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- STACK -->
-  <section class="stack" id="stack">
-    <div class="section-inner">
-      <p class="section-eyebrow" data-reveal>Tech Stack</p>
-      <h2 class="section-title" data-reveal data-delay="1">What I'm actively<br>working with.</h2>
-      <div class="stack-grid" data-reveal data-delay="2">
-        <span class="stack-tag highlight">Claude / Claude Code</span>
-        <span class="stack-tag highlight">Anthropic API</span>
-        <span class="stack-tag">HTML5 / CSS3</span>
-        <span class="stack-tag">Vanilla JavaScript</span>
-        <span class="stack-tag">Python 3</span>
-        <span class="stack-tag">FastAPI</span>
-        <span class="stack-tag highlight">Prompt Engineering</span>
-        <span class="stack-tag">Ollama / Local AI</span>
-        <span class="stack-tag">Git / GitHub</span>
-        <span class="stack-tag">GitHub Pages</span>
-        <span class="stack-tag highlight">AI Agent Coordination</span>
-        <span class="stack-tag">Playwright</span>
-        <span class="stack-tag">PowerShell</span>
-        <span class="stack-tag">CSS Grid / Flexbox</span>
-        <span class="stack-tag">Intersection Observer API</span>
-        <span class="stack-tag highlight">Workflow Automation</span>
-        <span class="stack-tag">Markdown Systems</span>
-        <span class="stack-tag">REST APIs</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- ABOUT -->
-  <section class="about" id="about">
-    <div class="about-inner">
-      <div class="about-visual" data-reveal>
-        <div class="about-visual-icon">🧠</div>
-        <span class="about-visual-label">AI-assisted development</span>
-        <div class="about-terminal">
-          <div class="term-line">
-            <span class="term-prompt">$</span>
-            <span class="term-cmd">claude --model sonnet-4</span>
-          </div>
-          <div class="term-line" style="margin-top:4px;">
-            <span class="term-out">✓ Context loaded · Ready to build</span>
-          </div>
-        </div>
-      </div>
-      <div class="about-body">
-        <div>
-          <p class="section-eyebrow" data-reveal>About</p>
-          <h2 class="section-title" data-reveal data-delay="1">A developer who uses<br>AI the right way.</h2>
-        </div>
-        <p class="about-text" data-reveal data-delay="2">
-          I use <strong>Claude Code</strong> as a force multiplier — not a replacement for knowing what I'm doing. Every line of code gets reviewed, every design decision gets made deliberately, every delivery gets tested before it ships.
-          <br><br>
-          The result: <strong>projects that used to take a week get done in two days</strong>, without the quality drop that comes from moving fast and breaking things.
-        </p>
-        <div class="about-stat-row" data-reveal data-delay="3">
-          <div class="about-stat">
-            <span class="about-stat-num g-text">3 days</span>
-            <span class="about-stat-label">Avg. turnaround</span>
-          </div>
-          <div class="about-stat">
-            <span class="about-stat-num g-text">$150</span>
-            <span class="about-stat-label">Landing page start</span>
-          </div>
-          <div class="about-stat">
-            <span class="about-stat-num g-text">100%</span>
-            <span class="about-stat-label">Hand-coded</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="cta-section" id="contact">
-    <div class="cta-inner">
-      <h2 data-reveal>
-        Ready to build<br>
-        <span class="g-text">something real?</span>
-      </h2>
-      <p data-reveal data-delay="1">Tell me about your project. I'll reply with a scope and price within 24 hours — no calls required to get started.</p>
-
-      <form class="contact-form" id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" data-reveal data-delay="2">
-        <div class="form-row">
-          <div class="form-group">
-            <label for="cf-name">Your name</label>
-            <input type="text" id="cf-name" name="name" placeholder="Jane Smith" required>
-          </div>
-          <div class="form-group">
-            <label for="cf-email">Email address</label>
-            <input type="email" id="cf-email" name="email" placeholder="jane@example.com" required>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="cf-type">Project type</label>
-          <select id="cf-type" name="project_type">
-            <option value="">— Select —</option>
-            <option value="landing-page">Landing page</option>
-            <option value="restaurant">Restaurant page</option>
-            <option value="fitness">Fitness / trainer page</option>
-            <option value="music">Music artist page</option>
-            <option value="consulting">Consulting / coaching page</option>
-            <option value="other">Something else</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="cf-message">Tell me about your project</label>
-          <textarea id="cf-message" name="message" placeholder="What does your business do? What's the goal of the page? Any reference sites you like?" required></textarea>
-        </div>
-        <button type="submit" class="btn-primary form-submit">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
-          Send message
-        </button>
-        <div class="form-thank" id="form-thank">
-          <strong>Got it — thanks.</strong>
-          <span>I'll reply within 24 hours with a scope and price. Check your inbox.</span>
-        </div>
-      </form>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <span class="footer-left">
-      huh-cmd · Custom HTML/CSS/JS · <a href="./clients/">Portfolio</a>
-    </span>
-    <div class="footer-links">
-      <a href="mailto:jeffe5196@gmail.com">Email</a>
-      <a href="https://github.com/huh-cmd" target="_blank" rel="noopener">GitHub</a>
-      <a href="https://www.upwork.com" target="_blank" rel="noopener">Upwork</a>
-    </div>
-  </footer>
-
-  <!-- SCROLL ANIMATIONS -->
-  <script>
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            e.target.classList.add('is-visible');
-            observer.unobserve(e.target);
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
-    );
-
-    document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
-
-    const form = document.getElementById('contact-form');
-    if (form) {
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const btn = form.querySelector('button[type="submit"]');
-        btn.disabled = true;
-        btn.textContent = 'Sending…';
-        const res = await fetch(form.action, {
-          method: 'POST',
-          body: new FormData(form),
-          headers: { 'Accept': 'application/json' }
-        });
-        if (res.ok) {
-          form.reset();
-          document.getElementById('form-thank').classList.add('visible');
-          btn.style.display = 'none';
-        } else {
-          btn.disabled = false;
-          btn.textContent = 'Try again';
-        }
-      });
-    }
-  </script>
-
+    </footer>
+  </div>
 </body>
 </html>

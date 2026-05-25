@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How It Works — Future AI Systems</title>
+  <meta name="description" content="The AI operating system behind Future AI Systems. Real tools, real data, real process.">
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --surface: #111;
+      --border: #1e1e1e;
+      --border-bright: #2a2a2a;
+      --text: #e8e8e8;
+      --muted: #666;
+      --accent: #7c6af5;
+      --accent-dim: rgba(124,106,245,0.12);
+      --green: #22c55e;
+      --yellow: #eab308;
+      --red: #ef4444;
+      --mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* Nav */
+    nav {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(10,10,10,0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 clamp(16px, 5vw, 48px);
+      height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { font-weight: 600; font-size: 0.9rem; color: var(--text); letter-spacing: 0.02em; }
+    .nav-links { display: flex; gap: 24px; }
+    .nav-links a { color: var(--muted); font-size: 0.85rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); text-decoration: none; }
+
+    /* Layout */
+    .wrap { width: min(900px, calc(100% - 48px)); margin: 0 auto; }
+
+    /* Hero */
+    .hero {
+      padding: clamp(64px, 10vw, 120px) 0 clamp(48px, 8vw, 80px);
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.75rem; font-family: var(--mono);
+      color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .hero-label::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent); flex-shrink: 0;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700; line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+    .hero h1 span { color: var(--accent); }
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      color: var(--muted); max-width: 560px;
+      line-height: 1.7;
+    }
+
+    /* Section */
+    section { padding: clamp(48px, 8vw, 80px) 0; border-bottom: 1px solid var(--border); }
+    section:last-child { border-bottom: none; }
+    .section-label {
+      font-family: var(--mono); font-size: 0.7rem;
+      color: var(--accent); letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 12px;
+    }
+    h2 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 700; line-height: 1.2;
+      letter-spacing: -0.02em; margin-bottom: 16px;
+    }
+    .section-intro {
+      color: var(--muted); font-size: 1rem;
+      max-width: 620px; margin-bottom: 40px; line-height: 1.7;
+    }
+
+    /* Code block */
+    .code-block {
+      background: var(--surface);
+      border: 1px solid var(--border-bright);
+      border-radius: 8px;
+      padding: 20px 24px;
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      line-height: 1.8;
+      color: #a0a0a0;
+      overflow-x: auto;
+    }
+    .code-block .comment { color: #444; }
+    .code-block .key { color: var(--accent); }
+    .code-block .value { color: #7ec99a; }
+    .code-block .arrow { color: var(--muted); }
+
+    /* Agent grid */
+    .agent-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 32px;
+    }
+    .agent-card {
+      background: var(--surface);
+      border: 1px solid var(--border-bright);
+      border-radius: 10px;
+      padding: 20px;
+      transition: border-color 0.2s;
+    }
+    .agent-card:hover { border-color: var(--accent); }
+    .agent-name {
+      font-weight: 700; font-size: 0.95rem;
+      margin-bottom: 4px; display: flex; align-items: center; gap: 8px;
+    }
+    .agent-dot {
+      width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+    }
+    .dot-cloud { background: var(--accent); }
+    .dot-local { background: var(--yellow); }
+    .dot-human { background: var(--green); }
+    .agent-role { font-size: 0.75rem; color: var(--muted); margin-bottom: 12px; }
+    .agent-desc { font-size: 0.82rem; color: #999; line-height: 1.6; }
+
+    /* Tool list */
+    .tool-list { display: flex; flex-direction: column; gap: 0; margin-top: 32px; }
+    .tool-row {
+      display: grid; grid-template-columns: 180px 1fr auto;
+      align-items: start; padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+      gap: 16px;
+    }
+    .tool-row:last-child { border-bottom: none; }
+    .tool-name { font-weight: 600; font-size: 0.9rem; }
+    .tool-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+    .tool-tag {
+      font-family: var(--mono); font-size: 0.7rem;
+      padding: 3px 8px; border-radius: 4px;
+      white-space: nowrap; align-self: start;
+    }
+    .tag-active { background: rgba(34,197,94,0.1); color: var(--green); }
+    .tag-local { background: rgba(234,179,8,0.1); color: var(--yellow); }
+    .tag-cloud { background: var(--accent-dim); color: var(--accent); }
+
+    /* Vault structure */
+    .vault-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 10px; margin-top: 32px;
+    }
+    .vault-folder {
+      background: var(--surface);
+      border: 1px solid var(--border-bright);
+      border-radius: 8px; padding: 14px 16px;
+      font-family: var(--mono); font-size: 0.78rem;
+      color: #888;
+    }
+    .vault-folder strong { display: block; color: var(--text); font-size: 0.8rem; margin-bottom: 4px; }
+
+    /* Stat cards */
+    .stat-row { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 32px; }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border-bright);
+      border-radius: 10px; padding: 20px 24px;
+      flex: 1; min-width: 140px;
+    }
+    .stat-num {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 800; letter-spacing: -0.03em;
+      color: var(--accent); font-family: var(--mono);
+    }
+    .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
+
+    /* Flow diagram */
+    .flow {
+      display: flex; flex-wrap: wrap; align-items: center;
+      gap: 8px; margin-top: 32px;
+    }
+    .flow-step {
+      background: var(--surface);
+      border: 1px solid var(--border-bright);
+      border-radius: 8px; padding: 10px 16px;
+      font-size: 0.82rem;
+    }
+    .flow-arrow { color: var(--muted); font-size: 1.1rem; }
+
+    /* Philosophy list */
+    .phil-list { list-style: none; display: flex; flex-direction: column; gap: 16px; margin-top: 32px; }
+    .phil-list li {
+      display: grid; grid-template-columns: 24px 1fr;
+      gap: 12px; align-items: start;
+    }
+    .phil-num {
+      font-family: var(--mono); font-size: 0.75rem;
+      color: var(--accent); font-weight: 700; padding-top: 2px;
+    }
+    .phil-text { font-size: 0.92rem; line-height: 1.7; }
+    .phil-text strong { color: var(--text); }
+    .phil-text span { color: var(--muted); }
+
+    /* CTA */
+    .cta-section {
+      text-align: center; padding: clamp(64px, 10vw, 100px) 0;
+    }
+    .cta-section h2 { margin-bottom: 16px; }
+    .cta-section p { color: var(--muted); margin-bottom: 32px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 28px; border-radius: 8px;
+      font-size: 0.9rem; font-weight: 600;
+      background: var(--accent); color: #fff;
+      transition: opacity 0.2s;
+    }
+    .btn:hover { opacity: 0.85; text-decoration: none; }
+    .btn-ghost {
+      background: transparent; border: 1px solid var(--border-bright);
+      color: var(--muted); margin-left: 12px;
+    }
+    .btn-ghost:hover { color: var(--text); border-color: var(--accent); }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px clamp(16px, 5vw, 48px);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .footer-left { font-size: 0.8rem; color: var(--muted); }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { font-size: 0.8rem; color: var(--muted); }
+    .footer-links a:hover { color: var(--text); text-decoration: none; }
+
+    /* Reveal animation */
+    [data-reveal] { opacity: 0; transform: translateY(16px); transition: opacity 0.5s, transform 0.5s; }
+    [data-reveal].visible { opacity: 1; transform: none; }
+
+    @media (max-width: 600px) {
+      .tool-row { grid-template-columns: 1fr; }
+      .tool-tag { align-self: unset; }
+      nav .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Future AI Systems</a>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/portfolio/">Portfolio</a>
+    <a href="/stats/">Stats</a>
+    <a href="https://github.com/huh-cmd/future-ai-systems" target="_blank">GitHub</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <div class="hero">
+    <div class="hero-label">System Overview</div>
+    <h1>The AI operating system<br>behind the work</h1>
+    <p>Every page built here runs through a structured AI system — not just a chatbot. This is how it works, what's in the stack, and why it matters for the quality and speed of what gets delivered.</p>
+  </div>
+
+  <!-- Alexandria -->
+  <section data-reveal>
+    <div class="section-label">01 / Core System</div>
+    <h2>Alexandria</h2>
+    <p class="section-intro">Alexandria is a personal AI operating system built on Obsidian. It's not a note-taking app — it's a structured knowledge vault with agent rules, skill files, session logs, project context, and distillations that carry forward across every session. Nothing gets lost between conversations.</p>
+
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="stat-num">91</div>
+        <div class="stat-label">vault files indexed</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">258</div>
+        <div class="stat-label">knowledge chunks (Jarvis)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">14</div>
+        <div class="stat-label">organized folders</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">96.6%</div>
+        <div class="stat-label">memory recall rate</div>
+      </div>
+    </div>
+
+    <div class="vault-grid" style="margin-top:32px">
+      <div class="vault-folder"><strong>DISTILLATIONS/</strong>Core principles, rules that don't change</div>
+      <div class="vault-folder"><strong>PROJECTS/</strong>Active work, tracker, task packets</div>
+      <div class="vault-folder"><strong>SKILLS/</strong>Reusable workflows: design, proposals, copy</div>
+      <div class="vault-folder"><strong>REFERENCE/</strong>Tool guides, logging rules, stack docs</div>
+      <div class="vault-folder"><strong>SESSIONS/</strong>Session handoffs, context continuity</div>
+      <div class="vault-folder"><strong>LOGS/</strong>Token usage, agent log, weekly review</div>
+      <div class="vault-folder"><strong>CONTENT/</strong>Content OS, post archive, research</div>
+      <div class="vault-folder"><strong>TASKS/</strong>Atomic task files, acceptance criteria</div>
+    </div>
+  </section>
+
+  <!-- Agents -->
+  <section data-reveal>
+    <div class="section-label">02 / Agents</div>
+    <h2>Three agents, one director</h2>
+    <p class="section-intro">Alexandria runs a structured multi-agent system. Each agent has defined capabilities, hard limits, and escalation rules. The human is always the director — no agent advances work without sign-off at the decision gates.</p>
+
+    <div class="agent-grid">
+      <div class="agent-card">
+        <div class="agent-name">
+          <span class="agent-dot dot-cloud"></span>
+          Claude
+        </div>
+        <div class="agent-role">Engineer · Architect · Reviewer</div>
+        <div class="agent-desc">Cloud-based, fast. Handles all code, architecture, design, and review. Primary build tool for every landing page. Runs via Claude Code CLI.</div>
+      </div>
+      <div class="agent-card">
+        <div class="agent-name">
+          <span class="agent-dot dot-local"></span>
+          Jarvis
+        </div>
+        <div class="agent-role">Local AI · Vault Retrieval</div>
+        <div class="agent-desc">llama3.2 running locally via Ollama. 100% private — no data leaves the machine. Used for vault queries, context retrieval, and private reasoning. 91 files, 258 chunks indexed.</div>
+      </div>
+      <div class="agent-card">
+        <div class="agent-name">
+          <span class="agent-dot dot-human"></span>
+          Human
+        </div>
+        <div class="agent-role">Director · Decision Maker</div>
+        <div class="agent-desc">Final authority on all decisions. Owns direction, priority, and approval. No AI advances past a decision gate without explicit sign-off.</div>
+      </div>
+    </div>
+
+    <div style="margin-top:32px">
+      <p class="section-intro" style="margin-bottom:20px">Every build follows the same handoff flow:</p>
+      <div class="flow">
+        <div class="flow-step">Human defines task</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">Claude proposes approach</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">Human approves</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">Claude implements</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">Human verifies</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">Deliver</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tools -->
+  <section data-reveal>
+    <div class="section-label">03 / Stack</div>
+    <h2>The tools in active use</h2>
+    <p class="section-intro">No bloat. Every tool on this list solves a specific problem and has earned its place by being used daily. The rule for adding a new tool: what failure does it fix that nothing here already handles?</p>
+
+    <div class="tool-list">
+      <div class="tool-row">
+        <div class="tool-name">Claude Code</div>
+        <div class="tool-desc">Primary build tool. CLI + IDE integration. Every HTML page, every commit, every architectural decision runs through Claude Code with full vault context loaded. Token usage tracked automatically via stop hook.</div>
+        <span class="tool-tag tag-cloud">Cloud</span>
+      </div>
+      <div class="tool-row">
+        <div class="tool-name">Obsidian + Alexandria</div>
+        <div class="tool-desc">Knowledge vault and AI operating system. 14 folders, 91 files. Carries context across sessions so nothing repeats. Agent rules, skill files, project state, and distillations all live here.</div>
+        <span class="tool-tag tag-active">Active</span>
+      </div>
+      <div class="tool-row">
+        <div class="tool-name">OpenJarvis + Ollama</div>
+        <div class="tool-desc">Local AI layer. llama3.2:latest running on CPU. Handles private vault queries without sending data to any cloud service. ~60–90s latency — used for retrieval, not real-time builds.</div>
+        <span class="tool-tag tag-local">Local</span>
+      </div>
+      <div class="tool-row">
+        <div class="tool-name">GitHub Pages</div>
+        <div class="tool-desc">Static hosting. Free, fast, zero maintenance. Every portfolio page and this site deploy from git push. No build step — pure HTML/CSS/JS.</div>
+        <span class="tool-tag tag-active">Active</span>
+      </div>
+      <div class="tool-row">
+        <div class="tool-name">PowerShell Automation</div>
+        <div class="tool-desc">Windows-native scripting layer. Token tracker hook, vault health checks, deployment scripts. Runs on session stop to auto-log usage data.</div>
+        <span class="tool-tag tag-active">Active</span>
+      </div>
+      <div class="tool-row">
+        <div class="tool-name">HTML / CSS / JS</div>
+        <div class="tool-desc">No frameworks. No build tools. Every page is hand-crafted vanilla code. Faster load, easier maintenance, full control. Average page size: under 30KB.</div>
+        <span class="tool-tag tag-active">Active</span>
+      </div>
+      <div class="tool-row">
+        <div class="tool-name">Formspree</div>
+        <div class="tool-desc">Form handling for static sites. Contact forms work without a backend. Free tier covers current volume.</div>
+        <span class="tool-tag tag-active">Active</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Token data -->
+  <section data-reveal>
+    <div class="section-label">04 / Real Data</div>
+    <h2>Token usage — May 2026</h2>
+    <p class="section-intro">This data is real. It comes from the Claude Code stop hook that auto-appends to <code style="color:var(--accent);font-size:0.85rem">DAILY_TOKENS.md</code> at the end of every session. These are the actual AI processing costs behind building this site, the portfolio pages, and the system infrastructure.</p>
+
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="stat-num">74.5M</div>
+        <div class="stat-label">total tokens (May 18–25)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">27</div>
+        <div class="stat-label">unique sessions tracked</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">4</div>
+        <div class="stat-label">portfolio pages built</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">&lt;3 days</div>
+        <div class="stat-label">avg page turnaround</div>
+      </div>
+    </div>
+
+    <div class="code-block" style="margin-top:28px">
+      <div><span class="comment">// Daily breakdown — max tokens per session per day</span></div>
+      <div><span class="key">2026-05-18</span> <span class="arrow">→</span> <span class="value">28.51M tokens</span> / 13 sessions</div>
+      <div><span class="key">2026-05-19</span> <span class="arrow">→</span> <span class="value">16.59M tokens</span> / 2 sessions</div>
+      <div><span class="key">2026-05-20</span> <span class="arrow">→</span> <span class="value">19.05M tokens</span> / 6 sessions</div>
+      <div><span class="key">2026-05-23</span> <span class="arrow">→</span> <span class="value"> 5.57M tokens</span> / 1 session</div>
+      <div><span class="key">2026-05-24</span> <span class="arrow">→</span> <span class="value"> 3.42M tokens</span> / 3 sessions</div>
+      <div><span class="key">2026-05-25</span> <span class="arrow">→</span> <span class="value"> 1.35M tokens</span> / 2 sessions  <span class="comment">// in progress</span></div>
+    </div>
+    <p style="font-size:0.78rem;color:var(--muted);margin-top:12px">Large early-week numbers reflect architecture sessions building this full repo foundation. Cache-read tokens dominate (fast, cheap) — the system is designed for high cache utilization.</p>
+  </section>
+
+  <!-- Philosophy -->
+  <section data-reveal>
+    <div class="section-label">05 / Philosophy</div>
+    <h2>How the system is run</h2>
+    <p class="section-intro">Alexandria isn't just tooling — it has operating principles that govern how AI is used, when to escalate, and what stays private. These are the ones that directly affect client work.</p>
+
+    <ul class="phil-list">
+      <li>
+        <span class="phil-num">01</span>
+        <div class="phil-text"><strong>Human authority is final.</strong> <span>No AI decides what gets built, shipped, or delivered. Every significant action requires human approval. Agents propose; humans decide.</span></div>
+      </li>
+      <li>
+        <span class="phil-num">02</span>
+        <div class="phil-text"><strong>Nothing gets lost between sessions.</strong> <span>Alexandria carries context forward. Every project, constraint, decision, and confirmed approach is stored and reloaded. You never re-explain context.</span></div>
+      </li>
+      <li>
+        <span class="phil-num">03</span>
+        <div class="phil-text"><strong>Credentials never touch the repo.</strong> <span>API keys, tokens, and secrets live in one place: <code style="color:var(--accent)">.env.keys</code>. A pre-commit hook scans every commit. No exceptions, no workarounds.</span></div>
+      </li>
+      <li>
+        <span class="phil-num">04</span>
+        <div class="phil-text"><strong>Simplicity beats flexibility.</strong> <span>Write the minimum code that solves the problem. No abstractions for single-use code. No frameworks unless the complexity earns them. If it's 200 lines and 50 would work — rewrite it.</span></div>
+      </li>
+      <li>
+        <span class="phil-num">05</span>
+        <div class="phil-text"><strong>Data over stories.</strong> <span>Token usage is tracked. Build times are logged. Turnaround is measured. The numbers in this system are real — not marketing estimates.</span></div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-section" data-reveal>
+    <h2>Want a landing page built on this system?</h2>
+    <p>One offer. Starting at $150. Built fast, delivered clean.</p>
+    <a href="/" class="btn">See the offer</a>
+    <a href="/portfolio/" class="btn btn-ghost">View the work</a>
+  </div>
+
+</div><!-- /wrap -->
+
+<footer>
+  <div class="footer-left">© 2026 Future AI Systems · <a href="https://github.com/huh-cmd/future-ai-systems" target="_blank" style="color:inherit">github.com/huh-cmd</a></div>
+  <div class="footer-links">
+    <a href="/">Home</a>
+    <a href="/portfolio/">Portfolio</a>
+    <a href="/stats/">Stats</a>
+    <a href="https://github.com/huh-cmd/future-ai-systems/blob/main/CHANGELOG.md" target="_blank">Changelog</a>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

@@ -3,674 +3,551 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Future AI Systems builds simple two-page landing pages for creators, students, and small operators. Beta builds from $35 to $75.">
-  <title>Future AI Systems | Two-Page Landing Pages</title>
+  <meta name="description" content="Custom landing pages built with AI. Hand-coded HTML/CSS/JS — no page builders, no templates. Starting at $150. Fast turnaround.">
+  <title>Future AI Systems | Landing Pages Built with AI</title>
   <style>
     :root {
-      --black: #050505;
-      --ink: #111;
-      --muted: #5d5d5d;
-      --line: #d8d8d8;
-      --soft: #f5f5f3;
-      --paper: #fff;
-      --shadow: 0 24px 80px rgba(0, 0, 0, 0.12);
+      --bg: #0a0a0a;
+      --surface: #111;
+      --border: #1e1e1e;
+      --border-bright: #252525;
+      --text: #e8e8e8;
+      --muted: #777;
+      --accent: #7c6af5;
+      --accent-dim: rgba(124,106,245,0.12);
+      --green: #22c55e;
+      --mono: 'JetBrains Mono','Fira Code','Courier New',monospace;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
+      --shadow: 0 24px 60px rgba(0,0,0,0.4);
     }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); line-height: 1.6; overflow-x: hidden; }
+    a { color: var(--accent); text-decoration: none; }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      min-height: 100vh;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--ink);
-      background: var(--paper);
-      line-height: 1.55;
-      overflow-x: hidden;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .page {
-      min-height: 100vh;
-      background:
-        linear-gradient(90deg, rgba(0, 0, 0, 0.035) 1px, transparent 1px),
-        linear-gradient(180deg, rgba(0, 0, 0, 0.035) 1px, transparent 1px);
-      background-size: 72px 72px;
-    }
-
-    .wrap {
-      width: min(1120px, calc(100% - 36px));
-      margin: 0 auto;
-    }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      background: rgba(255, 255, 255, 0.9);
-      border-bottom: 1px solid var(--line);
-      backdrop-filter: blur(16px);
-    }
-
+    /* Nav */
     nav {
-      height: 72px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(10,10,10,0.9); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 clamp(20px,6vw,60px); height: 58px;
+      display: flex; align-items: center; justify-content: space-between;
     }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.7rem;
-      font-weight: 900;
-      letter-spacing: 0;
-    }
-
-    .mark {
-      width: 34px;
-      height: 34px;
-      display: grid;
-      place-items: center;
-      color: var(--paper);
-      background: var(--black);
-      border-radius: 8px;
-      font-size: 0.78rem;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      font-size: 0.93rem;
-      color: var(--muted);
-    }
-
-    .nav-links a {
-      padding: 0.65rem 0.8rem;
-      border-radius: 999px;
-      transition: background 160ms ease, color 160ms ease;
-    }
-
-    .nav-links a:hover {
-      color: var(--black);
-      background: var(--soft);
-    }
-
+    .nav-brand { font-weight: 700; font-size: 0.9rem; color: var(--text); letter-spacing: 0.01em; }
+    .nav-links { display: flex; gap: 28px; align-items: center; }
+    .nav-links a { font-size: 0.85rem; color: var(--muted); transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
     .nav-cta {
-      color: var(--paper) !important;
-      background: var(--black);
+      background: var(--accent); color: #fff !important;
+      padding: 7px 16px; border-radius: 6px; font-weight: 600;
+      font-size: 0.82rem !important;
     }
+    .nav-cta:hover { opacity: 0.85; }
 
+    .wrap { width: min(1060px, calc(100% - 40px)); margin: 0 auto; }
+
+    /* ── HERO ── */
     .hero {
-      min-height: calc(100vh - 72px);
-      display: grid;
-      grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.8fr);
-      gap: clamp(2rem, 5vw, 5rem);
-      align-items: center;
-      padding: clamp(3rem, 6vw, 6rem) 0;
+      min-height: calc(100vh - 58px);
+      display: flex; align-items: center;
+      padding: clamp(60px,10vw,120px) 0;
+      position: relative; overflow: hidden;
     }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.55rem;
-      margin-bottom: 1.1rem;
-      color: var(--muted);
-      font-size: 0.78rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .eyebrow::before {
-      content: "";
-      width: 34px;
-      height: 1px;
-      background: var(--black);
-    }
-
-    h1 {
-      max-width: 770px;
-      font-size: clamp(3rem, 8vw, 7.4rem);
-      line-height: 0.9;
-      letter-spacing: 0;
-      font-weight: 950;
-      overflow-wrap: break-word;
-    }
-
-    .lead {
-      max-width: 650px;
-      margin-top: 1.35rem;
-      color: var(--muted);
-      font-size: clamp(1.05rem, 2vw, 1.25rem);
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.85rem;
-      margin-top: 2rem;
-    }
-
-    .button {
-      min-height: 48px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.55rem;
-      padding: 0.86rem 1.15rem;
-      border: 1px solid var(--black);
-      border-radius: 999px;
-      font-weight: 850;
-      transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
-    }
-
-    .button:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow);
-    }
-
-    .button.primary {
-      color: var(--paper);
-      background: var(--black);
-    }
-
-    .button.secondary {
-      color: var(--black);
-      background: var(--paper);
-    }
-
-    .price-panel {
-      position: relative;
-      padding: clamp(1.4rem, 3vw, 2rem);
-      border: 1px solid var(--black);
-      background: var(--paper);
-      box-shadow: 12px 12px 0 var(--black);
-    }
-
-    .price-panel::before {
-      content: "BETA";
-      position: absolute;
-      top: -13px;
-      right: 20px;
-      padding: 0.25rem 0.6rem;
-      color: var(--paper);
-      background: var(--black);
-      font-size: 0.72rem;
-      font-weight: 900;
-      letter-spacing: 0.08em;
-    }
-
-    .panel-label {
-      color: var(--muted);
-      font-size: 0.78rem;
-      font-weight: 900;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .price {
-      margin-top: 1rem;
-      font-size: clamp(3rem, 7vw, 5.8rem);
-      line-height: 0.9;
-      font-weight: 950;
-      letter-spacing: 0;
-    }
-
-    .price span {
-      display: block;
-      margin-top: 0.5rem;
-      color: var(--muted);
-      font-size: 0.92rem;
-      line-height: 1.4;
-      font-weight: 700;
-    }
-
-    .panel-list {
-      display: grid;
-      gap: 0.8rem;
-      margin-top: 1.6rem;
-      padding-top: 1.4rem;
-      border-top: 1px solid var(--line);
-      color: var(--ink);
-      list-style: none;
-    }
-
-    .panel-list li {
-      display: flex;
-      gap: 0.65rem;
-      align-items: flex-start;
-    }
-
-    .panel-list li::before {
-      content: "";
-      flex: 0 0 9px;
-      width: 9px;
-      height: 9px;
-      margin-top: 0.48rem;
-      background: var(--black);
-      border-radius: 999px;
-    }
-
-    section {
-      padding: clamp(4rem, 7vw, 7rem) 0;
-      border-top: 1px solid var(--line);
-    }
-
-    .section-head {
-      display: flex;
-      justify-content: space-between;
-      gap: 2rem;
-      margin-bottom: 2rem;
-    }
-
-    .section-head h2 {
-      max-width: 650px;
-      font-size: clamp(2rem, 5vw, 4.3rem);
-      line-height: 0.95;
-      letter-spacing: 0;
-    }
-
-    .section-head p {
-      max-width: 390px;
-      color: var(--muted);
-      font-size: 1rem;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1rem;
-    }
-
-    .card {
-      min-height: 230px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 1.35rem;
-      border: 1px solid var(--line);
-      background: var(--paper);
-      transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
-    }
-
-    .card:hover {
-      transform: translateY(-4px);
-      border-color: var(--black);
-      box-shadow: var(--shadow);
-    }
-
-    .card-num {
-      color: var(--muted);
-      font-size: 0.8rem;
-      font-weight: 900;
-    }
-
-    .card h3 {
-      margin-top: 2rem;
-      font-size: 1.25rem;
-    }
-
-    .card p {
-      margin-top: 0.8rem;
-      color: var(--muted);
-    }
-
-    .sample-row {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(280px, 0.72fr);
-      gap: 1.5rem;
-      align-items: stretch;
-    }
-
-    .sample-preview {
-      min-height: 420px;
-      overflow: hidden;
-      border: 1px solid var(--black);
-      background: var(--black);
-      box-shadow: var(--shadow);
-    }
-
-    .sample-preview iframe {
-      width: 140%;
-      height: 620px;
-      border: 0;
-      transform: scale(0.72);
-      transform-origin: top left;
+    /* subtle grid background */
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(90deg, rgba(124,106,245,0.04) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(124,106,245,0.04) 1px, transparent 1px);
+      background-size: 64px 64px;
       pointer-events: none;
     }
-
-    .sample-copy {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 1.5rem;
-      border: 1px solid var(--line);
-      background: var(--soft);
+    /* radial glow */
+    .hero::after {
+      content: '';
+      position: absolute; top: 10%; left: 50%;
+      transform: translate(-50%,-50%);
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(124,106,245,0.08) 0%, transparent 70%);
+      pointer-events: none;
     }
-
-    .sample-copy h3 {
-      font-size: clamp(1.8rem, 4vw, 3rem);
-      line-height: 1;
+    .hero-inner { position: relative; z-index: 1; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--mono); font-size: 0.72rem;
+      color: var(--green); letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: 24px;
     }
-
-    .sample-copy p {
-      margin-top: 1rem;
-      color: var(--muted);
+    .eyebrow-dot {
+      width: 7px; height: 7px; border-radius: 50%; background: var(--green);
+      animation: pulse 2s infinite;
     }
-
-    .process {
-      counter-reset: steps;
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    h1 {
+      font-size: clamp(2.4rem, 6vw, 4.5rem);
+      font-weight: 800; line-height: 1.05;
+      letter-spacing: -0.04em; margin-bottom: 24px;
     }
-
-    .steps {
-      display: grid;
-      gap: 0;
-      border: 1px solid var(--black);
-      background: var(--paper);
+    h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, #7c6af5 0%, #a78bfa 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--muted); max-width: 520px;
+      line-height: 1.75; margin-bottom: 40px;
+    }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px; border-radius: 8px;
+      background: var(--accent); color: #fff;
+      font-weight: 700; font-size: 0.95rem;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 24px; border-radius: 8px;
+      border: 1px solid var(--border-bright); color: var(--muted);
+      font-size: 0.9rem; transition: color 0.2s, border-color 0.2s;
+    }
+    .btn-secondary:hover { color: var(--text); border-color: var(--accent); }
+    .hero-note {
+      margin-top: 20px; font-size: 0.8rem; color: var(--muted);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .hero-note span { color: var(--accent); font-family: var(--mono); font-weight: 600; }
 
+    /* ── TRUST BAR ── */
+    .trust-bar {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 0;
+    }
+    .trust-inner {
+      display: flex; flex-wrap: wrap; gap: 32px;
+      align-items: center; justify-content: center;
+    }
+    .trust-item { display: flex; align-items: center; gap: 8px; font-size: 0.82rem; color: var(--muted); }
+    .trust-item strong { color: var(--text); }
+
+    /* ── HOW IT WORKS ── */
+    .section { padding: clamp(64px,10vw,100px) 0; }
+    .section-label {
+      font-family: var(--mono); font-size: 0.7rem;
+      color: var(--accent); letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 12px;
+    }
+    h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800; letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+    .section-desc { color: var(--muted); font-size: 1rem; max-width: 560px; line-height: 1.75; margin-bottom: 48px; }
+
+    .steps { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap: 16px; }
     .step {
-      counter-increment: steps;
-      display: grid;
-      grid-template-columns: 90px minmax(0, 1fr);
-      gap: 1rem;
-      padding: 1.2rem;
-      border-bottom: 1px solid var(--line);
+      background: var(--surface); border: 1px solid var(--border-bright);
+      border-radius: 12px; padding: 24px;
+      transition: border-color 0.2s;
     }
-
-    .step:last-child {
-      border-bottom: 0;
+    .step:hover { border-color: var(--accent); }
+    .step-num {
+      font-family: var(--mono); font-size: 0.7rem;
+      color: var(--accent); font-weight: 700;
+      margin-bottom: 12px; display: block;
     }
+    .step h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .step p { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
 
-    .step::before {
-      content: counter(steps, decimal-leading-zero);
-      color: var(--muted);
-      font-weight: 950;
+    /* ── PORTFOLIO ── */
+    .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 20px; }
+    .portfolio-card {
+      background: var(--surface); border: 1px solid var(--border-bright);
+      border-radius: 12px; overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
     }
-
-    .step h3 {
-      font-size: 1rem;
+    .portfolio-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .card-preview {
+      height: 160px; display: flex; align-items: center; justify-content: center;
+      font-family: var(--mono); font-size: 0.75rem; color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      position: relative; overflow: hidden;
     }
-
-    .step p {
-      margin-top: 0.25rem;
-      color: var(--muted);
+    .card-preview-fitness { background: linear-gradient(135deg, #0d0d0d 0%, #1a1a2e 100%); }
+    .card-preview-consulting { background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); }
+    .card-preview-music { background: linear-gradient(135deg, #0f0f23 0%, #1a1a4e 100%); }
+    .card-preview-restaurant { background: linear-gradient(135deg, #1a1209 0%, #2d1f0a 100%); }
+    .preview-label {
+      position: absolute; bottom: 12px; left: 16px;
+      font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase;
     }
-
-    .final {
-      color: var(--paper);
-      background: var(--black);
+    .card-body { padding: 18px; }
+    .card-name { font-weight: 700; font-size: 0.95rem; margin-bottom: 4px; }
+    .card-type { font-size: 0.78rem; color: var(--muted); margin-bottom: 12px; }
+    .card-link {
+      font-size: 0.8rem; font-family: var(--mono);
+      color: var(--accent); display: inline-flex; align-items: center; gap: 4px;
     }
+    .card-link:hover { text-decoration: underline; }
 
-    .final .wrap {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 2rem;
+    /* ── PRICING ── */
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap: 20px; }
+    .price-card {
+      background: var(--surface); border: 1px solid var(--border-bright);
+      border-radius: 12px; padding: 28px;
+    }
+    .price-card.featured { border-color: var(--accent); background: var(--accent-dim); }
+    .price-tier { font-size: 0.78rem; color: var(--muted); margin-bottom: 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
+    .price-num {
+      font-size: 2.4rem; font-weight: 800; letter-spacing: -0.04em;
+      font-family: var(--mono); color: var(--text); margin-bottom: 4px;
+    }
+    .price-num sub { font-size: 1rem; font-weight: 400; color: var(--muted); }
+    .price-desc { font-size: 0.82rem; color: var(--muted); margin-bottom: 20px; line-height: 1.6; }
+    .price-features { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+    .price-features li { font-size: 0.82rem; display: flex; align-items: start; gap: 8px; }
+    .price-features li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+    .price-features li.no::before { content: '—'; color: var(--border-bright); }
+    .price-cta {
+      display: block; text-align: center;
+      padding: 11px 0; border-radius: 8px;
+      font-weight: 700; font-size: 0.88rem;
+      background: var(--accent); color: #fff;
+      transition: opacity 0.2s;
+    }
+    .price-cta:hover { opacity: 0.85; }
+    .price-cta.ghost {
+      background: transparent; border: 1px solid var(--border-bright); color: var(--muted);
+    }
+    .price-cta.ghost:hover { border-color: var(--accent); color: var(--text); }
+
+    /* ── SYSTEM TEASER ── */
+    .system-teaser {
+      background: var(--surface); border: 1px solid var(--border-bright);
+      border-radius: 16px; padding: clamp(32px,5vw,48px);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
       align-items: center;
     }
-
-    .final h2 {
-      max-width: 760px;
-      font-size: clamp(2.4rem, 6vw, 5.8rem);
-      line-height: 0.93;
-      letter-spacing: 0;
+    .system-teaser h2 { margin-bottom: 16px; }
+    .system-teaser p { color: var(--muted); font-size: 0.95rem; line-height: 1.75; margin-bottom: 24px; }
+    .tool-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+    .pill {
+      font-family: var(--mono); font-size: 0.7rem;
+      padding: 4px 10px; border-radius: 20px;
+      background: rgba(255,255,255,0.04); border: 1px solid var(--border-bright);
+      color: #999;
     }
-
-    .final p {
-      max-width: 620px;
-      margin-top: 1rem;
-      color: #cfcfcf;
+    .stat-mini-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .stat-mini {
+      background: rgba(124,106,245,0.06); border: 1px solid rgba(124,106,245,0.15);
+      border-radius: 10px; padding: 16px;
     }
-
-    .final .button {
-      color: var(--black);
-      background: var(--paper);
-      border-color: var(--paper);
+    .stat-mini-num {
+      font-family: var(--mono); font-size: 1.5rem; font-weight: 800;
+      color: var(--accent); letter-spacing: -0.03em;
     }
+    .stat-mini-label { font-size: 0.72rem; color: var(--muted); margin-top: 4px; }
 
+    /* ── CTA ── */
+    .cta-band {
+      background: linear-gradient(135deg, rgba(124,106,245,0.12) 0%, rgba(124,106,245,0.04) 100%);
+      border: 1px solid rgba(124,106,245,0.2);
+      border-radius: 16px; padding: clamp(48px,8vw,80px) clamp(24px,5vw,60px);
+      text-align: center; margin: clamp(40px,6vw,80px) 0;
+    }
+    .cta-band h2 { margin-bottom: 12px; }
+    .cta-band p { color: var(--muted); margin-bottom: 32px; }
+    .cta-band form { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; max-width: 480px; margin: 0 auto 16px; }
+    .cta-band input {
+      flex: 1; min-width: 200px;
+      padding: 12px 16px; border-radius: 8px;
+      background: var(--surface); border: 1px solid var(--border-bright);
+      color: var(--text); font-size: 0.9rem;
+      outline: none;
+    }
+    .cta-band input:focus { border-color: var(--accent); }
+    .cta-band input::placeholder { color: var(--muted); }
+    .cta-note { font-size: 0.75rem; color: var(--muted); }
+
+    /* ── FOOTER ── */
     footer {
-      padding: 1.3rem 0;
-      color: var(--muted);
-      background: var(--black);
-      border-top: 1px solid #202020;
-      font-size: 0.88rem;
+      border-top: 1px solid var(--border);
+      padding: 32px clamp(20px,6vw,60px);
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px;
     }
+    .footer-left { font-size: 0.8rem; color: var(--muted); }
+    .footer-right { display: flex; gap: 24px; }
+    .footer-right a { font-size: 0.8rem; color: var(--muted); }
+    .footer-right a:hover { color: var(--text); }
 
-    footer .wrap {
-      display: flex;
-      justify-content: space-between;
-      gap: 1rem;
-      flex-wrap: wrap;
+    /* ── REVEAL ── */
+    [data-reveal] { opacity: 0; transform: translateY(20px); transition: opacity 0.55s, transform 0.55s; }
+    [data-reveal].visible { opacity: 1; transform: none; }
+
+    @media (max-width: 768px) {
+      .system-teaser { grid-template-columns: 1fr; gap: 32px; }
+      nav .nav-links .hide-mobile { display: none; }
     }
-
-    @media (max-width: 880px) {
-      .hero,
-      .sample-row,
-      .final .wrap,
-      .section-head {
-        grid-template-columns: 1fr;
-      }
-
-      .grid {
-        grid-template-columns: 1fr;
-      }
-
-      .sample-preview {
-        min-height: 310px;
-      }
-
-      .sample-preview iframe {
-        width: 170%;
-        height: 560px;
-        transform: scale(0.58);
-      }
-    }
-
-    @media (max-width: 620px) {
-      .wrap {
-        width: min(100% - 28px, 1120px);
-      }
-
-      nav {
-        height: auto;
-        padding: 0.85rem 0;
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .nav-links {
-        width: 100%;
-        overflow-x: auto;
-        padding-bottom: 0.15rem;
-      }
-
-      h1 {
-        font-size: 2.7rem;
-        line-height: 0.98;
-      }
-
-      .price-panel {
-        box-shadow: 8px 8px 0 var(--black);
-      }
-
-      .button {
-        width: 100%;
-      }
-
-      .step {
-        grid-template-columns: 52px minmax(0, 1fr);
-      }
+    @media (max-width: 520px) {
+      .nav-links { gap: 16px; }
     }
   </style>
 </head>
 <body>
-  <div class="page">
-    <header>
-      <div class="wrap">
-        <nav aria-label="Primary navigation">
-          <a class="brand" href="./">
-            <span class="mark">FA</span>
-            <span>Future AI Systems</span>
-          </a>
-          <div class="nav-links">
-            <a href="#offer">Offer</a>
-            <a href="#sample">Sample</a>
-            <a href="services.html">Pricing</a>
-            <a class="nav-cta" href="mailto:huhcmdpro@gmail.com?subject=Two-page landing page">Start</a>
-          </div>
-        </nav>
-      </div>
-    </header>
 
-    <main>
-      <div class="wrap">
-        <section class="hero" aria-labelledby="hero-title">
-          <div>
-            <p class="eyebrow">Simple public pages</p>
-            <h1 id="hero-title">Landing pages that look sharp and stay small.</h1>
-            <p class="lead">Two-page landing pages for creators, students, and small operators who need a clean public presence without a big agency scope.</p>
-            <div class="hero-actions">
-              <a class="button primary" href="services.html">See pricing</a>
-              <a class="button secondary" href="samples/nucleus-command-center.html">View Nucleus sample</a>
-            </div>
-          </div>
-
-          <aside class="price-panel" aria-label="Current beta offer">
-            <p class="panel-label">Current offer</p>
-            <div class="price">$35-$75<span>Beta price for focused two-page landing pages.</span></div>
-            <ul class="panel-list">
-              <li>Homepage plus offer page.</li>
-              <li>Mobile responsive layout.</li>
-              <li>Clean black and white design.</li>
-              <li>GitHub Pages-ready handoff.</li>
-            </ul>
-          </aside>
-        </section>
-      </div>
-
-      <section id="offer">
-        <div class="wrap">
-          <div class="section-head">
-            <h2>One clear service. No fake proof.</h2>
-            <p>The first public version is intentionally narrow. The page sells landing pages, shows one sample, and avoids inflated claims.</p>
-          </div>
-
-          <div class="grid">
-            <article class="card">
-              <div class="card-num">01</div>
-              <div>
-                <h3>Landing page</h3>
-                <p>A focused page that explains who it is for, what is offered, and how to take the next step.</p>
-              </div>
-            </article>
-            <article class="card">
-              <div class="card-num">02</div>
-              <div>
-                <h3>Pricing page</h3>
-                <p>A second page for the package, timeline, included work, and boundaries so the offer stays easy to understand.</p>
-              </div>
-            </article>
-            <article class="card">
-              <div class="card-num">03</div>
-              <div>
-                <h3>Portfolio sample</h3>
-                <p>One polished sample page stays linked so visitors can quickly judge the design direction.</p>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section id="sample">
-        <div class="wrap">
-          <div class="section-head">
-            <h2>Portfolio is one click away.</h2>
-            <p>The old sample pages were removed. The Nucleus concept is the only current portfolio piece until the next strong sample is ready.</p>
-          </div>
-
-          <div class="sample-row">
-            <div class="sample-preview" aria-hidden="true">
-              <iframe src="samples/nucleus-command-center.html" title="Nucleus AI command center sample preview" loading="lazy"></iframe>
-            </div>
-            <div class="sample-copy">
-              <p class="eyebrow">Current sample</p>
-              <h3>Nucleus AI command center</h3>
-              <p>A visual landing-page concept built from a Claude design test and hardened into a static responsive web page.</p>
-              <div class="hero-actions">
-                <a class="button primary" href="samples/nucleus-command-center.html">Open sample</a>
-                <a class="button secondary" href="services.html">See the offer</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="process" id="process">
-        <div class="wrap">
-          <div class="section-head">
-            <h2>Simple build process.</h2>
-            <p>Small scope keeps the work realistic while the account is new and the portfolio is still growing.</p>
-          </div>
-
-          <div class="steps">
-            <div class="step">
-              <div>
-                <h3>Pick the goal</h3>
-                <p>Creator page, student profile, small service page, or simple public offer.</p>
-              </div>
-            </div>
-            <div class="step">
-              <div>
-                <h3>Write the copy</h3>
-                <p>Clear headline, proof that is real, service boundaries, and contact path.</p>
-              </div>
-            </div>
-            <div class="step">
-              <div>
-                <h3>Build the pages</h3>
-                <p>Two responsive static pages with clean code and no backend dependency.</p>
-              </div>
-            </div>
-            <div class="step">
-              <div>
-                <h3>Hand off</h3>
-                <p>Files are ready for GitHub Pages or another simple static host.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="final">
-        <div class="wrap">
-          <div>
-            <h2>Need a simple page that looks finished?</h2>
-            <p>Send the goal, the text you already have, and any visual references. I will keep the scope focused so the page can actually ship.</p>
-          </div>
-          <a class="button" href="mailto:huhcmdpro@gmail.com?subject=Two-page landing page">Email about a build</a>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      <div class="wrap">
-        <span>Future AI Systems</span>
-        <span>Two-page landing pages. Beta $35-$75.</span>
-      </div>
-    </footer>
+<nav>
+  <div class="nav-brand">Future AI Systems</div>
+  <div class="nav-links">
+    <a href="/portfolio/" class="hide-mobile">Portfolio</a>
+    <a href="/system/" class="hide-mobile">How It Works</a>
+    <a href="/stats/" class="hide-mobile">Stats</a>
+    <a href="mailto:jeffe5196@gmail.com" class="nav-cta">Get a Quote</a>
   </div>
+</nav>
+
+<!-- HERO -->
+<div class="wrap">
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">
+        <span class="eyebrow-dot"></span>
+        Currently open for work
+      </div>
+      <h1>Landing pages.<br><em>Built with AI.</em><br>Priced to ship.</h1>
+      <p class="hero-sub">
+        Custom HTML/CSS/JS — no page builders, no WordPress, no bloat. Built fast with Claude Code and a structured AI system. Starting at $150.
+      </p>
+      <div class="hero-actions">
+        <a href="mailto:jeffe5196@gmail.com?subject=Landing Page Quote" class="btn-primary">Get a quote →</a>
+        <a href="/portfolio/" class="btn-secondary">See the work</a>
+      </div>
+      <div class="hero-note">
+        Avg turnaround: <span>2–3 days</span> &nbsp;·&nbsp; One free revision &nbsp;·&nbsp; Live URL delivered
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="wrap">
+    <div class="trust-inner">
+      <div class="trust-item"><strong>4</strong> pages built</div>
+      <div class="trust-item"><strong>Hand-coded</strong> HTML/CSS/JS</div>
+      <div class="trust-item"><strong>Claude Code</strong> powered</div>
+      <div class="trust-item"><strong>74.5M+</strong> tokens processed</div>
+      <div class="trust-item"><strong>GitHub Pages</strong> hosted</div>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="wrap">
+  <div class="section" data-reveal>
+    <div class="section-label">Process</div>
+    <h2>How a page gets built</h2>
+    <p class="section-desc">Every build follows the same 6-step flow. You get a wireframe to approve before any code is written. No surprises.</p>
+    <div class="steps">
+      <div class="step">
+        <span class="step-num">01</span>
+        <h3>Intake</h3>
+        <p>You fill a brief: goal, audience, tone, reference sites. Takes 10 minutes.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">02</span>
+        <h3>Wireframe</h3>
+        <p>Sections and hierarchy defined in text. You approve before build starts.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">03</span>
+        <h3>Build</h3>
+        <p>Claude Code writes clean HTML/CSS/JS against the wireframe. No frameworks.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">04</span>
+        <h3>Mobile pass</h3>
+        <p>375px baseline, tested at 768px and 1280px. Ships responsive.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">05</span>
+        <h3>Deliver</h3>
+        <p>Live GitHub Pages URL + clean source files. One free revision included.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PORTFOLIO PREVIEW -->
+  <div class="section" data-reveal>
+    <div class="section-label">Work</div>
+    <h2>Sample pages</h2>
+    <p class="section-desc">Four industries, four design directions. All hand-built. All live.</p>
+    <div class="portfolio-grid">
+      <div class="portfolio-card">
+        <div class="card-preview card-preview-fitness">
+          <div class="preview-label" style="color:#a0a0f0">Fitness / Dark</div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Marcus Webb</div>
+          <div class="card-type">Personal trainer landing page</div>
+          <a href="/portfolio/marcus-webb/" class="card-link">View page →</a>
+        </div>
+      </div>
+      <div class="portfolio-card">
+        <div class="card-preview card-preview-consulting">
+          <div class="preview-label" style="color:#555">Consulting / Light</div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Priya Sharma</div>
+          <div class="card-type">Business consulting landing page</div>
+          <a href="/portfolio/priya-sharma/" class="card-link">View page →</a>
+        </div>
+      </div>
+      <div class="portfolio-card">
+        <div class="card-preview card-preview-music">
+          <div class="preview-label" style="color:#8080ff">Music / Navy</div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Kai Rivers</div>
+          <div class="card-type">Music artist landing page</div>
+          <a href="/portfolio/kai-rivers/" class="card-link">View page →</a>
+        </div>
+      </div>
+      <div class="portfolio-card">
+        <div class="card-preview card-preview-restaurant">
+          <div class="preview-label" style="color:#e09050">Restaurant / Warm</div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Ember Kitchen</div>
+          <div class="card-type">Restaurant landing page</div>
+          <a href="/portfolio/ember-kitchen/" class="card-link">View page →</a>
+        </div>
+      </div>
+    </div>
+    <p style="margin-top:20px;font-size:0.8rem;color:var(--muted)">All sample pages are fictional — built to show design range, not real clients.</p>
+  </div>
+
+  <!-- PRICING -->
+  <div class="section" data-reveal>
+    <div class="section-label">Pricing</div>
+    <h2>One service. Clear rates.</h2>
+    <p class="section-desc">No retainers, no subscriptions, no hidden fees. Fixed price, fixed scope, fast delivery.</p>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-tier">One-Page</div>
+        <div class="price-num">$150<sub> flat</sub></div>
+        <div class="price-desc">A single landing page. Hero, services, social proof, CTA. Mobile-ready.</div>
+        <ul class="price-features">
+          <li>Custom HTML/CSS/JS</li>
+          <li>Mobile responsive (375px+)</li>
+          <li>Scroll animations</li>
+          <li>Contact form (Formspree)</li>
+          <li>Live GitHub Pages URL</li>
+          <li>One free revision</li>
+          <li class="no">Additional pages</li>
+        </ul>
+        <a href="mailto:jeffe5196@gmail.com?subject=One-Page Quote" class="price-cta ghost">Get quote</a>
+      </div>
+      <div class="price-card featured">
+        <div class="price-tier">Two-Page</div>
+        <div class="price-num">$250<sub> flat</sub></div>
+        <div class="price-desc">Landing page + services/about page. Best for freelancers and small businesses.</div>
+        <ul class="price-features">
+          <li>Everything in One-Page</li>
+          <li>Second page (services or about)</li>
+          <li>Consistent design system</li>
+          <li>Internal navigation</li>
+          <li>Two free revisions</li>
+          <li class="no">Ongoing maintenance</li>
+        </ul>
+        <a href="mailto:jeffe5196@gmail.com?subject=Two-Page Quote" class="price-cta">Get quote →</a>
+      </div>
+      <div class="price-card">
+        <div class="price-tier">Rush Add-on</div>
+        <div class="price-num">+$75<sub></sub></div>
+        <div class="price-desc">48-hour turnaround. Add to any package when speed matters.</div>
+        <ul class="price-features">
+          <li>Delivered in 48 hours</li>
+          <li>Priority queue</li>
+          <li>Same quality, faster</li>
+          <li class="no">Additional revisions</li>
+        </ul>
+        <a href="mailto:jeffe5196@gmail.com?subject=Rush Quote" class="price-cta ghost">Add to quote</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- SYSTEM TEASER -->
+  <div class="section" data-reveal>
+    <div class="system-teaser">
+      <div>
+        <div class="section-label">The System</div>
+        <h2>Built on an AI operating system</h2>
+        <p>This isn't just "I use ChatGPT." Every page is built inside a structured system: a 91-file knowledge vault (Alexandria), a local AI agent (Jarvis), automated token tracking, and a full design workflow — all running on Claude Code.</p>
+        <p>That's why builds are fast, consistent, and don't repeat mistakes. The system carries context forward so every project benefits from everything built before it.</p>
+        <div class="tool-pills">
+          <span class="pill">Claude Code</span>
+          <span class="pill">Obsidian</span>
+          <span class="pill">Alexandria Vault</span>
+          <span class="pill">OpenJarvis</span>
+          <span class="pill">llama3.2</span>
+          <span class="pill">GitHub Pages</span>
+          <span class="pill">PowerShell</span>
+        </div>
+        <a href="/system/" style="display:inline-flex;align-items:center;gap:6px;margin-top:20px;font-size:0.85rem;color:var(--accent)">See the full system →</a>
+      </div>
+      <div class="stat-mini-grid">
+        <div class="stat-mini">
+          <div class="stat-mini-num">91</div>
+          <div class="stat-mini-label">vault files</div>
+        </div>
+        <div class="stat-mini">
+          <div class="stat-mini-num">74.5M</div>
+          <div class="stat-mini-label">tokens this month</div>
+        </div>
+        <div class="stat-mini">
+          <div class="stat-mini-num">27</div>
+          <div class="stat-mini-label">sessions tracked</div>
+        </div>
+        <div class="stat-mini">
+          <div class="stat-mini-num">96.6%</div>
+          <div class="stat-mini-label">memory recall</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA BAND -->
+  <div class="cta-band" data-reveal>
+    <h2>Ready to ship your page?</h2>
+    <p>Send your brief and get a quote within 24 hours.</p>
+    <form action="https://formspree.io/f/placeholder" method="POST">
+      <input type="email" name="email" placeholder="your@email.com" required>
+      <button type="submit" class="btn-primary" style="border:none;cursor:pointer">Send brief →</button>
+    </form>
+    <p class="cta-note">Or email directly: <a href="mailto:jeffe5196@gmail.com" style="color:var(--accent)">jeffe5196@gmail.com</a></p>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-left">© 2026 Future AI Systems &nbsp;·&nbsp; <a href="https://github.com/huh-cmd/future-ai-systems" target="_blank" style="color:inherit">github.com/huh-cmd</a> &nbsp;·&nbsp; v2.0.0</div>
+  <div class="footer-right">
+    <a href="/portfolio/">Portfolio</a>
+    <a href="/system/">How It Works</a>
+    <a href="/stats/">Stats</a>
+    <a href="https://github.com/huh-cmd/future-ai-systems/blob/main/CHANGELOG.md" target="_blank">Changelog</a>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.06 });
+  document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
+</script>
 </body>
 </html>

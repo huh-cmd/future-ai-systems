@@ -15,7 +15,7 @@
 
 ## What this is
 
-A one-service freelance site: custom landing pages at a flat rate, built using a structured AI system (Claude Code + Alexandria vault). No page builders, no templates, no frameworks. Pure HTML/CSS/JS.
+A one-service freelance site: custom landing pages at a flat rate, built using a structured AI system (Claude Code + Alexandria vault). No page builders, no WordPress, no frameworks. Clean HTML/CSS/JS.
 
 Single offer until the first client ships. Then expand.
 

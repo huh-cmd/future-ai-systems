@@ -112,5 +112,5 @@ Every page built at Future AI Systems starts here: a structured wireframe that d
 
 - All pages pass 375px mobile without horizontal scroll
 - Animations use `IntersectionObserver` — no GSAP dependency
-- No external CSS frameworks — every line is hand-written
+- No external CSS frameworks — clean vanilla code via Claude Code
 - Average build time: 2–4 hours per page (with Claude Code)

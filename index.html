@@ -262,17 +262,7 @@
     }
     .cta-band h2 { margin-bottom: 12px; }
     .cta-band p { color: var(--muted); margin-bottom: 32px; }
-    .cta-band form { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; max-width: 480px; margin: 0 auto 16px; }
-    .cta-band input {
-      flex: 1; min-width: 200px;
-      padding: 12px 16px; border-radius: 8px;
-      background: var(--surface); border: 1px solid var(--border-bright);
-      color: var(--text); font-size: 0.9rem;
-      outline: none;
-    }
-    .cta-band input:focus { border-color: var(--accent); }
-    .cta-band input::placeholder { color: var(--muted); }
-    .cta-note { font-size: 0.75rem; color: var(--muted); }
+    .cta-note { font-size: 0.75rem; color: var(--muted); font-family: var(--mono); }
 
     /* ── FOOTER ── */
     footer {
@@ -524,12 +514,9 @@
   <!-- CTA BAND -->
   <div class="cta-band" data-reveal>
     <h2>Ready to ship your page?</h2>
-    <p>Send your brief and get a quote within 24 hours.</p>
-    <form action="https://formspree.io/f/placeholder" method="POST">
-      <input type="email" name="email" placeholder="your@email.com" required>
-      <button type="submit" class="btn-primary" style="border:none;cursor:pointer">Send brief →</button>
-    </form>
-    <p class="cta-note">Or email directly: <a href="mailto:jeffe5196@gmail.com" style="color:var(--accent)">jeffe5196@gmail.com</a></p>
+    <p>Get a quote within 24 hours.</p>
+    <a href="mailto:jeffe5196@gmail.com?subject=Landing Page Quote" class="btn-primary" style="display:inline-flex;margin-bottom:0">Email to get started →</a>
+    <p class="cta-note" style="margin-top:16px">jeffe5196@gmail.com</p>
   </div>
 </div>
 

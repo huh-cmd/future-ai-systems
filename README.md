@@ -27,7 +27,6 @@ Single offer until the first client ships. Then expand.
 |------|------|
 | **Claude Code** | Primary build agent — all HTML, CSS, JS, architecture |
 | **Obsidian + Alexandria** | 91-file knowledge vault — carries context across sessions |
-| **OpenJarvis + Ollama** | Local AI (llama3.2) — private vault queries, 100% on-machine |
 | **GitHub Pages** | Static hosting — deploy on push, zero maintenance |
 | **PowerShell** | Automation — token tracking hook, vault health checks |
 

@@ -295,7 +295,7 @@
       </div>
       <div class="stat-card">
         <div class="stat-num">258</div>
-        <div class="stat-label">knowledge chunks (Jarvis)</div>
+        <div class="stat-label">knowledge chunks indexed</div>
       </div>
       <div class="stat-card">
         <div class="stat-num">14</div>
@@ -322,8 +322,8 @@
   <!-- Agents -->
   <section data-reveal>
     <div class="section-label">02 / Agents</div>
-    <h2>Three agents, one director</h2>
-    <p class="section-intro">Alexandria runs a structured multi-agent system. Each agent has defined capabilities, hard limits, and escalation rules. The human is always the director — no agent advances work without sign-off at the decision gates.</p>
+    <h2>Two agents, one director</h2>
+    <p class="section-intro">Alexandria runs a structured agent system. Each agent has defined capabilities, hard limits, and escalation rules. The human is always the director — no agent advances work without sign-off at the decision gates.</p>
 
     <div class="agent-grid">
       <div class="agent-card">
@@ -333,14 +333,6 @@
         </div>
         <div class="agent-role">Engineer · Architect · Reviewer</div>
         <div class="agent-desc">Cloud-based, fast. Handles all code, architecture, design, and review. Primary build tool for every landing page. Runs via Claude Code CLI.</div>
-      </div>
-      <div class="agent-card">
-        <div class="agent-name">
-          <span class="agent-dot dot-local"></span>
-          Jarvis
-        </div>
-        <div class="agent-role">Local AI · Vault Retrieval</div>
-        <div class="agent-desc">llama3.2 running locally via Ollama. 100% private — no data leaves the machine. Used for vault queries, context retrieval, and private reasoning. 91 files, 258 chunks indexed.</div>
       </div>
       <div class="agent-card">
         <div class="agent-name">
@@ -388,11 +380,6 @@
         <span class="tool-tag tag-active">Active</span>
       </div>
       <div class="tool-row">
-        <div class="tool-name">OpenJarvis + Ollama</div>
-        <div class="tool-desc">Local AI layer. llama3.2:latest running on CPU. Handles private vault queries without sending data to any cloud service. ~60–90s latency — used for retrieval, not real-time builds.</div>
-        <span class="tool-tag tag-local">Local</span>
-      </div>
-      <div class="tool-row">
         <div class="tool-name">GitHub Pages</div>
         <div class="tool-desc">Static hosting. Free, fast, zero maintenance. Every portfolio page and this site deploy from git push. No build step — pure HTML/CSS/JS.</div>
         <span class="tool-tag tag-active">Active</span>
@@ -405,11 +392,6 @@
       <div class="tool-row">
         <div class="tool-name">HTML / CSS / JS</div>
         <div class="tool-desc">No frameworks. No build tools. Every page is hand-crafted vanilla code. Faster load, easier maintenance, full control. Average page size: under 30KB.</div>
-        <span class="tool-tag tag-active">Active</span>
-      </div>
-      <div class="tool-row">
-        <div class="tool-name">Formspree</div>
-        <div class="tool-desc">Form handling for static sites. Contact forms work without a backend. Free tier covers current volume.</div>
         <span class="tool-tag tag-active">Active</span>
       </div>
     </div>

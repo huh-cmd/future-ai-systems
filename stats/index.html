@@ -4,130 +4,85 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Stats — Future AI Systems</title>
-  <meta name="description" content="Live metrics from Future AI Systems — builds, AI token usage, availability, and growth.">
+  <meta name="description" content="Live metrics — AI token usage, sessions, availability.">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <style>
     :root {
-      --bg: #0a0a0a;
-      --surface: #111;
-      --border: #1e1e1e;
-      --border-bright: #2a2a2a;
-      --text: #e8e8e8;
-      --muted: #666;
-      --accent: #7c6af5;
-      --accent-dim: rgba(124,106,245,0.15);
-      --green: #22c55e;
-      --green-dim: rgba(34,197,94,0.1);
-      --mono: 'JetBrains Mono', 'Fira Code', monospace;
-      --sans: Inter, ui-sans-serif, system-ui, sans-serif;
+      --bg:#05050a;--surface:#0e0e16;--surface-2:#13131e;
+      --border:#1c1c2e;--border-bright:#26263a;
+      --text:#e2e8f0;--muted:#64748b;
+      --accent:#818cf8;--accent-2:#34d399;
+      --accent-dim:rgba(129,140,248,0.1);
+      --green:#34d399;
+      --mono:'JetBrains Mono','Fira Code',monospace;
+      --sans:Inter,ui-sans-serif,system-ui,sans-serif;
+      --ease:cubic-bezier(0.16,1,0.3,1);
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: var(--bg); color: var(--text); font-family: var(--sans); line-height: 1.6; }
-    a { color: var(--accent); text-decoration: none; }
-    nav {
-      position: sticky; top: 0; z-index: 10;
-      background: rgba(10,10,10,0.92); backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      padding: 0 clamp(16px,5vw,48px); height: 56px;
-      display: flex; align-items: center; justify-content: space-between;
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.6;}
+    a{color:var(--accent);text-decoration:none;}
+    .cursor-glow{position:fixed;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(129,140,248,0.05) 0%,transparent 70%);pointer-events:none;transform:translate(-50%,-50%);z-index:0;transition:left 0.08s,top 0.08s;}
+    @keyframes ripple-out{to{transform:scale(2.5);opacity:0;}}
+    .ripple-el{position:relative;overflow:hidden;}
+    .ripple-dot{position:absolute;border-radius:50%;background:rgba(255,255,255,0.15);transform:scale(0);animation:ripple-out 0.55s var(--ease) forwards;pointer-events:none;}
+    nav{
+      position:sticky;top:0;z-index:100;
+      background:rgba(5,5,10,0.88);backdrop-filter:blur(16px);
+      border-bottom:1px solid var(--border);
+      padding:0 clamp(20px,6vw,60px);height:58px;
+      display:flex;align-items:center;justify-content:space-between;
     }
-    .nav-logo { font-weight: 600; font-size: 0.9rem; color: var(--text); }
-    .nav-links { display: flex; gap: 24px; }
-    .nav-links a { color: var(--muted); font-size: 0.85rem; transition: color 0.2s; }
-    .nav-links a:hover { color: var(--text); }
-    .wrap { width: min(1100px, calc(100% - 48px)); margin: 0 auto; }
-
-    .page-header { padding: clamp(48px,8vw,80px) 0 32px; border-bottom: 1px solid var(--border); }
-    .page-label {
-      font-family: var(--mono); font-size: 0.7rem;
-      color: var(--accent); letter-spacing: 0.1em;
-      text-transform: uppercase; margin-bottom: 12px;
+    .nav-brand{font-weight:700;font-size:0.9rem;color:var(--text);}
+    .nav-links{display:flex;gap:28px;}
+    .nav-links a{font-size:0.85rem;color:var(--muted);transition:color 0.2s;position:relative;padding-bottom:2px;}
+    .nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--accent);transition:width 0.25s var(--ease);}
+    .nav-links a:hover{color:var(--text);}
+    .nav-links a:hover::after{width:100%;}
+    .wrap{width:min(1060px,calc(100% - 40px));margin:0 auto;}
+    .page-header{padding:clamp(48px,8vw,80px) 0 32px;border-bottom:1px solid var(--border);}
+    .page-label{font-family:var(--mono);font-size:0.7rem;color:var(--accent);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:14px;}
+    h1{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;letter-spacing:-0.035em;margin-bottom:12px;}
+    .page-sub{color:var(--muted);font-size:0.92rem;}
+    #last-updated{color:var(--accent);font-family:var(--mono);}
+    .kpi-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;padding:36px 0;}
+    .kpi{
+      background:var(--surface);border:1px solid var(--border);
+      border-radius:14px;padding:20px;
+      transition:border-color 0.25s,transform 0.25s,box-shadow 0.25s;
     }
-    h1 { font-size: clamp(1.8rem,4vw,2.8rem); font-weight: 700; letter-spacing: -0.03em; margin-bottom: 12px; }
-    .page-sub { color: var(--muted); font-size: 0.95rem; }
-    #last-updated { color: var(--accent); font-family: var(--mono); }
-
-    /* KPI row */
-    .kpi-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px,1fr)); gap: 16px; padding: 40px 0; }
-    .kpi {
-      background: var(--surface); border: 1px solid var(--border-bright);
-      border-radius: 10px; padding: 20px;
+    .kpi:hover{border-color:var(--border-bright);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.3);}
+    .kpi-num{font-size:clamp(1.5rem,3vw,2rem);font-weight:800;font-family:var(--mono);letter-spacing:-0.04em;margin-bottom:4px;}
+    .kpi-label{font-size:0.75rem;color:var(--muted);}
+    .kpi-accent .kpi-num{background:linear-gradient(135deg,#818cf8,#a5b4fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .kpi-green .kpi-num{color:var(--green);}
+    .status-badge{display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;font-family:var(--mono);}
+    .status-dot{width:8px;height:8px;border-radius:50%;box-shadow:0 0 6px var(--green);}
+    .dot-open{background:var(--green);}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+    .status-dot{animation:pulse 2s infinite;}
+    .charts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(440px,1fr));gap:20px;padding-bottom:48px;}
+    .chart-card{
+      background:var(--surface);border:1px solid var(--border);
+      border-radius:16px;padding:24px;
+      transition:border-color 0.25s,box-shadow 0.25s;
     }
-    .kpi-num {
-      font-size: clamp(1.6rem,3vw,2.2rem); font-weight: 800;
-      font-family: var(--mono); letter-spacing: -0.03em;
-      margin-bottom: 4px;
-    }
-    .kpi-label { font-size: 0.78rem; color: var(--muted); }
-    .kpi-accent .kpi-num { color: var(--accent); }
-    .kpi-green .kpi-num { color: var(--green); }
-    .status-badge {
-      display: inline-flex; align-items: center; gap: 6px;
-      font-size: 0.78rem; font-family: var(--mono);
-    }
-    .status-dot { width: 8px; height: 8px; border-radius: 50%; animation: pulse 2s infinite; }
-    .dot-open { background: var(--green); }
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
-
-    /* Charts */
-    .charts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(440px,1fr)); gap: 24px; padding-bottom: 48px; }
-    .chart-card {
-      background: var(--surface); border: 1px solid var(--border-bright);
-      border-radius: 12px; padding: 24px;
-    }
-    .chart-title { font-size: 0.85rem; font-weight: 600; margin-bottom: 4px; }
-    .chart-sub { font-size: 0.75rem; color: var(--muted); margin-bottom: 20px; }
-    .chart-wrap { position: relative; height: 200px; }
-
-    /* Portfolio table */
-    .section { padding: 40px 0; border-top: 1px solid var(--border); }
-    h2 { font-size: 1.3rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 6px; }
-    .section-sub { font-size: 0.82rem; color: var(--muted); margin-bottom: 24px; }
-    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-    thead th {
-      text-align: left; padding: 10px 14px;
-      font-family: var(--mono); font-size: 0.7rem; color: var(--muted);
-      letter-spacing: 0.06em; text-transform: uppercase;
-      border-bottom: 1px solid var(--border-bright);
-    }
-    tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
-    tbody tr:hover { background: rgba(255,255,255,0.02); }
-    tbody td { padding: 12px 14px; color: var(--text); }
-    .type-badge {
-      display: inline-block; font-family: var(--mono);
-      font-size: 0.68rem; padding: 2px 8px;
-      border-radius: 4px; background: var(--accent-dim); color: var(--accent);
-    }
-    .live-dot {
-      display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem;
-    }
-    .live-dot::before {
-      content:''; width:6px; height:6px; border-radius:50%;
-      background:var(--green); flex-shrink:0;
-    }
-
-    /* No data state */
-    .no-data { color: var(--muted); font-size: 0.82rem; font-style: italic; padding: 24px 0; }
-
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 28px clamp(16px,5vw,48px);
-      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
-    }
-    .footer-left { font-size: 0.78rem; color: var(--muted); }
-    .footer-links { display: flex; gap: 20px; }
-    .footer-links a { font-size: 0.78rem; color: var(--muted); }
-
-    @media (max-width:600px) {
-      .charts-grid { grid-template-columns: 1fr; }
-      nav .nav-links { display: none; }
-    }
+    .chart-card:hover{border-color:var(--border-bright);box-shadow:0 8px 32px rgba(0,0,0,0.3);}
+    .chart-title{font-size:0.88rem;font-weight:700;margin-bottom:4px;}
+    .chart-sub{font-size:0.73rem;color:var(--muted);margin-bottom:20px;}
+    .chart-wrap{position:relative;height:200px;}
+    footer{border-top:1px solid var(--border);padding:28px clamp(20px,6vw,60px);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+    .footer-left{font-size:0.78rem;color:var(--muted);}
+    .footer-links{display:flex;gap:20px;}
+    .footer-links a{font-size:0.78rem;color:var(--muted);transition:color 0.2s;}
+    .footer-links a:hover{color:var(--text);}
+    @media(max-width:600px){.charts-grid{grid-template-columns:1fr;}nav .nav-links{display:none;}}
   </style>
 </head>
 <body>
+<div class="cursor-glow" id="cursorGlow"></div>
 
 <nav>
-  <a href="../" class="nav-logo">Future AI Systems</a>
+  <a href="../" class="nav-brand">Future AI Systems</a>
   <div class="nav-links">
     <a href="../">Home</a>
     <a href="../portfolio/">Portfolio</a>
@@ -137,67 +92,30 @@
 </nav>
 
 <div class="wrap">
-
   <div class="page-header">
     <div class="page-label">Live Metrics</div>
     <h1>System Stats</h1>
-    <p class="page-sub">Real data. Updated manually from <code style="color:var(--accent)">stats/data.json</code>. Last update: <span id="last-updated">—</span></p>
+    <p class="page-sub">Real data from <code style="color:var(--accent);font-size:0.85rem">stats/data.json</code> · Last update: <span id="last-updated">—</span></p>
   </div>
 
-  <div class="kpi-row" id="kpi-row">
-    <!-- Filled by JS -->
-  </div>
+  <div class="kpi-row" id="kpi-row"></div>
 
   <div class="charts-grid">
-    <div class="chart-card">
+    <div class="chart-card ripple-el">
       <div class="chart-title">AI Token Usage</div>
       <div class="chart-sub">Millions of tokens processed per active day (May 2026)</div>
       <div class="chart-wrap"><canvas id="tokenChart"></canvas></div>
     </div>
-    <div class="chart-card">
+    <div class="chart-card ripple-el">
       <div class="chart-title">Sessions Per Day</div>
       <div class="chart-sub">Claude Code sessions tracked via stop hook</div>
       <div class="chart-wrap"><canvas id="sessionChart"></canvas></div>
     </div>
-    <div class="chart-card">
-      <div class="chart-title">Industry Breakdown</div>
-      <div class="chart-sub">Portfolio pages by client type</div>
-      <div class="chart-wrap"><canvas id="industryChart"></canvas></div>
-    </div>
-    <div class="chart-card">
-      <div class="chart-title">Monthly Revenue</div>
-      <div class="chart-sub">Combined Upwork + Fiverr + direct (USD)</div>
-      <div class="chart-wrap"><canvas id="revenueChart"></canvas></div>
-    </div>
   </div>
-
-  <div class="section">
-    <h2>Portfolio Builds</h2>
-    <div class="section-sub">Every page built on this system</div>
-    <table id="portfolio-table">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Theme</th>
-          <th>Built</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody id="portfolio-tbody"></tbody>
-    </table>
-  </div>
-
-  <div class="section">
-    <h2>Proposals</h2>
-    <div class="section-sub">Sent / responses / closed by month</div>
-    <div id="proposals-data" class="no-data">No proposal data logged yet. First proposals pending.</div>
-  </div>
-
 </div>
 
 <footer>
-  <div class="footer-left">Data source: <a href="https://github.com/huh-cmd/future-ai-systems/blob/main/stats/data.json" target="_blank">stats/data.json</a> · Updated manually every Friday</div>
+  <div class="footer-left">Source: <a href="https://github.com/huh-cmd/future-ai-systems/blob/main/stats/data.json" target="_blank">stats/data.json</a> · Updated every Friday</div>
   <div class="footer-links">
     <a href="../system/">How It Works</a>
     <a href="https://github.com/huh-cmd/future-ai-systems" target="_blank">GitHub</a>
@@ -205,15 +123,23 @@
 </footer>
 
 <script>
-const CHART_DEFAULTS = {
-  color: '#e8e8e8',
-  borderColor: '#1e1e1e',
-  font: { family: 'Inter, system-ui, sans-serif', size: 11 }
-};
+const glow = document.getElementById('cursorGlow');
+document.addEventListener('mousemove', e => { glow.style.left = e.clientX+'px'; glow.style.top = e.clientY+'px'; });
+document.querySelectorAll('.ripple-el').forEach(el => {
+  el.addEventListener('click', function(e) {
+    const rect = this.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height) * 1.5;
+    const dot = document.createElement('span');
+    dot.className = 'ripple-dot';
+    dot.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX-rect.left-size/2}px;top:${e.clientY-rect.top-size/2}px;`;
+    this.appendChild(dot);
+    dot.addEventListener('animationend', () => dot.remove());
+  });
+});
 
-Chart.defaults.color = CHART_DEFAULTS.color;
-Chart.defaults.borderColor = CHART_DEFAULTS.borderColor;
-Chart.defaults.font = CHART_DEFAULTS.font;
+Chart.defaults.color = '#64748b';
+Chart.defaults.borderColor = '#1c1c2e';
+Chart.defaults.font = { family: 'Inter, system-ui, sans-serif', size: 11 };
 
 fetch('data.json')
   .then(r => r.json())
@@ -221,10 +147,6 @@ fetch('data.json')
     renderKPIs(data);
     renderTokenChart(data);
     renderSessionChart(data);
-    renderIndustryChart(data);
-    renderRevenueChart(data);
-    renderPortfolioTable(data);
-    renderProposals(data);
     document.getElementById('last-updated').textContent = data._meta?.last_updated || '—';
   });
 
@@ -233,18 +155,27 @@ function renderKPIs(data) {
   const usage = data.ai_usage?.daily || [];
   const totalTokens = usage.reduce((s,d) => s + (d.tokens_m||0), 0).toFixed(1);
   const totalSessions = usage.reduce((s,d) => s + (d.sessions||0), 0);
-
   const kpis = [
     { num: svc.availability === 'open' ? '<span class="status-badge"><span class="status-dot dot-open"></span>Open</span>' : 'Closed', label: 'Availability', cls: 'kpi-green' },
-    { num: svc.pages_built || 0, label: 'Pages built', cls: 'kpi-accent' },
     { num: '$' + (svc.base_price_usd || '—'), label: 'Starting price', cls: '' },
     { num: (svc.avg_turnaround_days || '—') + ' days', label: 'Avg turnaround', cls: '' },
     { num: totalTokens + 'M', label: 'Total tokens (May)', cls: 'kpi-accent' },
-    { num: totalSessions, label: 'Sessions tracked', cls: '' },
+    { num: totalSessions, label: 'Sessions tracked', cls: 'kpi-accent' },
   ];
   document.getElementById('kpi-row').innerHTML = kpis.map(k =>
-    `<div class="kpi ${k.cls}"><div class="kpi-num">${k.num}</div><div class="kpi-label">${k.label}</div></div>`
+    `<div class="kpi ${k.cls} ripple-el"><div class="kpi-num">${k.num}</div><div class="kpi-label">${k.label}</div></div>`
   ).join('');
+  document.querySelectorAll('.kpi.ripple-el').forEach(el => {
+    el.addEventListener('click', function(e) {
+      const rect = this.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height) * 1.5;
+      const dot = document.createElement('span');
+      dot.className = 'ripple-dot';
+      dot.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX-rect.left-size/2}px;top:${e.clientY-rect.top-size/2}px;`;
+      this.appendChild(dot);
+      dot.addEventListener('animationend', () => dot.remove());
+    });
+  });
 }
 
 function renderTokenChart(data) {
@@ -253,20 +184,14 @@ function renderTokenChart(data) {
     type: 'bar',
     data: {
       labels: daily.map(d => d.date.slice(5)),
-      datasets: [{
-        data: daily.map(d => d.tokens_m),
-        backgroundColor: 'rgba(124,106,245,0.5)',
-        borderColor: '#7c6af5',
-        borderWidth: 1,
-        borderRadius: 4
-      }]
+      datasets: [{ data: daily.map(d => d.tokens_m), backgroundColor: 'rgba(129,140,248,0.5)', borderColor: '#818cf8', borderWidth: 1, borderRadius: 6 }]
     },
     options: {
       responsive: true, maintainAspectRatio: false,
       plugins: { legend: { display: false } },
       scales: {
-        x: { grid: { color: '#1e1e1e' }, ticks: { color: '#666' } },
-        y: { grid: { color: '#1e1e1e' }, ticks: { color: '#666', callback: v => v + 'M' } }
+        x: { grid: { color: '#1c1c2e' }, ticks: { color: '#64748b' } },
+        y: { grid: { color: '#1c1c2e' }, ticks: { color: '#64748b', callback: v => v + 'M' } }
       }
     }
   });
@@ -278,113 +203,17 @@ function renderSessionChart(data) {
     type: 'line',
     data: {
       labels: daily.map(d => d.date.slice(5)),
-      datasets: [{
-        data: daily.map(d => d.sessions),
-        borderColor: '#22c55e',
-        backgroundColor: 'rgba(34,197,94,0.08)',
-        borderWidth: 2,
-        fill: true,
-        tension: 0.3,
-        pointBackgroundColor: '#22c55e',
-        pointRadius: 4
-      }]
+      datasets: [{ data: daily.map(d => d.sessions), borderColor: '#34d399', backgroundColor: 'rgba(52,211,153,0.08)', borderWidth: 2, fill: true, tension: 0.4, pointBackgroundColor: '#34d399', pointRadius: 4, pointHoverRadius: 6 }]
     },
     options: {
       responsive: true, maintainAspectRatio: false,
       plugins: { legend: { display: false } },
       scales: {
-        x: { grid: { color: '#1e1e1e' }, ticks: { color: '#666' } },
-        y: { grid: { color: '#1e1e1e' }, ticks: { color: '#666', stepSize: 1 } }
+        x: { grid: { color: '#1c1c2e' }, ticks: { color: '#64748b' } },
+        y: { grid: { color: '#1c1c2e' }, ticks: { color: '#64748b', stepSize: 1 } }
       }
     }
   });
-}
-
-function renderIndustryChart(data) {
-  const portfolio = data.portfolio || [];
-  const counts = {};
-  portfolio.forEach(p => { counts[p.type] = (counts[p.type]||0)+1; });
-  const labels = Object.keys(counts);
-  const values = labels.map(l => counts[l]);
-  new Chart(document.getElementById('industryChart'), {
-    type: 'doughnut',
-    data: {
-      labels,
-      datasets: [{
-        data: values,
-        backgroundColor: ['rgba(124,106,245,0.7)','rgba(34,197,94,0.7)','rgba(234,179,8,0.7)','rgba(239,68,68,0.7)'],
-        borderColor: '#0a0a0a',
-        borderWidth: 2
-      }]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: {
-        legend: { position: 'bottom', labels: { color: '#888', padding: 14 } }
-      }
-    }
-  });
-}
-
-function renderRevenueChart(data) {
-  const monthly = data.income?.monthly || [];
-  if (!monthly.length) {
-    new Chart(document.getElementById('revenueChart'), {
-      type: 'bar',
-      data: { labels: ['May 2026'], datasets: [{ data: [0], backgroundColor: 'rgba(124,106,245,0.3)', borderRadius: 4 }] },
-      options: {
-        responsive: true, maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: {
-          x: { grid: { color: '#1e1e1e' }, ticks: { color: '#666' } },
-          y: { grid: { color: '#1e1e1e' }, ticks: { color: '#666', callback: v => '$'+v } }
-        }
-      }
-    });
-    return;
-  }
-  const total = monthly.map(m => (m.upwork||0)+(m.fiverr||0)+(m.direct||0));
-  new Chart(document.getElementById('revenueChart'), {
-    type: 'bar',
-    data: {
-      labels: monthly.map(m => m.month),
-      datasets: [
-        { label: 'Upwork', data: monthly.map(m=>m.upwork||0), backgroundColor: 'rgba(124,106,245,0.6)', borderRadius: 4 },
-        { label: 'Fiverr', data: monthly.map(m=>m.fiverr||0), backgroundColor: 'rgba(34,197,94,0.6)', borderRadius: 4 },
-        { label: 'Direct', data: monthly.map(m=>m.direct||0), backgroundColor: 'rgba(234,179,8,0.6)', borderRadius: 4 }
-      ]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { position: 'bottom', labels: { color: '#888', padding: 10 } } },
-      scales: {
-        x: { stacked: true, grid: { color: '#1e1e1e' }, ticks: { color: '#666' } },
-        y: { stacked: true, grid: { color: '#1e1e1e' }, ticks: { color: '#666', callback: v => '$'+v } }
-      }
-    }
-  });
-}
-
-function renderPortfolioTable(data) {
-  const tbody = document.getElementById('portfolio-tbody');
-  (data.portfolio||[]).forEach(p => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td><a href="${p.url}" style="color:var(--text)">${p.name}</a></td>
-      <td><span class="type-badge">${p.type}</span></td>
-      <td style="color:var(--muted)">${p.theme}</td>
-      <td style="color:var(--muted);font-family:var(--mono);font-size:0.8rem">${p.built}</td>
-      <td><span class="live-dot">Live</span></td>
-    `;
-    tbody.appendChild(tr);
-  });
-}
-
-function renderProposals(data) {
-  const monthly = data.proposals?.monthly || [];
-  if (monthly.length) {
-    document.getElementById('proposals-data').innerHTML = '';
-  }
 }
 </script>
 </body>

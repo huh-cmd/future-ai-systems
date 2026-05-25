@@ -28,7 +28,9 @@ This repo keeps a small public trail instead:
 
 | # | Title | What it covers |
 |---|---|---|
-| [001](001-token-economics.md) | Token Economics - May 2026 Foundation Build | Token patterns, session shape, and public-safe lessons |
+| [001](001-token-economics.md) | Token Economics — May 2026 Foundation Build | Session data, cost estimates, 95% cache warmup curve |
+| [002](002-cache-architecture.md) | Cache Architecture — Vault Structure for Token Efficiency | Folder design, change-rate analysis, cache invalidation, ROI math |
+| [—](claude-md-template.md) | CLAUDE.md Template | Shareable starting point for Claude Code project intelligence files |
 
 More added as data accumulates.
 

@@ -17,6 +17,7 @@ Complete restructure for professional presentation and long-term maintainability
 - `stats/index.html` — dashboard: token usage chart, sessions, availability status
 - `system/index.html` — AI-assisted build workflow overview
 - `research/` — public-safe usage notes and methodology for the AI workflow data
+- `VALIDATION.md` — public-safe testing/proof notes without adding a proof folder
 - `wireframes/README.md` — landing-page process documentation
 - `.github/SECURITY.md` — vulnerability disclosure policy and no-credentials rule
 - `CHANGELOG.md` — this file

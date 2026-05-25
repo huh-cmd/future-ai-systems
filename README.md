@@ -10,7 +10,8 @@
 **Portfolio:** [/portfolio/](https://huh-cmd.github.io/future-ai-systems/portfolio/)  
 **How it works:** [/system/](https://huh-cmd.github.io/future-ai-systems/system/)  
 **Stats:** [/stats/](https://huh-cmd.github.io/future-ai-systems/stats/)  
-**Research:** [`/research/`](research/)
+**Research:** [`/research/`](research/)  
+**Validation:** [`VALIDATION.md`](VALIDATION.md)
 
 ---
 
@@ -24,8 +25,8 @@ Single offer until real client work ships cleanly. Then expand only if demand is
 proven.
 
 This repository is also a public record of the workflow: the site, wireframes,
-token receipts, security policy, and research notes are kept inspectable so the
-claims stay grounded.
+token receipts, security policy, validation notes, and research notes are kept
+inspectable so the claims stay grounded.
 
 ---
 
@@ -57,12 +58,15 @@ future-ai-systems/
 ├── system/
 │   └── index.html            # Workflow and tools overview
 ├── research/
-│   ├── README.md             # Public-safe workflow research index
-│   └── 001-token-economics.md
+│   ├── README.md                  # Methodology and index
+│   ├── 001-token-economics.md     # Cost breakdown, cache warmup curve
+│   ├── 002-cache-architecture.md  # Vault structure, cache ROI math
+│   └── claude-md-template.md      # Shareable CLAUDE.md starter
 ├── wireframes/
 │   └── README.md             # Design process and wireframes
 ├── .gitignore                # Blocks secrets, local state, traces, QA profiles
 ├── CHANGELOG.md              # Version history
+├── VALIDATION.md             # Public-safe testing and proof notes
 ├── README.md                 # This file
 └── index.html                # Landing page
 ```

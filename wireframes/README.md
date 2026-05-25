@@ -1,6 +1,6 @@
 # Design Process — Wireframes & Build Notes
 
-Every page built at Future AI Systems starts here: a structured wireframe that defines layout, hierarchy, and intent before a single line of CSS is written. This is the discipline that separates fast, coherent builds from iterative guesswork.
+Every page built at Future AI Systems starts here: a structured wireframe that defines layout, hierarchy, and intent before the build begins. This is the discipline that separates fast, coherent builds from iterative guesswork.
 
 ---
 
@@ -31,7 +31,7 @@ Every page built at Future AI Systems starts here: a structured wireframe that d
 
 ---
 
-## Sample Wireframe — Fitness Landing Page (Marcus Webb)
+## Baseline Wireframe — Landing Page
 
 ```
 ┌─────────────────────────────────────────────┐
@@ -45,49 +45,20 @@ Every page built at Future AI Systems starts here: a structured wireframe that d
 │  [Background: dark gradient mesh]           │
 │                                             │
 ├─────────────────────────────────────────────┤
-│  SOCIAL PROOF BAR                           │
-│  3 stats: clients · weeks · satisfaction   │
+│  PROOF / TRUST SECTION                      │
+│  Only real proof: process, work, facts      │
 ├─────────────────────────────────────────────┤
 │  SERVICES BENTO GRID                        │
 │  [Card] [Card] [Card]                       │
 │  [Card — wide]                              │
 ├─────────────────────────────────────────────┤
-│  TESTIMONIALS                               │
-│  Quote · Name · Role (×3)                  │
+│  DETAILS / FAQ                              │
+│  Scope · timeline · what is not included    │
 ├─────────────────────────────────────────────┤
 │  CTA SECTION                                │
 │  Headline + button + subtext                │
 ├─────────────────────────────────────────────┤
 │  FOOTER: Nav · Social · Legal               │
-└─────────────────────────────────────────────┘
-```
-
----
-
-## Sample Wireframe — Consulting Landing Page (Priya Sharma)
-
-```
-┌─────────────────────────────────────────────┐
-│ NAV: Logo · About · Services · Contact      │
-├─────────────────────────────────────────────┤
-│  HERO                                       │
-│  H1: Position + outcome                     │
-│  Sub: Who this is for                       │
-│  CTA: Book a call                           │
-│  [Background: light, clean grid]            │
-├─────────────────────────────────────────────┤
-│  CREDIBILITY BAR                            │
-│  Logos or badges (4 items)                  │
-├─────────────────────────────────────────────┤
-│  SERVICES: 3-column cards                  │
-│  Icon · Title · 2-line description          │
-├─────────────────────────────────────────────┤
-│  PROCESS: Numbered steps (3–4)              │
-├─────────────────────────────────────────────┤
-│  TESTIMONIAL: Full-width quote              │
-├─────────────────────────────────────────────┤
-│  CONTACT FORM                               │
-│  Name · Email · Message · Submit            │
 └─────────────────────────────────────────────┘
 ```
 

@@ -1,6 +1,6 @@
 # Future AI Systems
 
-> Landing pages built with AI. Fast, clean, and priced to move.
+> Landing pages built with AI. Focused, clean, and priced to move.
 
 [![Status](https://img.shields.io/badge/availability-open-22c55e?style=flat-square)](https://huh-cmd.github.io/future-ai-systems/)
 [![Built with Claude Code](https://img.shields.io/badge/built%20with-Claude%20Code-7c6af5?style=flat-square)](https://claude.ai/claude-code)
@@ -15,9 +15,9 @@
 
 ## What this is
 
-A one-service freelance site: custom landing pages at a flat rate, built using a structured AI system (Claude Code + Alexandria vault). No page builders, no WordPress, no frameworks. Clean HTML/CSS/JS.
+A one-service freelance site: custom landing pages at a flat $150 rate, built using a structured AI workflow with Claude Code and human review. No page builders, no WordPress, no frameworks. Clean HTML/CSS/JS.
 
-Single offer until the first client ships. Then expand.
+Single offer until real client work ships cleanly. Then expand only if the demand is proven.
 
 ---
 
@@ -25,7 +25,7 @@ Single offer until the first client ships. Then expand.
 
 | Tool | Role |
 |------|------|
-| **Claude Code** | Primary build agent — all HTML, CSS, JS, architecture |
+| **Claude Code** | Primary build tool — HTML, CSS, JS, structure, review support |
 | **Obsidian + Alexandria** | 91-file knowledge vault — carries context across sessions |
 | **GitHub Pages** | Static hosting — deploy on push, zero maintenance |
 | **PowerShell** | Automation — token tracking hook, vault health checks |
@@ -40,11 +40,7 @@ Token usage is auto-tracked via Claude Code stop hook → `DAILY_TOKENS.md` → 
 future-ai-systems/
 ├── .github/SECURITY.md       # Vulnerability policy
 ├── .hooks/pre-commit         # Secret scanner — runs on every commit
-├── portfolio/                # 4 sample landing pages
-│   ├── marcus-webb/          # Fitness — dark theme
-│   ├── priya-sharma/         # Consulting — light theme
-│   ├── kai-rivers/           # Music — navy/electric blue
-│   └── ember-kitchen/        # Restaurant — warm charcoal
+├── portfolio/                # Coming-soon portfolio page
 ├── stats/
 │   ├── data.json             # Live metrics (builds, tokens, revenue)
 │   └── index.html            # Chart dashboard
@@ -106,11 +102,9 @@ Average build time: 2–4 hours per page.
 
 | Service | Price |
 |---------|-------|
-| One-page landing page | $150 flat |
-| Two-page (landing + services) | $250 flat |
-| Rush (48hr) | +$75 |
+| Landing page | $150 flat |
 
-One free revision. Delivered as a live GitHub Pages URL or as a zip of clean HTML/CSS/JS files.
+One free revision. Delivered as a live GitHub Pages URL or as a zip of clean HTML/CSS/JS files. No fake testimonials, fake numbers, or fake client logos.
 
 **Contact:** jeffe5196@gmail.com
 
@@ -125,5 +119,6 @@ Current version: **2.0.0** — Foundation rebuild (2026-05-25)
 ---
 
 ## License
+
 Code is available for reference. Do not resell or reuse without permission.
 

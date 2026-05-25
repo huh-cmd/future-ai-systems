@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Custom landing pages built with AI. Clean HTML/CSS/JS — no page builders, no WordPress. Starting at $150. Fast turnaround.">
+  <meta name="description" content="Custom landing pages built with AI. Clean HTML/CSS/JS — no page builders, no WordPress. $150 flat. Fast turnaround.">
   <title>Future AI Systems | Landing Pages Built with AI</title>
   <style>
     :root {
@@ -315,11 +315,34 @@
     [data-reveal]{opacity:0;transform:translateY(24px);transition:opacity 0.6s var(--ease),transform 0.6s var(--ease);}
     [data-reveal].visible{opacity:1;transform:none;}
 
+    /* Focus states — keyboard nav */
+    :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px;}
+    a:focus-visible{outline-offset:4px;}
+    .btn-primary:focus-visible,.btn-secondary:focus-visible,.price-cta:focus-visible,.nav-cta:focus-visible{outline-offset:3px;}
+    .btn-secondary{cursor:pointer;}
+
+    /* Reduced motion */
+    @media(prefers-reduced-motion:reduce){
+      *{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;}
+      [data-reveal]{opacity:1;transform:none;transition:none;}
+      html{scroll-behavior:auto;}
+    }
+
     @media(max-width:768px){
       .system-teaser{grid-template-columns:1fr;gap:32px;}
       nav .nav-links .hide-mobile{display:none;}
     }
-    @media(max-width:520px){.nav-links{gap:16px;}}
+    @media(max-width:520px){
+      nav{padding:0 20px;}
+      .nav-brand{font-size:0.8rem;}
+      .nav-links{gap:10px;}
+      .nav-cta{display:none;}
+      h1{font-size:2.72rem;letter-spacing:-0.03em;}
+      .hero-sub{max-width:320px;font-size:0.92rem;overflow-wrap:anywhere;}
+      .hero-note{display:block;line-height:1.8;}
+      .hero-actions{gap:12px;}
+      .btn-primary,.btn-secondary{padding-left:18px;padding-right:18px;}
+    }
   </style>
 </head>
 <body>
@@ -347,13 +370,13 @@
         Currently open for work
       </div>
       <h1>Landing pages.<br><em>Built with AI.</em><br>Priced to ship.</h1>
-      <p class="hero-sub">Clean HTML/CSS/JS — no page builders, no WordPress, no bloat. Built fast with Claude Code and a structured AI system. Starting at $150.</p>
+      <p class="hero-sub">Clean static HTML/CSS/JS. No WordPress or page builders. Built with Claude Code, directed and reviewed by me. $150 flat.</p>
       <div class="hero-actions">
         <a href="mailto:jeffe5196@gmail.com?subject=Landing Page Quote" class="btn-primary ripple-el">Get a quote →</a>
-        <a href="portfolio/" class="btn-secondary ripple-el">See the work</a>
+        <a href="portfolio/" class="btn-secondary ripple-el">Portfolio</a>
       </div>
       <div class="hero-note">
-        Avg turnaround: <span>2–3 days</span> &nbsp;·&nbsp; One free revision &nbsp;·&nbsp; Live URL delivered
+        Flat price: <span>$150</span> &nbsp;·&nbsp; One free revision &nbsp;·&nbsp; Live URL delivered
       </div>
     </div>
   </div>
@@ -423,48 +446,23 @@
   <!-- PRICING -->
   <div class="section" data-reveal>
     <div class="section-label">Pricing</div>
-    <h2>One service. Clear rates.</h2>
-    <p class="section-desc">Fixed price, fixed scope, fast delivery.</p>
+    <h2>One service. One price.</h2>
+    <p class="section-desc">Fixed scope, fixed price, focused delivery. One landing page until the first real client work is shipped cleanly.</p>
     <div class="pricing-grid">
-      <div class="price-card ripple-el">
-        <div class="price-tier">One-Page</div>
+      <div class="price-card featured ripple-el">
+        <div class="price-tier">Landing Page</div>
         <div class="price-num">$150<sub> flat</sub></div>
-        <div class="price-desc">Single landing page. Hero, services, social proof, CTA. Mobile-ready.</div>
+        <div class="price-desc">Single static landing page. Hero, offer sections, call to action, responsive layout, and live GitHub Pages URL.</div>
         <ul class="price-features">
           <li>Clean HTML/CSS/JS</li>
           <li>Mobile responsive</li>
-          <li>Scroll animations</li>
+          <li>Basic visual polish</li>
           <li>Live GitHub Pages URL</li>
           <li>One free revision</li>
+          <li class="no">Fake testimonials, fake metrics, or fake client logos</li>
           <li class="no">Additional pages</li>
         </ul>
-        <a href="mailto:jeffe5196@gmail.com?subject=One-Page Quote" class="price-cta ghost ripple-el">Get quote</a>
-      </div>
-      <div class="price-card featured ripple-el">
-        <div class="price-tier">Two-Page</div>
-        <div class="price-num">$250<sub> flat</sub></div>
-        <div class="price-desc">Landing page + services or about page. Best for freelancers and small businesses.</div>
-        <ul class="price-features">
-          <li>Everything in One-Page</li>
-          <li>Second page</li>
-          <li>Consistent design system</li>
-          <li>Internal navigation</li>
-          <li>Two free revisions</li>
-          <li class="no">Ongoing maintenance</li>
-        </ul>
-        <a href="mailto:jeffe5196@gmail.com?subject=Two-Page Quote" class="price-cta ripple-el">Get quote →</a>
-      </div>
-      <div class="price-card ripple-el">
-        <div class="price-tier">Rush Add-on</div>
-        <div class="price-num">+$75</div>
-        <div class="price-desc">48-hour turnaround. Add to any package when speed matters.</div>
-        <ul class="price-features">
-          <li>Delivered in 48 hours</li>
-          <li>Priority queue</li>
-          <li>Same quality, faster</li>
-          <li class="no">Additional revisions</li>
-        </ul>
-        <a href="mailto:jeffe5196@gmail.com?subject=Rush Quote" class="price-cta ghost ripple-el">Add to quote</a>
+        <a href="mailto:jeffe5196@gmail.com?subject=Landing Page Quote" class="price-cta ripple-el">Get quote →</a>
       </div>
     </div>
   </div>
@@ -475,8 +473,8 @@
       <div>
         <div class="section-label">The System</div>
         <h2>Built on an AI operating system</h2>
-        <p>Every page is built inside a structured system — a 91-file knowledge vault (Alexandria), automated token tracking, and a full design workflow all running on Claude Code.</p>
-        <p>The system carries context forward so every project benefits from everything built before it. Faster builds, fewer mistakes, consistent quality.</p>
+        <p>Every page is built inside a structured workflow: intake, wireframe, Claude Code build, mobile pass, and review.</p>
+        <p>The system keeps project notes, constraints, and decisions organized so the work stays focused and repeatable.</p>
         <div class="tool-pills">
           <span class="pill">Claude Code</span>
           <span class="pill">Obsidian</span>
@@ -488,8 +486,8 @@
       </div>
       <div class="stat-mini-grid">
         <div class="stat-mini">
-          <div class="stat-mini-num" data-count="91">0</div>
-          <div class="stat-mini-label">vault files</div>
+          <div class="stat-mini-num">$150</div>
+          <div class="stat-mini-label">flat landing page price</div>
         </div>
         <div class="stat-mini">
           <div class="stat-mini-num">74.5M</div>
@@ -500,8 +498,8 @@
           <div class="stat-mini-label">sessions tracked</div>
         </div>
         <div class="stat-mini">
-          <div class="stat-mini-num">96.6%</div>
-          <div class="stat-mini-label">memory recall</div>
+          <div class="stat-mini-num">0</div>
+          <div class="stat-mini-label">client pages claimed</div>
         </div>
       </div>
     </div>
@@ -528,54 +526,65 @@
 </footer>
 
 <script>
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 // Cursor glow
 const glow = document.getElementById('cursorGlow');
-document.addEventListener('mousemove', e => {
-  glow.style.left = e.clientX + 'px';
-  glow.style.top = e.clientY + 'px';
-});
+if(!prefersReducedMotion){
+  document.addEventListener('mousemove', e => {
+    glow.style.left = e.clientX + 'px';
+    glow.style.top = e.clientY + 'px';
+  });
+} else { glow.style.display = 'none'; }
 
 // Ripple on click
-document.querySelectorAll('.ripple-el').forEach(el => {
-  el.addEventListener('click', function(e) {
-    const rect = this.getBoundingClientRect();
-    const size = Math.max(rect.width, rect.height) * 1.5;
-    const x = e.clientX - rect.left - size/2;
-    const y = e.clientY - rect.top - size/2;
-    const dot = document.createElement('span');
-    dot.className = 'ripple-dot';
-    dot.style.cssText = `width:${size}px;height:${size}px;left:${x}px;top:${y}px;`;
-    this.appendChild(dot);
-    dot.addEventListener('animationend', () => dot.remove());
+if(!prefersReducedMotion){
+  document.querySelectorAll('.ripple-el').forEach(el => {
+    el.addEventListener('click', function(e) {
+      const rect = this.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height) * 1.5;
+      const x = e.clientX - rect.left - size/2;
+      const y = e.clientY - rect.top - size/2;
+      const dot = document.createElement('span');
+      dot.className = 'ripple-dot';
+      dot.style.cssText = `width:${size}px;height:${size}px;left:${x}px;top:${y}px;`;
+      this.appendChild(dot);
+      dot.addEventListener('animationend', () => dot.remove());
+    });
   });
-});
+}
 
 // Scroll reveal
-const revealObs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); revealObs.unobserve(e.target); }});
-}, { threshold: 0.06 });
-document.querySelectorAll('[data-reveal]').forEach(el => revealObs.observe(el));
+document.querySelectorAll('[data-reveal]').forEach(el => {
+  if(prefersReducedMotion){ el.classList.add('visible'); return; }
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }});
+  }, { threshold: 0.06 });
+  obs.observe(el);
+});
 
 // Count-up animation
-const countObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if(e.isIntersecting){
-      const el = e.target;
-      const target = +el.dataset.count;
-      const duration = 1200;
-      const start = performance.now();
-      const tick = now => {
-        const p = Math.min((now - start) / duration, 1);
-        const ease = 1 - Math.pow(1 - p, 3);
-        el.textContent = Math.round(ease * target);
-        if(p < 1) requestAnimationFrame(tick);
-      };
-      requestAnimationFrame(tick);
-      countObs.unobserve(el);
-    }
-  });
-}, { threshold: 0.5 });
-document.querySelectorAll('[data-count]').forEach(el => countObs.observe(el));
+document.querySelectorAll('[data-count]').forEach(el => {
+  if(prefersReducedMotion){ el.textContent = el.dataset.count; return; }
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        const target = +e.target.dataset.count;
+        const duration = 1200;
+        const start = performance.now();
+        const tick = now => {
+          const p = Math.min((now - start) / duration, 1);
+          const ease = 1 - Math.pow(1 - p, 3);
+          e.target.textContent = Math.round(ease * target);
+          if(p < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  obs.observe(el);
+});
 </script>
 </body>
 </html>

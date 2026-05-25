@@ -273,6 +273,15 @@
   .nav-links a:hover::after{width:100%;}
   /* Gradient stat nums */
   .stat-num{background:linear-gradient(135deg,#818cf8,#34d399);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+  /* Focus states */
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px;}
+  a:focus-visible{outline-offset:4px;}
+  /* Reduced motion */
+  @media(prefers-reduced-motion:reduce){
+    *{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;}
+    [data-reveal]{opacity:1;transform:none;transition:none;}
+    html{scroll-behavior:auto;}
+  }
   </style>
 </head>
 <body>
@@ -292,15 +301,15 @@
 
   <div class="hero">
     <div class="hero-label">System Overview</div>
-    <h1>The AI operating system<br>behind the work</h1>
-    <p>Every page built here runs through a structured AI system — not just a chatbot. This is how it works, what's in the stack, and why it matters for the quality and speed of what gets delivered.</p>
+    <h1>The workflow<br>behind the work</h1>
+    <p>Every landing page built here runs through a structured AI-assisted workflow: intake, wireframe, Claude Code build, mobile pass, and human review.</p>
   </div>
 
   <!-- Alexandria -->
   <section data-reveal>
     <div class="section-label">01 / Core System</div>
     <h2>Alexandria</h2>
-    <p class="section-intro">Alexandria is a personal AI operating system built on Obsidian. It's not a note-taking app — it's a structured knowledge vault with agent rules, skill files, session logs, project context, and distillations that carry forward across every session. Nothing gets lost between conversations.</p>
+    <p class="section-intro">Alexandria is a personal working vault built on Obsidian. It keeps rules, skill files, session notes, project context, and repeatable process notes organized so work does not restart from scratch every session.</p>
 
     <div class="stat-row">
       <div class="stat-card">
@@ -316,8 +325,8 @@
         <div class="stat-label">organized folders</div>
       </div>
       <div class="stat-card">
-        <div class="stat-num">96.6%</div>
-        <div class="stat-label">memory recall rate</div>
+        <div class="stat-num">$150</div>
+        <div class="stat-label">flat landing page price</div>
       </div>
     </div>
 
@@ -336,8 +345,8 @@
   <!-- Agents -->
   <section data-reveal>
     <div class="section-label">02 / Agents</div>
-    <h2>Two agents, one director</h2>
-    <p class="section-intro">Alexandria runs a structured agent system. Each agent has defined capabilities, hard limits, and escalation rules. The human is always the director — no agent advances work without sign-off at the decision gates.</p>
+    <h2>AI-assisted, human-directed</h2>
+    <p class="section-intro">Claude Code helps with structure, HTML, CSS, JavaScript, and review. The human direction stays visible: scope, pricing, final copy, and delivery decisions are approved before they ship.</p>
 
     <div class="agent-grid">
       <div class="agent-card">
@@ -346,7 +355,7 @@
           Claude
         </div>
         <div class="agent-role">Engineer · Architect · Reviewer</div>
-        <div class="agent-desc">Cloud-based, fast. Handles all code, architecture, design, and review. Primary build tool for every landing page. Runs via Claude Code CLI.</div>
+        <div class="agent-desc">Cloud-based, fast. Supports code, structure, design implementation, and review. Primary build tool for landing pages. Runs via Claude Code CLI.</div>
       </div>
       <div class="agent-card">
         <div class="agent-name">
@@ -354,7 +363,7 @@
           Human
         </div>
         <div class="agent-role">Director · Decision Maker</div>
-        <div class="agent-desc">Final authority on all decisions. Owns direction, priority, and approval. No AI advances past a decision gate without explicit sign-off.</div>
+        <div class="agent-desc">Final authority on scope, direction, priority, copy, pricing, and approval. AI assists the build; the human owns what ships.</div>
       </div>
     </div>
 
@@ -385,7 +394,7 @@
     <div class="tool-list">
       <div class="tool-row">
         <div class="tool-name">Claude Code</div>
-        <div class="tool-desc">Primary build tool. CLI + IDE integration. Every HTML page, every commit, every architectural decision runs through Claude Code with full vault context loaded. Token usage tracked automatically via stop hook.</div>
+        <div class="tool-desc">Primary build tool. CLI + IDE integration. Supports HTML/CSS/JS work, review passes, and cleanup. Token usage is tracked via stop hook.</div>
         <span class="tool-tag tag-cloud">Cloud</span>
       </div>
       <div class="tool-row">
@@ -395,7 +404,7 @@
       </div>
       <div class="tool-row">
         <div class="tool-name">GitHub Pages</div>
-        <div class="tool-desc">Static hosting. Free, fast, zero maintenance. Every portfolio page and this site deploy from git push. No build step — pure HTML/CSS/JS.</div>
+        <div class="tool-desc">Static hosting. Free, fast, zero maintenance. This site deploys from git push. No build step — pure HTML/CSS/JS.</div>
         <span class="tool-tag tag-active">Active</span>
       </div>
       <div class="tool-row">
@@ -405,7 +414,7 @@
       </div>
       <div class="tool-row">
         <div class="tool-name">HTML / CSS / JS</div>
-        <div class="tool-desc">No frameworks. No build tools. Clean vanilla code generated by Claude Code. Faster load, easier maintenance, full control. Average page size: under 30KB.</div>
+        <div class="tool-desc">No frameworks. No build tools. Clean vanilla code produced with Claude Code and human review. Faster load, easier maintenance, full control.</div>
         <span class="tool-tag tag-active">Active</span>
       </div>
     </div>
@@ -415,7 +424,7 @@
   <section data-reveal>
     <div class="section-label">04 / Real Data</div>
     <h2>Token usage — May 2026</h2>
-    <p class="section-intro">This data is real. It comes from the Claude Code stop hook that auto-appends to <code style="color:var(--accent);font-size:0.85rem">DAILY_TOKENS.md</code> at the end of every session. These are the actual AI processing costs behind building this site, the portfolio pages, and the system infrastructure.</p>
+    <p class="section-intro">This data comes from the Claude Code stop hook that auto-appends to <code style="color:var(--accent);font-size:0.85rem">DAILY_TOKENS.md</code> at the end of each tracked session.</p>
 
     <div class="stat-row">
       <div class="stat-card">
@@ -427,12 +436,12 @@
         <div class="stat-label">unique sessions tracked</div>
       </div>
       <div class="stat-card">
-        <div class="stat-num">4</div>
-        <div class="stat-label">portfolio pages built</div>
+        <div class="stat-num">0</div>
+        <div class="stat-label">client pages claimed</div>
       </div>
       <div class="stat-card">
-        <div class="stat-num">&lt;3 days</div>
-        <div class="stat-label">avg page turnaround</div>
+        <div class="stat-num">$150</div>
+        <div class="stat-label">flat landing page offer</div>
       </div>
     </div>
 
@@ -452,7 +461,7 @@
   <section data-reveal>
     <div class="section-label">05 / Philosophy</div>
     <h2>How the system is run</h2>
-    <p class="section-intro">Alexandria isn't just tooling — it has operating principles that govern how AI is used, when to escalate, and what stays private. These are the ones that directly affect client work.</p>
+    <p class="section-intro">These are the operating rules that matter for public client work.</p>
 
     <ul class="phil-list">
       <li>
@@ -461,7 +470,7 @@
       </li>
       <li>
         <span class="phil-num">02</span>
-        <div class="phil-text"><strong>Nothing gets lost between sessions.</strong> <span>Alexandria carries context forward. Every project, constraint, decision, and confirmed approach is stored and reloaded. You never re-explain context.</span></div>
+        <div class="phil-text"><strong>Context is written down.</strong> <span>Project constraints, decisions, and confirmed approaches are stored so the next session has a real starting point.</span></div>
       </li>
       <li>
         <span class="phil-num">03</span>
@@ -473,7 +482,7 @@
       </li>
       <li>
         <span class="phil-num">05</span>
-        <div class="phil-text"><strong>Data over stories.</strong> <span>Token usage is tracked. Build times are logged. Turnaround is measured. The numbers in this system are real — not marketing estimates.</span></div>
+        <div class="phil-text"><strong>Truth over polish.</strong> <span>No fake testimonials, fake client lists, fake numbers, or inflated claims. If something is a placeholder or work in progress, it is labeled that way.</span></div>
       </li>
     </ul>
   </section>
@@ -481,7 +490,7 @@
   <!-- CTA -->
   <div class="cta-section" data-reveal>
     <h2>Want a landing page built on this system?</h2>
-    <p>One offer. Starting at $150. Built fast, delivered clean.</p>
+    <p>One offer. $150 flat. Built fast, delivered clean.</p>
     <a href="../" class="btn">See the offer</a>
     <a href="../portfolio/" class="btn btn-ghost">View the work</a>
   </div>
@@ -499,27 +508,35 @@
 </footer>
 
 <script>
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   // Cursor glow
   const glow = document.getElementById('cursorGlow');
-  document.addEventListener('mousemove', e => { glow.style.left = e.clientX+'px'; glow.style.top = e.clientY+'px'; });
+  if(!prefersReducedMotion){
+    document.addEventListener('mousemove', e => { glow.style.left = e.clientX+'px'; glow.style.top = e.clientY+'px'; });
+  } else { glow.style.display = 'none'; }
   // Ripple
-  document.querySelectorAll('.agent-card,.step,.tool-row,.stat-card,.btn,.flow-step').forEach(el => {
-    el.classList.add('ripple-el');
-    el.addEventListener('click', function(e) {
-      const rect = this.getBoundingClientRect();
-      const size = Math.max(rect.width, rect.height) * 1.5;
-      const dot = document.createElement('span');
-      dot.className = 'ripple-dot';
-      dot.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX-rect.left-size/2}px;top:${e.clientY-rect.top-size/2}px;`;
-      this.appendChild(dot);
-      dot.addEventListener('animationend', () => dot.remove());
+  if(!prefersReducedMotion){
+    document.querySelectorAll('.agent-card,.step,.tool-row,.stat-card,.btn,.flow-step').forEach(el => {
+      el.classList.add('ripple-el');
+      el.addEventListener('click', function(e) {
+        const rect = this.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height) * 1.5;
+        const dot = document.createElement('span');
+        dot.className = 'ripple-dot';
+        dot.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX-rect.left-size/2}px;top:${e.clientY-rect.top-size/2}px;`;
+        this.appendChild(dot);
+        dot.addEventListener('animationend', () => dot.remove());
+      });
     });
-  });
+  }
   // Scroll reveal
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-  }, { threshold: 0.08 });
-  document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
+  document.querySelectorAll('[data-reveal]').forEach(el => {
+    if(prefersReducedMotion){ el.classList.add('visible'); return; }
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    obs.observe(el);
+  });
 </script>
 </body>
 </html>

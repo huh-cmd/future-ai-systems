@@ -6,7 +6,7 @@
   },
   "service": {
     "availability": "open",
-    "current_offer": "Landing pages",
+    "current_offer": "Landing page",
     "base_price_usd": 150,
     "avg_turnaround_days": 3,
     "pages_built": 0

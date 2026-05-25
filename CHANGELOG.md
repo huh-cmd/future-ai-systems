@@ -12,30 +12,29 @@ Format: [Semantic Versioning](https://semver.org) — `MAJOR.MINOR.PATCH`
 Complete restructure for professional presentation and long-term maintainability.
 
 **Added**
-- `portfolio/` — 4 sample landing pages recovered and organized (fitness, consulting, music, restaurant)
-- `stats/data.json` — live data store with real Claude Code token usage (May 18–25)
-- `stats/index.html` — dashboard: token usage chart, portfolio builds, availability status
-- `system/index.html` — Alexandria AI system overview: architecture, agent roles, tools, philosophy
-- `wireframes/README.md` — design process documentation
+- `portfolio/` — coming-soon portfolio page with no fake client examples
+- `stats/data.json` — live data store with Claude Code token usage (May 18–25)
+- `stats/index.html` — dashboard: token usage chart, sessions, availability status
+- `system/index.html` — AI-assisted build workflow overview
+- `wireframes/README.md` — landing-page process documentation
 - `.github/SECURITY.md` — vulnerability disclosure policy and no-credentials rule
-- `CHANGELOG.md` — this file; version history from day one
+- `CHANGELOG.md` — this file
 
 **Changed**
-- Landing page `index.html` — single offer, real pricing ($150), clean copy
-- `README.md` — fully rewritten: professional, data-driven, unique positioning
+- Landing page `index.html` — one focused $150 landing-page offer
+- `README.md` — rewritten around truthful public claims and one service
 - `.gitignore` — expanded to cover `stats/private/`, `*.tmp`, `*.bak`
-- `clients/` renamed to `portfolio/` — clearer naming
 
 **Removed**
-- `services.html` — consolidated into landing page (single offer, no page sprawl)
+- Extra public offer pages — consolidated into the landing page
+- Public concept pages — removed until real portfolio work is ready
 - Dead `~` directory artifact
 
 ---
 
 ## [1.3.0] — 2026-05-22
 
-- Upgraded portfolio to Linear/Stripe-style design system
-- Added Kai Rivers (music) and Ember Kitchen (restaurant) sample pages
+- Upgraded site visual system
 - Added scroll reveal animations across all pages
 
 ## [1.2.0] — 2026-05-19
@@ -45,7 +44,6 @@ Complete restructure for professional presentation and long-term maintainability
 
 ## [1.1.0] — 2026-05-17
 
-- Deployed Marcus Webb (fitness) and Priya Sharma (consulting) portfolio pages
 - Added security layer: pre-commit hook secret scanner
 - Added HTML component snippets library
 

@@ -76,6 +76,12 @@
     .footer-links a{font-size:0.78rem;color:var(--muted);transition:color 0.2s;}
     .footer-links a:hover{color:var(--text);}
     @media(max-width:600px){.charts-grid{grid-template-columns:1fr;}nav .nav-links{display:none;}}
+    :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px;}
+    a:focus-visible{outline-offset:4px;}
+    @media(prefers-reduced-motion:reduce){
+      *{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;}
+      html{scroll-behavior:auto;}
+    }
   </style>
 </head>
 <body>
@@ -123,9 +129,12 @@
 </footer>
 
 <script>
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const glow = document.getElementById('cursorGlow');
-document.addEventListener('mousemove', e => { glow.style.left = e.clientX+'px'; glow.style.top = e.clientY+'px'; });
-document.querySelectorAll('.ripple-el').forEach(el => {
+if(!prefersReducedMotion){
+  document.addEventListener('mousemove', e => { glow.style.left = e.clientX+'px'; glow.style.top = e.clientY+'px'; });
+} else { glow.style.display = 'none'; }
+if(!prefersReducedMotion) document.querySelectorAll('.ripple-el').forEach(el => {
   el.addEventListener('click', function(e) {
     const rect = this.getBoundingClientRect();
     const size = Math.max(rect.width, rect.height) * 1.5;
@@ -157,7 +166,7 @@ function renderKPIs(data) {
   const totalSessions = usage.reduce((s,d) => s + (d.sessions||0), 0);
   const kpis = [
     { num: svc.availability === 'open' ? '<span class="status-badge"><span class="status-dot dot-open"></span>Open</span>' : 'Closed', label: 'Availability', cls: 'kpi-green' },
-    { num: '$' + (svc.base_price_usd || '—'), label: 'Starting price', cls: '' },
+    { num: '$' + (svc.base_price_usd || '—'), label: 'Flat price', cls: '' },
     { num: (svc.avg_turnaround_days || '—') + ' days', label: 'Avg turnaround', cls: '' },
     { num: totalTokens + 'M', label: 'Total tokens (May)', cls: 'kpi-accent' },
     { num: totalSessions, label: 'Sessions tracked', cls: 'kpi-accent' },
@@ -165,7 +174,7 @@ function renderKPIs(data) {
   document.getElementById('kpi-row').innerHTML = kpis.map(k =>
     `<div class="kpi ${k.cls} ripple-el"><div class="kpi-num">${k.num}</div><div class="kpi-label">${k.label}</div></div>`
   ).join('');
-  document.querySelectorAll('.kpi.ripple-el').forEach(el => {
+  if(!prefersReducedMotion) document.querySelectorAll('.kpi.ripple-el').forEach(el => {
     el.addEventListener('click', function(e) {
       const rect = this.getBoundingClientRect();
       const size = Math.max(rect.width, rect.height) * 1.5;

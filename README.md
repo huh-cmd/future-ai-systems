@@ -125,8 +125,5 @@ Current version: **2.0.0** — Foundation rebuild (2026-05-25)
 ---
 
 ## License
-
-Portfolio sample pages (Marcus Webb, Priya Sharma, Kai Rivers, Ember Kitchen) are fictional — not real clients. Used for demonstration only.
-
 Code is available for reference. Do not resell or reuse without permission.
 

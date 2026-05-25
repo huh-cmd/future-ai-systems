@@ -16,19 +16,24 @@ Complete restructure for professional presentation and long-term maintainability
 - `stats/data.json` — live data store with Claude Code token usage (May 18–25)
 - `stats/index.html` — dashboard: token usage chart, sessions, availability status
 - `system/index.html` — AI-assisted build workflow overview
+- `research/` — public-safe usage notes and methodology for the AI workflow data
 - `wireframes/README.md` — landing-page process documentation
 - `.github/SECURITY.md` — vulnerability disclosure policy and no-credentials rule
 - `CHANGELOG.md` — this file
 
 **Changed**
 - Landing page `index.html` — one focused $150 landing-page offer
+- Stats dashboard — tightened into usage receipts with derived token/session proof metrics
+- System page — clearer client-facing workflow proof and one-offer positioning
+- System page — removed local credential-file wording from public copy
+- `.hooks/pre-commit` — removed local machine path from the public hook message
 - `README.md` — rewritten around truthful public claims and one service
-- `.gitignore` — expanded to cover `stats/private/`, `*.tmp`, `*.bak`
+- `.gitignore` — expanded to cover `stats/private/`, QA browser profiles, local traces, and database sidecars
 
 **Removed**
 - Extra public offer pages — consolidated into the landing page
 - Public concept pages — removed until real portfolio work is ready
-- Dead `~` directory artifact
+- Public references to stale platform-specific setup work
 
 ---
 
@@ -39,8 +44,8 @@ Complete restructure for professional presentation and long-term maintainability
 
 ## [1.2.0] — 2026-05-19
 
-- Upwork profile verified and active
-- Added SEO meta tags and Formspree contact form to landing page
+- Early contact and SEO experiment
+- Added SEO meta tags and contact form test to landing page
 
 ## [1.1.0] — 2026-05-17
 

@@ -52,6 +52,18 @@ logs/
 *.tmp
 *.bak
 ~$*
+.tmp-qa/
+
+# ============================================================
+# Local browser/profile/test artifacts
+# ============================================================
+~/
+**/.openjarvis/
+*.sqlite
+*.sqlite3
+*.db
+*.db-shm
+*.db-wal
 
 # ============================================================
 # Stats — private data never goes public

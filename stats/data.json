@@ -9,14 +9,9 @@
     "current_offer": "Landing pages",
     "base_price_usd": 150,
     "avg_turnaround_days": 3,
-    "pages_built": 4
+    "pages_built": 0
   },
-  "portfolio": [
-    { "name": "Marcus Webb", "type": "fitness", "theme": "dark", "built": "2026-05-17", "url": "/portfolio/marcus-webb/" },
-    { "name": "Priya Sharma", "type": "consulting", "theme": "light", "built": "2026-05-17", "url": "/portfolio/priya-sharma/" },
-    { "name": "Kai Rivers", "type": "music", "theme": "navy", "built": "2026-05-19", "url": "/portfolio/kai-rivers/" },
-    { "name": "Ember Kitchen", "type": "restaurant", "theme": "warm", "built": "2026-05-19", "url": "/portfolio/ember-kitchen/" }
-  ],
+  "portfolio": [],
   "ai_usage": {
     "note": "Real token data from Claude Code sessions. Tracked via stop hook → DAILY_TOKENS.md.",
     "daily": [

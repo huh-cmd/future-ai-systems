@@ -127,11 +127,11 @@
 <body>
 
 <nav>
-  <a href="/" class="nav-logo">Future AI Systems</a>
+  <a href="../" class="nav-logo">Future AI Systems</a>
   <div class="nav-links">
-    <a href="/">Home</a>
-    <a href="/portfolio/">Portfolio</a>
-    <a href="/system/">How It Works</a>
+    <a href="../">Home</a>
+    <a href="../portfolio/">Portfolio</a>
+    <a href="../system/">How It Works</a>
     <a href="https://github.com/huh-cmd/future-ai-systems" target="_blank">GitHub</a>
   </div>
 </nav>
@@ -199,7 +199,7 @@
 <footer>
   <div class="footer-left">Data source: <a href="https://github.com/huh-cmd/future-ai-systems/blob/main/stats/data.json" target="_blank">stats/data.json</a> · Updated manually every Friday</div>
   <div class="footer-links">
-    <a href="/system/">How It Works</a>
+    <a href="../system/">How It Works</a>
     <a href="https://github.com/huh-cmd/future-ai-systems" target="_blank">GitHub</a>
   </div>
 </footer>
@@ -215,7 +215,7 @@ Chart.defaults.color = CHART_DEFAULTS.color;
 Chart.defaults.borderColor = CHART_DEFAULTS.borderColor;
 Chart.defaults.font = CHART_DEFAULTS.font;
 
-fetch('/stats/data.json')
+fetch('data.json')
   .then(r => r.json())
   .then(data => {
     renderKPIs(data);

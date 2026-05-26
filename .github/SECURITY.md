@@ -12,6 +12,22 @@ This repository is a public static site. The following **must never** appear in 
 
 Approved credential storage: environment variables loaded at runtime, never hardcoded.
 
+## Customer API Key Handoff
+
+If a future customer project needs Claude, OpenAI, or another API provider, the
+customer should own the API key, account, billing, and data.
+
+Handoff rule:
+
+- Use placeholders in source code and examples.
+- Put real keys in customer-owned environment variables, hosting secrets, or a local `.env` file.
+- Never commit real keys to GitHub.
+- Never send real keys in screenshots, public issues, or logs.
+- Rotate any key that may have been exposed during setup.
+
+See [`../CUSTOMER_HANDOFF.md`](../CUSTOMER_HANDOFF.md) for the plain-language
+handoff process.
+
 ## Pre-Commit Protection
 
 A pre-commit hook runs on every commit to scan for patterns that look like secrets. Do not bypass it with `--no-verify`.

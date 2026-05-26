@@ -3,20 +3,21 @@
 **Period:** 2026-05-17 → 2026-05-25  
 **System:** Alexandria vault + Claude Code session caching  
 **Vault location:** Local Obsidian vault, not published  
-**Model:** Claude Sonnet 4.6
+**Model:** Claude Code sessions using the then-current Claude setup
+
+**Status:** workflow observation, not a controlled benchmark
 
 ---
 
 ## The problem this solves
 
 Every Claude Code session loads context into the model's input window. If the same
-content is loaded on subsequent sessions — same files, same instructions, same reference
-material — you pay full input token cost each time unless it's cached.
+content is loaded repeatedly — same files, same instructions, same reference
+material — caching can reduce repeated input cost when the provider supports it.
 
-Claude caches prompt content with a 5-minute TTL. Within that window, re-reads cost
-$0.30/MTok instead of $3.00/MTok — **10× cheaper**. Beyond the window, the cache
-must be rewarmed, but write cost ($3.75/MTok) is still cheaper than re-reading output
-tokens.
+Exact cache pricing, model pricing, and cache behavior can change. This note uses
+the public token trail as a workflow observation: stable context appears cheaper
+and easier to reuse than constantly rebuilding context from scratch.
 
 The question is: which files are worth loading into context at all, and how do you
 structure them so cache hits are maximized and misses are localized?
@@ -42,8 +43,9 @@ The vault as of 2026-05-25:
 | `CONTENT/` | 2 | Weekly | Moderate hits |
 | `SPENDING/` | 1 | Monthly | High hit rate |
 
-**Total: 163 files.** Was 56 files on 2026-05-17. Nearly 3× growth in 8 days as
-project reference material was written during the foundation build.
+These counts were a snapshot during the foundation build, not a permanent public
+claim. The important pattern is the structure: stable reference material is kept
+separate from volatile session state.
 
 ---
 
@@ -93,28 +95,30 @@ Day 8 (May 24):  3.42M   Polish — near-full cache utilization
 Day 9 (May 25):  1.35M   Maintenance — cache fully warm
 ```
 
-The 95% reduction reflects two compounding effects:
+The drop in logged token totals likely reflects two compounding effects:
 
-1. **Content is no longer being written** — fewer cache-creation tokens (at $3.75/MTok)
+1. **Content is no longer being written** — fewer large foundation-building sessions
    once the vault and source files stabilize
-2. **Repeated reads hit the cache** — the same REFERENCE and SKILLS files load at
-   $0.30/MTok instead of $3.00/MTok
+2. **Repeated context becomes easier to reuse** — stable reference material does
+   not need to be rediscovered or rewritten each session
 
-By day 9, a session that touches only LOGS and a few PROJECTS files is almost entirely
-cache reads. The 82 REFERENCE + SKILLS files are warm and unchanged.
+By day 9, the work had shifted from foundation building to maintenance. That is
+the main public claim. Exact cache hit ratios are not published.
 
 ---
 
 ## What controls cache invalidation
 
-A file's cache entry is invalidated when:
-- Its content changes (any edit)
-- The session context changes in a way that shifts its position in the input window
-- The 5-minute TTL expires (cold start)
+In general, repeated context can become less reusable when:
 
-This means the folder structure has a direct cost consequence. Files that change
-together should be grouped. Files that never change should be in stable folders that
-don't get touched during routine work.
+- File content changes.
+- The prompt/session shape changes.
+- The provider cache expires.
+- Too much unrelated context is loaded.
+
+This means folder structure has a practical consequence. Files that change together
+should be grouped. Files that rarely change should stay separate from routine logs
+and state files.
 
 Examples from this vault:
 
@@ -130,33 +134,29 @@ Examples from this vault:
 
 ## Vault growth and cache cost
 
-The vault grew from 56 → 163 files during the May foundation period. That growth is
-mostly in REFERENCE/ and SKILLS/ — stable content added once and rarely touched again.
+The vault grew substantially during the May foundation period. That growth was
+mostly stable reference and skill material, not volatile session state.
 
-Each new file is a one-time cache-creation cost (paid when first loaded). After that
-it's cache reads forever, at 10× lower cost.
+Each useful reference note has an upfront cost: it must be written, reviewed, and
+loaded when relevant. It only pays off if future sessions reuse it.
 
-This means **adding well-structured reference material to the vault has a positive
-ROI** after the first 3–4 sessions that use it. A 10K-token reference file:
-- Cache write (once): 10K × $3.75/MTok = $0.0375
-- Cache read (per session): 10K × $0.30/MTok = $0.003
-- Break-even: 13 sessions
-- After 50 sessions: $0.15 total read cost vs $1.50 to re-read fresh each time
+This means **well-structured reference material can have positive workflow ROI**
+when it prevents repeated explanation, repeated prompting, and repeated search.
 
-At current usage rates (27 sessions in 8 days), a reference file breaks even in
-less than 4 days.
+The practical rule: add reference notes only when they reduce repeated work. Do
+not add notes just to grow the vault.
 
 ---
 
 ## What this doesn't prove
 
-- **The exact cache hit ratio** is not tracked. The stop hook logs raw token totals
+- **The exact cache hit ratio** is not published. The stop hook logs raw token totals
   by type — cache_read vs input — but this data stays in the private session log.
   Publishing aggregate ratios (not raw transcripts) is the planned next step.
-- **Cross-session cache persistence** above 5 minutes is not measured. The 95%
-  drop likely includes both within-session caching and the effect of the context
-  being smaller (less new content to write). Separating the two would require
-  controlled sessions.
+- **Cross-session cache persistence** is not measured publicly. The token drop
+  likely includes both caching and the fact that later sessions were smaller,
+  more targeted, and less architecture-heavy. Separating those causes would
+  require controlled sessions.
 - **Vault size limits** — at what point does 163 files become 400 files and start
   degrading rather than helping? Not tested yet. Hypothesis: degradation starts
   when loading the full vault exceeds the context window, forcing selective loading

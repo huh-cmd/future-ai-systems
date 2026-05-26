@@ -54,7 +54,7 @@ The project benefits from making work visible:
 
 - token totals show real activity
 - session counts show cadence
-- changelog entries show what changed
+- repo notes show what changed during public proof passes
 - security rules show what should not be published
 
 This is more useful than claiming speed without receipts.

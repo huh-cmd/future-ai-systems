@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Custom landing pages built with AI. Clean HTML/CSS/JS — no page builders, no WordPress. $150 flat. Fast turnaround.">
-  <title>Future AI Systems | Landing Pages Built with AI</title>
+  <meta name="description" content="Proof-of-concept AI systems that ship: landing pages, workflow testing, token logging, and security-first customer handoff.">
+  <title>Future AI Systems | AI Systems That Ship</title>
   <style>
     :root {
       --bg: #05050a;
@@ -14,11 +14,11 @@
       --border-bright: #26263a;
       --text: #e2e8f0;
       --muted: #64748b;
-      --accent: #818cf8;
-      --accent-2: #34d399;
+      --accent: #fb923c;
+      --accent-2: #fbbf24;
       --accent-warm: #fb923c;
-      --accent-dim: rgba(129,140,248,0.1);
-      --accent-glow: rgba(129,140,248,0.2);
+      --accent-dim: rgba(251,146,60,0.11);
+      --accent-glow: rgba(251,146,60,0.22);
       --green: #34d399;
       --green-dim: rgba(52,211,153,0.1);
       --mono: 'JetBrains Mono','Fira Code',monospace;
@@ -33,7 +33,7 @@
     /* Cursor glow */
     .cursor-glow{
       position:fixed;width:500px;height:500px;border-radius:50%;
-      background:radial-gradient(circle,rgba(129,140,248,0.06) 0%,transparent 70%);
+      background:radial-gradient(circle,rgba(251,146,60,0.07) 0%,transparent 70%);
       pointer-events:none;transform:translate(-50%,-50%);z-index:0;
       transition:left 0.08s,top 0.08s;
     }
@@ -89,10 +89,10 @@
     .hero-bg{
       position:absolute;inset:0;pointer-events:none;z-index:0;
       background:
-        radial-gradient(ellipse 80% 60% at 20% 40%,rgba(129,140,248,0.07) 0%,transparent 60%),
-        radial-gradient(ellipse 60% 40% at 80% 70%,rgba(52,211,153,0.05) 0%,transparent 50%),
-        linear-gradient(90deg,rgba(129,140,248,0.03) 1px,transparent 1px),
-        linear-gradient(180deg,rgba(129,140,248,0.03) 1px,transparent 1px);
+        radial-gradient(ellipse 80% 60% at 20% 40%,rgba(251,146,60,0.08) 0%,transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 70%,rgba(251,191,36,0.05) 0%,transparent 50%),
+        linear-gradient(90deg,rgba(251,146,60,0.025) 1px,transparent 1px),
+        linear-gradient(180deg,rgba(251,146,60,0.025) 1px,transparent 1px);
       background-size:auto,auto,56px 56px,56px 56px;
       animation:hero-shift 12s ease-in-out infinite alternate;
     }
@@ -115,10 +115,11 @@
       font-size:clamp(2.6rem,6.5vw,5rem);
       font-weight:800;line-height:1.0;
       letter-spacing:-0.045em;margin-bottom:28px;
+      max-width:100%;overflow-wrap:break-word;
     }
     h1 em{
       font-style:normal;
-      background:linear-gradient(135deg,#818cf8 0%,#a5b4fc 40%,#34d399 100%);
+      background:linear-gradient(135deg,#fb923c 0%,#fbbf24 45%,#fef3c7 100%);
       -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
     }
     .hero-sub{
@@ -131,13 +132,13 @@
     .btn-primary{
       display:inline-flex;align-items:center;gap:8px;
       padding:14px 30px;border-radius:10px;
-      background:linear-gradient(135deg,#818cf8,#6366f1);
+      background:linear-gradient(135deg,#fb923c,#b45309);
       color:#fff;font-weight:700;font-size:0.95rem;
-      box-shadow:0 4px 24px rgba(99,102,241,0.35);
+      box-shadow:0 4px 24px rgba(251,146,60,0.32);
       transition:box-shadow 0.25s,transform 0.15s;
       cursor:pointer;
     }
-    .btn-primary:hover{box-shadow:0 6px 32px rgba(99,102,241,0.5);transform:translateY(-2px);}
+    .btn-primary:hover{box-shadow:0 6px 32px rgba(251,146,60,0.48);transform:translateY(-2px);}
     .btn-primary:active{transform:scale(0.96);}
     .btn-secondary{
       display:inline-flex;align-items:center;gap:8px;
@@ -147,7 +148,7 @@
     }
     .btn-secondary:hover{color:var(--text);border-color:var(--accent);background:var(--accent-dim);}
     .btn-secondary:active{transform:scale(0.97);}
-    .hero-note{margin-top:22px;font-size:0.8rem;color:var(--muted);display:flex;align-items:center;gap:8px;}
+    .hero-note{margin-top:22px;font-size:0.8rem;color:var(--muted);display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
     .hero-note span{color:var(--accent-2);font-family:var(--mono);font-weight:600;}
 
     /* Trust bar */
@@ -178,7 +179,7 @@
     }
     .step:hover{
       border-color:var(--accent);transform:translateY(-3px);
-      box-shadow:0 8px 32px rgba(129,140,248,0.12);
+      box-shadow:0 8px 32px rgba(251,146,60,0.12);
     }
     .step-num{
       font-family:var(--mono);font-size:0.68rem;color:var(--accent);
@@ -205,11 +206,11 @@
     }
     .price-card:hover{border-color:var(--border-bright);transform:translateY(-2px);}
     .price-card.featured{
-      border-color:rgba(129,140,248,0.4);
-      background:linear-gradient(135deg,rgba(129,140,248,0.08),rgba(99,102,241,0.04));
-      box-shadow:0 0 0 1px rgba(129,140,248,0.15),0 8px 32px rgba(129,140,248,0.08);
+      border-color:rgba(251,146,60,0.42);
+      background:linear-gradient(135deg,rgba(251,146,60,0.08),rgba(180,83,9,0.04));
+      box-shadow:0 0 0 1px rgba(251,146,60,0.15),0 8px 32px rgba(251,146,60,0.08);
     }
-    .price-card.featured:hover{box-shadow:0 0 0 1px rgba(129,140,248,0.3),0 12px 40px rgba(129,140,248,0.15);}
+    .price-card.featured:hover{box-shadow:0 0 0 1px rgba(251,146,60,0.3),0 12px 40px rgba(251,146,60,0.15);}
     .price-tier{font-size:0.72rem;color:var(--muted);margin-bottom:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;}
     .price-num{
       font-size:2.6rem;font-weight:800;letter-spacing:-0.05em;
@@ -224,11 +225,11 @@
     .price-cta{
       display:block;text-align:center;padding:12px 0;border-radius:10px;
       font-weight:700;font-size:0.88rem;cursor:pointer;
-      background:linear-gradient(135deg,#818cf8,#6366f1);color:#fff;
-      box-shadow:0 4px 16px rgba(99,102,241,0.3);
+      background:linear-gradient(135deg,#fb923c,#b45309);color:#fff;
+      box-shadow:0 4px 16px rgba(251,146,60,0.3);
       transition:box-shadow 0.25s,transform 0.15s;
     }
-    .price-cta:hover{box-shadow:0 6px 24px rgba(99,102,241,0.45);transform:translateY(-1px);}
+    .price-cta:hover{box-shadow:0 6px 24px rgba(251,146,60,0.45);transform:translateY(-1px);}
     .price-cta:active{transform:scale(0.97);}
     .price-cta.ghost{
       background:transparent;border:1px solid var(--border-bright);
@@ -248,12 +249,12 @@
     .system-teaser::before{
       content:'';position:absolute;top:-60px;right:-60px;
       width:300px;height:300px;border-radius:50%;
-      background:radial-gradient(circle,rgba(129,140,248,0.08),transparent 70%);
+      background:radial-gradient(circle,rgba(251,146,60,0.08),transparent 70%);
       pointer-events:none;
     }
     .system-teaser:hover{
-      border-color:rgba(129,140,248,0.25);
-      box-shadow:0 8px 48px rgba(129,140,248,0.06);
+      border-color:rgba(251,146,60,0.25);
+      box-shadow:0 8px 48px rgba(251,146,60,0.06);
     }
     .system-teaser h2{margin-bottom:14px;}
     .system-teaser p{color:var(--muted);font-size:0.95rem;line-height:1.8;margin-bottom:18px;}
@@ -271,10 +272,10 @@
       border-radius:12px;padding:18px 20px;
       transition:border-color 0.25s,transform 0.25s;
     }
-    .stat-mini:hover{border-color:rgba(129,140,248,0.3);transform:translateY(-2px);}
+    .stat-mini:hover{border-color:rgba(251,146,60,0.3);transform:translateY(-2px);}
     .stat-mini-num{
       font-family:var(--mono);font-size:1.6rem;font-weight:800;
-      background:linear-gradient(135deg,#818cf8,#34d399);
+      background:linear-gradient(135deg,#fb923c,#fbbf24);
       -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
       letter-spacing:-0.03em;
     }
@@ -282,15 +283,15 @@
 
     /* CTA band */
     .cta-band{
-      background:linear-gradient(135deg,rgba(129,140,248,0.1),rgba(52,211,153,0.04));
-      border:1px solid rgba(129,140,248,0.2);
+      background:linear-gradient(135deg,rgba(251,146,60,0.1),rgba(251,191,36,0.04));
+      border:1px solid rgba(251,146,60,0.2);
       border-radius:20px;padding:clamp(48px,8vw,80px) clamp(24px,5vw,60px);
       text-align:center;margin:clamp(40px,6vw,80px) 0;
       position:relative;overflow:hidden;
     }
     .cta-band::before{
       content:'';position:absolute;inset:0;
-      background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(129,140,248,0.06),transparent);
+      background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(251,146,60,0.08),transparent);
       pointer-events:none;
     }
     .cta-band h2{margin-bottom:12px;position:relative;}
@@ -337,9 +338,9 @@
       .nav-brand{font-size:0.8rem;}
       .nav-links{gap:10px;}
       .nav-cta{display:none;}
-      h1{font-size:2.72rem;letter-spacing:-0.03em;}
+      h1{font-size:2.34rem;letter-spacing:-0.025em;line-height:1.05;}
       .hero-sub{max-width:320px;font-size:0.92rem;overflow-wrap:anywhere;}
-      .hero-note{display:block;line-height:1.8;}
+      .hero-note{display:flex;line-height:1.8;max-width:320px;}
       .hero-actions{gap:12px;}
       .btn-primary,.btn-secondary{padding-left:18px;padding-right:18px;}
     }
@@ -367,16 +368,16 @@
     <div class="hero-inner">
       <div class="hero-eyebrow">
         <span class="eyebrow-dot"></span>
-        Currently open for work
+        Proof of concept · built in public
       </div>
-      <h1>Landing pages.<br><em>Built with AI.</em><br>Priced to ship.</h1>
-      <p class="hero-sub">Clean static HTML/CSS/JS. No WordPress or page builders. Built with Claude Code, directed and reviewed by me. $150 flat.</p>
+      <h1>AI systems.<br><em>Built by the fire.</em><br>Shipped with proof.</h1>
+      <p class="hero-sub">Landing pages, workflow experiments, validation notes, and security-first handoff. Clean HTML/CSS/JS for the current offer. Delivered as a zip. $150 flat.</p>
       <div class="hero-actions">
         <a href="mailto:jeffe5196@gmail.com?subject=Landing Page Quote" class="btn-primary ripple-el">Get a quote →</a>
         <a href="portfolio/" class="btn-secondary ripple-el">Portfolio</a>
       </div>
       <div class="hero-note">
-        Flat price: <span>$150</span> &nbsp;·&nbsp; One free revision &nbsp;·&nbsp; Live URL delivered
+        Current offer: <span>$150 landing page</span> &nbsp;·&nbsp; One free revision &nbsp;·&nbsp; Zip package delivered
       </div>
     </div>
   </div>
@@ -387,11 +388,11 @@
 <div class="trust-bar">
   <div class="wrap">
     <div class="trust-inner">
-      <div class="trust-item"><strong>Claude Code</strong> powered</div>
+      <div class="trust-item"><strong>Proof</strong> over hype</div>
       <div class="trust-item"><strong>Clean</strong> HTML/CSS/JS</div>
       <div class="trust-item"><strong>74.5M+</strong> tokens processed</div>
-      <div class="trust-item"><strong>GitHub Pages</strong> hosted</div>
-      <div class="trust-item"><strong>2–3 day</strong> turnaround</div>
+      <div class="trust-item"><strong>Security-first</strong> handoff</div>
+      <div class="trust-item"><strong>Human</strong> reviewed</div>
     </div>
   </div>
 </div>
@@ -401,8 +402,8 @@
   <!-- HOW IT WORKS -->
   <div class="section" data-reveal>
     <div class="section-label">Process</div>
-    <h2>How a page gets built</h2>
-    <p class="section-desc">Every build follows the same 5-step flow. You approve a wireframe before any code is written.</p>
+    <h2>How work moves from idea to shipped file</h2>
+    <p class="section-desc">Every build follows the same path: clear intake, wireframe, Claude Code build, mobile pass, and human review before anything is delivered.</p>
     <div class="steps">
       <div class="step ripple-el">
         <span class="step-num">01</span>
@@ -427,7 +428,36 @@
       <div class="step ripple-el">
         <span class="step-num">05</span>
         <h3>Deliver</h3>
-        <p>Live GitHub Pages URL + clean source files. One free revision included.</p>
+        <p>Live GitHub Pages URL + clean source files. One free revision and clear handoff included.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHAT YOU RECEIVE -->
+  <div class="section" data-reveal>
+    <div class="section-label">Delivery</div>
+    <h2>What you receive</h2>
+    <p class="section-desc">The handoff is designed to be simple: you receive the finished page as clean files in a zip package. Preview links are optional during review, but the zip is the durable delivery.</p>
+    <div class="steps">
+      <div class="step ripple-el">
+        <span class="step-num">ZIP</span>
+        <h3>Source package</h3>
+        <p>Final HTML/CSS/JS files packaged with any images or assets needed for the page.</p>
+      </div>
+      <div class="step ripple-el">
+        <span class="step-num">DOC</span>
+        <h3>Customer README</h3>
+        <p>A short handoff note explains what each file does and how to make basic text or image edits.</p>
+      </div>
+      <div class="step ripple-el">
+        <span class="step-num">QA</span>
+        <h3>Mobile-ready page</h3>
+        <p>Reviewed for common phone and desktop widths before delivery.</p>
+      </div>
+      <div class="step ripple-el">
+        <span class="step-num">SAFE</span>
+        <h3>No keys required</h3>
+        <p>Normal static landing pages do not need API keys, passwords, databases, or customer login access.</p>
       </div>
     </div>
   </div>
@@ -435,11 +465,11 @@
   <!-- PORTFOLIO -->
   <div class="section" data-reveal>
     <div class="section-label">Work</div>
-    <h2>Portfolio</h2>
-    <p class="section-desc">Pages being built now — added as they are completed.</p>
+    <h2>The public proof surface</h2>
+    <p class="section-desc">This repo is not just a sales page. It is where the workflow, testing, security notes, and selected proof artifacts stay visible.</p>
     <div class="portfolio-placeholder ripple-el">
-      <p>First projects in progress. Check back soon.</p>
-      <a href="portfolio/" class="btn-secondary" style="display:inline-flex">View portfolio →</a>
+      <p>Portfolio examples will be added only when they are worth showing. Until then, the proof is the system: stats, validation, handoff, and research notes.</p>
+      <a href="system/" class="btn-secondary" style="display:inline-flex">Review the system →</a>
     </div>
   </div>
 
@@ -452,12 +482,14 @@
       <div class="price-card featured ripple-el">
         <div class="price-tier">Landing Page</div>
         <div class="price-num">$150<sub> flat</sub></div>
-        <div class="price-desc">Single static landing page. Hero, offer sections, call to action, responsive layout, and live GitHub Pages URL.</div>
+        <div class="price-desc">Single static landing page. Hero, offer sections, call to action, responsive layout, and final zip package.</div>
         <ul class="price-features">
           <li>Clean HTML/CSS/JS</li>
           <li>Mobile responsive</li>
           <li>Basic visual polish</li>
-          <li>Live GitHub Pages URL</li>
+          <li>Zip file with source code</li>
+          <li>Customer README handoff note</li>
+          <li>Optional preview link during review</li>
           <li>One free revision</li>
           <li class="no">Fake testimonials, fake metrics, or fake client logos</li>
           <li class="no">Additional pages</li>
@@ -472,9 +504,9 @@
     <div class="system-teaser">
       <div>
         <div class="section-label">The System</div>
-        <h2>Built on an AI operating system</h2>
-        <p>Every page is built inside a structured workflow: intake, wireframe, Claude Code build, mobile pass, and review.</p>
-        <p>The system keeps project notes, constraints, and decisions organized so the work stays focused and repeatable.</p>
+        <h2>Built from a working knowledge system</h2>
+        <p>Alexandria holds the memory, Ember Gate defines the security boundary, and this public site is the Firelink surface: the place where useful proof becomes visible.</p>
+        <p>Every page still stays practical: intake, wireframe, Claude Code build, mobile pass, review, and zip-file handoff.</p>
         <div class="tool-pills">
           <span class="pill">Claude Code</span>
           <span class="pill">Obsidian</span>
@@ -490,8 +522,8 @@
           <div class="stat-mini-label">flat landing page price</div>
         </div>
         <div class="stat-mini">
-          <div class="stat-mini-num">74.5M</div>
-          <div class="stat-mini-label">tokens this month</div>
+          <div class="stat-mini-num">ZIP</div>
+          <div class="stat-mini-label">default customer handoff</div>
         </div>
         <div class="stat-mini">
           <div class="stat-mini-num" data-count="27">0</div>
@@ -507,8 +539,8 @@
 
   <!-- CTA BAND -->
   <div class="cta-band" data-reveal>
-    <h2>Ready to ship your page?</h2>
-    <p>Get a quote within 24 hours.</p>
+    <h2>Bring the idea to the fire.</h2>
+    <p>Start with one focused landing page, then improve from proof.</p>
     <a href="mailto:jeffe5196@gmail.com?subject=Landing Page Quote" class="btn-primary ripple-el" style="display:inline-flex;">Email to get started →</a>
     <p class="cta-note">jeffe5196@gmail.com</p>
   </div>
@@ -516,12 +548,11 @@
 </div>
 
 <footer>
-  <div class="footer-left">© 2026 Future AI Systems &nbsp;·&nbsp; <a href="https://github.com/huh-cmd/future-ai-systems" target="_blank" style="color:inherit">github.com/huh-cmd</a> &nbsp;·&nbsp; v2.0.0</div>
+  <div class="footer-left">© 2026 Future AI Systems &nbsp;·&nbsp; <a href="https://github.com/huh-cmd/future-ai-systems" target="_blank" style="color:inherit">github.com/huh-cmd</a></div>
   <div class="footer-right">
     <a href="portfolio/">Portfolio</a>
     <a href="system/">How It Works</a>
     <a href="stats/">Stats</a>
-    <a href="https://github.com/huh-cmd/future-ai-systems/blob/main/CHANGELOG.md" target="_blank">Changelog</a>
   </div>
 </footer>
 

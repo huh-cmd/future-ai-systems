@@ -4,6 +4,8 @@ Purpose: show public-safe proof that this project is being tested, reviewed, and
 
 This file is intentionally small. It should point to evidence that already exists in the repository, not become another dashboard.
 
+Future AI Systems is proof of concept, not play. Claims should earn their place through working files, checks, logs, and clear boundaries.
+
 ---
 
 ## Current Validation Surface

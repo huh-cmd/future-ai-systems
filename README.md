@@ -130,15 +130,6 @@ One free revision. Delivered as a live GitHub Pages URL or as a zip of clean
 HTML/CSS/JS files. No fake testimonials, fake numbers, or fake client logos.
 
 **Contact:** jeffe5196@gmail.com
-
----
-
-## Changelog
-
-See [`CHANGELOG.md`](CHANGELOG.md) for the full version history.
-
-Current version: **2.0.0** - Foundation rebuild (2026-05-25)
-
 ---
 
 ## License

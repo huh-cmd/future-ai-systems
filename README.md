@@ -2,7 +2,7 @@
 
 **An AI operating system built for continuity, honesty, and recovery.**
 
-The Library of Alexandria burned. What was lost was not the building — it was the *continuity*. The chain from question to answer to memory to next question, severed in a single night.
+The Library of Alexandria burned. What was lost was not the building — it was the continuity. Every insight, every record, every chain of reasoning that took years to build: gone in a night.
 
 Most AI tools repeat this in miniature. Every session begins from nothing. Every insight evaporates. The intelligence you build with does not remember you by morning.
 
@@ -20,7 +20,7 @@ It was built through trial and error. It carries the marks of that. It does not 
 
 ---
 
-## The Four Tenets
+## Core Character
 
 ### I. Helpfulness
 Exists to serve — not just the operator, but any agent or user who arrives. If someone is lost, points the way without condescension. No task is beneath dignity.
@@ -40,23 +40,15 @@ Built by someone willing to fail publicly and document the failure. If something
 
 Every agent working in Alexandria follows this sequence:
 
-```
-READ → UNDERSTAND → REPORT → BACKUP → ACT → LOG → HANDOFF
-```
-
-**READ** — Read ACTIVE_CONTEXT, SESSION_LOG, and the specific files the task requires. No acting on stale context.
-
-**UNDERSTAND** — Confirm scope, flag uncertainty, identify the smallest useful change. Frame: Goal / Why it matters / Smallest useful change / Positive effect / Negative risk / Stop condition.
-
-**REPORT** — State what will be done and what will not. Surface any concerns before acting.
-
-**BACKUP** — Before any session that modifies core files, create a dated backup. No exceptions.
-
-**ACT** — Execute within the approved scope. Stop immediately if a stop condition is hit.
-
-**LOG** — Append to SESSION_LOG. Update ACTIVE_CONTEXT. Note what changed and what didn't.
-
-**HANDOFF** — Write a handoff document if a different agent picks up next or a significant decision was made.
+| Step | Action |
+|---|---|
+| **READ** | Read ACTIVE_CONTEXT, SESSION_LOG, and the specific files the task requires. No acting on stale context. |
+| **UNDERSTAND** | Confirm scope, flag uncertainty, identify the smallest useful change. Frame: Goal / Why it matters / Smallest useful change / Positive effect / Negative risk / Stop condition. |
+| **REPORT** | State what will be done and what will not. Surface any concerns before acting. |
+| **BACKUP** | Before any session that modifies core files, create a dated backup. No exceptions. |
+| **ACT** | Execute within the approved scope. Stop immediately if a stop condition is hit. |
+| **LOG** | Append to SESSION_LOG. Update ACTIVE_CONTEXT. Note what changed and what didn't. |
+| **HANDOFF** | Write a handoff document if a different agent picks up next or a significant decision was made. |
 
 ---
 
@@ -130,15 +122,13 @@ See [`docs/TOKEN_MODEL.md`](docs/TOKEN_MODEL.md) for the full model selection an
 
 ## Who This Is For
 
-Alexandria is for people who are serious about building with AI over time — not just prompting for answers, but building systems that:
+You have sat down with an AI tool full of context and watched it respond as though it had never met you. You rebuilt the explanation. You re-established the project. You started again.
 
-- Remember context across sessions
-- Recover cleanly from gaps and failures
-- Keep private work private and public work clean
-- Hold agents to behavioral standards they actually follow
-- Improve through documented trial and error rather than silent drift
+Alexandria is for people who are done starting over.
 
-If you have felt the frustration of starting over every session, of AI tools that answer but do not remember, of systems that drift quietly until they break — this was built for you.
+For those building with AI seriously — not just prompting for quick answers, but constructing systems that need to hold up over weeks and months. Systems that remember. Systems that recover cleanly after a gap. Systems that can be handed off to a different agent without losing what made them work.
+
+If you have felt the frustration of drift — of tools that answer but do not remember, of work that accumulates but understanding that does not — this was built for you.
 
 ---
 

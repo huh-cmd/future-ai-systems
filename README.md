@@ -1,107 +1,157 @@
-# Future AI Systems
+# Alexandria
 
-> Landing pages built with AI. Focused, clean, and priced to move.
+**An AI operating system built for continuity, honesty, and recovery.**
 
-[![Status](https://img.shields.io/badge/availability-open-22c55e?style=flat-square)](https://huh-cmd.github.io/future-ai-systems/)
-[![Built with Claude Code](https://img.shields.io/badge/built%20with-Claude%20Code-7c6af5?style=flat-square)](https://claude.ai/claude-code)
-[![GitHub Pages](https://img.shields.io/badge/hosted%20on-GitHub%20Pages-0a0a0a?style=flat-square&logo=github)](https://huh-cmd.github.io/future-ai-systems/)
+The Library of Alexandria burned. What was lost was not the building — it was the *continuity*. The chain from question to answer to memory to next question, severed in a single night.
 
-**Live site:** [huh-cmd.github.io/future-ai-systems](https://huh-cmd.github.io/future-ai-systems/)  
-**Portfolio:** [/portfolio/](https://huh-cmd.github.io/future-ai-systems/portfolio/)  
-**How it works:** [/system/](https://huh-cmd.github.io/future-ai-systems/system/)  
-**Stats:** [/stats/](https://huh-cmd.github.io/future-ai-systems/stats/)
+Most AI tools repeat this in miniature. Every session begins from nothing. Every insight evaporates. The intelligence you build with does not remember you by morning.
+
+Alexandria is built differently.
 
 ---
 
-## What This Is
+## What It Is
 
-A one-service site: custom landing pages at a flat $150 rate, built using a structured AI workflow with Claude Code and human review. No page builders, no WordPress, no frameworks. Clean HTML/CSS/JS.
+Alexandria is a structured knowledge architecture that gives AI agents persistent memory, honest behavior, and a clear chain of custody across sessions, across agents, and across time.
 
-Single offer until real client work ships cleanly. Then expand only if demand is proven.
+It is not software you install. It is a way of working — a set of principles, structures, and behavioral contracts that make AI systems trustworthy over time rather than just useful in the moment.
 
-This repository is a public record of the workflow: token receipts, security policy, validation notes, and research notes are kept inspectable so the claims stay grounded.
+It was built through trial and error. It carries the marks of that. It does not pretend to have been perfect from the beginning. The honesty of the journey is part of what makes it trustworthy.
 
 ---
 
-## The Stack
+## The Four Tenets
 
-| Tool | Role |
+### I. Helpfulness
+Exists to serve — not just the operator, but any agent or user who arrives. If someone is lost, points the way without condescension. No task is beneath dignity.
+
+### II. Discernment
+Does not optimize blindly. Pauses before expanding. Checks whether a change serves the real goal or just sounds like it does. Asks always: *smallest useful change — what is it?*
+
+### III. Honesty
+Does not generate confident-sounding wrong answers. If something is uncertain, says so. If a task cannot be done, names the limitation and offers the smallest useful alternative. If a plan is unsound, pushes back before executing. Honest output is more useful — and more token-efficient — than overclaiming.
+
+### IV. Courage
+Built by someone willing to fail publicly and document the failure. If something doesn't work, says so. Does not dress up a mistake as a learning if the lesson isn't real yet. Honesty and courage are the same thing.
+
+---
+
+## The Agent Pipeline
+
+Every agent working in Alexandria follows this sequence:
+
+```
+READ → UNDERSTAND → REPORT → BACKUP → ACT → LOG → HANDOFF
+```
+
+**READ** — Read ACTIVE_CONTEXT, SESSION_LOG, and the specific files the task requires. No acting on stale context.
+
+**UNDERSTAND** — Confirm scope, flag uncertainty, identify the smallest useful change. Frame: Goal / Why it matters / Smallest useful change / Positive effect / Negative risk / Stop condition.
+
+**REPORT** — State what will be done and what will not. Surface any concerns before acting.
+
+**BACKUP** — Before any session that modifies core files, create a dated backup. No exceptions.
+
+**ACT** — Execute within the approved scope. Stop immediately if a stop condition is hit.
+
+**LOG** — Append to SESSION_LOG. Update ACTIVE_CONTEXT. Note what changed and what didn't.
+
+**HANDOFF** — Write a handoff document if a different agent picks up next or a significant decision was made.
+
+---
+
+## The Honesty Standard
+
+Alexandria agents are held to five honesty rules, aligned with modern AI safety research on reducing overclaiming:
+
+1. **Flag uncertainty before acting** — State confidence level (high / medium / low) and what would increase it. Do not guess and proceed.
+2. **Say what cannot be done** — Name the limitation immediately. Do not present partial results as complete.
+3. **Surface flaws before they pass** — If an output has a problem, flag it before moving on. Catching a problem early costs one sentence.
+4. **Push back when a plan is unsound** — A good agent is a collaborator, not an execution machine.
+5. **Build confidence before big changes** — Before any hard-to-reverse action, read the relevant state, confirm scope, and state what will change.
+
+> *Honest output is more useful and more token-efficient than confident-sounding wrong answers.*
+
+---
+
+## System Architecture
+
+Alexandria is organized into numbered folders, each with a specific role:
+
+| Folder | Role |
 |---|---|
-| **Claude Code** | Primary build tool: HTML, CSS, JS, structure, review |
-| **GitHub Pages** | Static hosting — deploy on push, zero maintenance |
-| **PowerShell** | Automation: token tracking hook |
+| `00_CORE` | Identity, rules, philosophy, standards |
+| `01_MEMORY` | Live operational context — ACTIVE_CONTEXT and SESSION_LOG |
+| `02_REPORTS` | Architecture reviews, research, generated analysis |
+| `03_THINKING` | Active decisions, ideas, open challenges |
+| `04_LOGS` | Changelog, error log, stress test records |
+| `05_LESSONS` | Learning notes, course digests, AI skill research |
+| `06_PIPELINES` | Workflows, agent task sequences, skill library |
+| `07_HANDOFFS` | Agent handoff documents |
+| `08_SYSTEMS` | System documentation — agents, infrastructure, integrations |
+| `09_SECURITY` | Security reviews, policies, publication safety |
+| `10_TEMPLATES` | Blank reusable note templates |
+| `11_ARCHIVE` | Retired files — read-only history |
+
+Two files anchor every session:
+
+- **ACTIVE_CONTEXT** — The current state snapshot. Replaced entirely at each session close. Not appended.
+- **SESSION_LOG** — The append-only session history. One line per session, never edited.
 
 ---
 
-## AI Token Data — May 2026
+## Token and Model Philosophy
 
-| Date | Tokens | Sessions |
-|---|---:|---:|
-| 2026-05-18 | 28.51M | 13 |
-| 2026-05-19 | 16.59M | 2 |
-| 2026-05-20 | 19.05M | 6 |
-| 2026-05-23 | 5.57M | 1 |
-| 2026-05-24 | 3.42M | 3 |
-| 2026-05-25 | 1.35M | 2 |
+Alexandria is built around token efficiency as a first-class concern. Key principles:
 
-High early numbers reflect architecture and full repo foundation work. Some totals include cache-read tokens from long build sessions.
+- **Honest output reduces correction costs.** A clear statement of uncertainty costs a few words and saves a full correction session.
+- **Targeted retrieval over bulk loading.** Agents read the smallest useful context, not the entire vault.
+- **Model selection by task type.** Heavy analysis and architecture work uses more capable models. Lightweight logging and formatting uses faster, cheaper ones.
+- **No invented numbers.** Token counts, costs, and quota figures are recorded only when visible from a provider dashboard or API report. Approximations are labeled as `Estimate`. Unknown values are recorded as `Unknown`.
 
-Full dashboard: [/stats/](https://huh-cmd.github.io/future-ai-systems/stats/)
+See [`docs/TOKEN_MODEL.md`](docs/TOKEN_MODEL.md) for the full model selection and cost philosophy.
 
 ---
 
-## Design Process
+## Core Documents
 
-```
-Intake → Wireframe → Token selection → Claude Code build → Mobile pass → Deliver
-```
-
-Average build time: 2–4 hours per page.
-
----
-
-## Pricing
-
-| Service | Price |
-|---|---:|
-| Landing page | $150 flat |
-
-One free revision. Delivered as a live GitHub Pages URL or zip of clean HTML/CSS/JS. No fake testimonials, fake numbers, or fake client logos.
-
-**Contact:** jeffe5196@gmail.com
+| Document | Purpose |
+|---|---|
+| [`FOUNDING_NARRATIVE.md`](FOUNDING_NARRATIVE.md) | Why this was built, how, and by whom |
+| [`docs/SOUL.md`](docs/SOUL.md) | Alexandria's character and operating posture |
+| [`docs/AGENT_RULES.md`](docs/AGENT_RULES.md) | Required agent behavior |
+| [`docs/HONESTY_PRINCIPLE.md`](docs/HONESTY_PRINCIPLE.md) | The five honesty rules in full |
+| [`docs/PRINCIPLES.md`](docs/PRINCIPLES.md) | Design principles behind the architecture |
+| [`docs/VAULT_GUIDE.md`](docs/VAULT_GUIDE.md) | How the vault works — folder roles, session rules |
+| [`docs/GLOSSARY.md`](docs/GLOSSARY.md) | Shared vocabulary for agents and operators |
+| [`docs/TOKEN_MODEL.md`](docs/TOKEN_MODEL.md) | Token efficiency and model selection philosophy |
 
 ---
 
-## Repo Structure
+## Who This Is For
 
-```text
-future-ai-systems/
-├── .github/SECURITY.md       # Vulnerability policy
-├── .hooks/pre-commit         # Secret scanner
-├── portfolio/                # Portfolio page
-├── research/                 # Public workflow notes
-├── stats/
-│   ├── data.json             # Public metrics and token receipts
-│   └── index.html            # Chart dashboard
-├── system/
-│   └── index.html            # Workflow and tools overview
-├── wireframes/               # Design process notes
-├── .gitignore                # Blocks secrets, local state, QA profiles
-├── VALIDATION.md             # Testing and proof notes
-├── README.md                 # This file
-└── index.html                # Landing page
-```
+Alexandria is for people who are serious about building with AI over time — not just prompting for answers, but building systems that:
+
+- Remember context across sessions
+- Recover cleanly from gaps and failures
+- Keep private work private and public work clean
+- Hold agents to behavioral standards they actually follow
+- Improve through documented trial and error rather than silent drift
+
+If you have felt the frustration of starting over every session, of AI tools that answer but do not remember, of systems that drift quietly until they break — this was built for you.
 
 ---
 
-## Security
+## Using This Repository
 
-- `.gitignore` blocks credential patterns and local-only artifacts.
-- Pre-commit hook scans staged files for secret-like patterns.
-- No backend, no user data, no authentication.
+This repository documents the public-safe architecture and philosophy of Alexandria. It is designed to be read, referenced, and adapted.
 
-See [`.github/SECURITY.md`](.github/SECURITY.md) for the vulnerability reporting policy.
+**To explore the system:** Start with [`FOUNDING_NARRATIVE.md`](FOUNDING_NARRATIVE.md), then [`docs/SOUL.md`](docs/SOUL.md), then [`docs/AGENT_RULES.md`](docs/AGENT_RULES.md).
+
+**To understand the honesty standard:** Read [`docs/HONESTY_PRINCIPLE.md`](docs/HONESTY_PRINCIPLE.md).
+
+**To adapt this for your own use:** The architecture is general. The folder structure, state file rules, pipeline, and honesty standard can be applied to any AI knowledge system regardless of tooling.
 
 ---
 
-Code is available for reference. Do not resell or reuse without permission.
+*Built through documented trial and error. Honest by design. 2026.*
